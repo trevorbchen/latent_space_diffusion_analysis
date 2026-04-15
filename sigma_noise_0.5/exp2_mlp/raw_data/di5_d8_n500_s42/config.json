@@ -1,0 +1,22 @@
+{
+  "d_intrinsic": 5,
+  "d_latent": 8,
+  "k": 10,
+  "sigma_noise": 0.5,
+  "sigma_signal": 1.0,
+  "scale": 3.0,
+  "n": 500,
+  "hidden": 64,
+  "n_freq": 32,
+  "lr": 0.0001,
+  "batch_size": 256,
+  "total_steps": 300000,
+  "t_min": 0.01,
+  "t_max": 3.0,
+  "eval_interval": 5000,
+  "n_gen_samples": 5000,
+  "n_sde_steps": 500,
+  "t_eval": 0.1,
+  "seed": 42,
+  "results_dir": "results_mlp_exp2_scaled_sn05/di5_d8_n500_s42"
+}
