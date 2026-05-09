@@ -1,0 +1,14 @@
+[
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 5,   "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d5"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 8,   "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d8"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 10,  "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d10"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 15,  "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d15"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 20,  "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d20"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 30,  "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d30"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 40,  "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d40"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 60,  "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d60"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 80,  "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d80"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 100, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d100"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 150, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d150"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 200, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/synth_mlp_d200"}
+]
