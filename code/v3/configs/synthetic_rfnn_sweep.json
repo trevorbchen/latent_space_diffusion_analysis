@@ -1,0 +1,12 @@
+[
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 5,   "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d5"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 8,   "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d8"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 10,  "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d10"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 15,  "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d15"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 20,  "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d20"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 30,  "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d30"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 40,  "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d40"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 60,  "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d60"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 80,  "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d80"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 100, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "out": "results/synth_rfnn_d100"}
+]
