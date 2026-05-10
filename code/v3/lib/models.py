@@ -67,12 +67,19 @@ class RFNNScore(nn.Module):
         return features @ self.A.T / math.sqrt(self.p)
 
 
+DEFAULT_MLP_HIDDEN = 256
+
+
 def build_model(model_kind: str, d_latent: int, *,
                 hidden: int | None = None,
                 p_ratio: int = 64,
                 t_fixed: float = 0.01) -> nn.Module:
+    """Build score network. MLP default is fixed-256 (deviates from the v2
+    project's 8*d_latent rule per user request, 2026-05-09); pass
+    `hidden=8 * d_latent` to recover the paper's capacity scaling.
+    """
     if model_kind == 'mlp':
-        h = hidden if hidden is not None else 8 * d_latent  # METHODS.md scaling
+        h = hidden if hidden is not None else DEFAULT_MLP_HIDDEN
         return MLPScore(d_latent, hidden=h)
     if model_kind == 'rfnn':
         return RFNNScore(d_latent, p=p_ratio * d_latent, t_fixed=t_fixed)
