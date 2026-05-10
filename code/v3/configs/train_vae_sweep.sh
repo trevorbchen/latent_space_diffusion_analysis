@@ -17,8 +17,8 @@ set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$HERE"
 
-MNIST_DS=(2 4 8 16 32 64 128)
-CELEBA_DS=(8 16 32 64 128 256)
+MNIST_DS=(10 15 20 25 30 40)
+CELEBA_DS=(20 25 30 35 40 50)
 
 # ---- MNIST ----
 for d in "${MNIST_DS[@]}"; do

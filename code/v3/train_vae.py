@@ -42,12 +42,15 @@ def _mnist_loaders(root: str, batch_size: int):
             DataLoader(test, batch_size=batch_size, shuffle=False, num_workers=2))
 
 
-def _celeba_loaders(root: str, batch_size: int, image_size: int = 64):
+def _celeba_loaders(root: str, batch_size: int, image_size: int = 32):
+    # Grayscale 32x32 to match MNIST's input geometry. Reduces compute
+    # ~12x vs 64x64 RGB and lets the same VAE architecture serve both.
     tfm = transforms.Compose([
         transforms.CenterCrop(178),      # CelebA's standard pre-crop
         transforms.Resize(image_size),
+        transforms.Grayscale(num_output_channels=1),
         transforms.ToTensor(),
-        transforms.Normalize((0.5,) * 3, (0.5,) * 3),
+        transforms.Normalize((0.5,), (0.5,)),
     ])
     train = datasets.CelebA(root, split='train', download=True, transform=tfm)
     test = datasets.CelebA(root, split='valid', download=True, transform=tfm)
@@ -63,8 +66,9 @@ def make_loaders(dataset: str, root: str, batch_size: int,
                         base_channels=32, n_down=3)
     elif dataset == 'celeba':
         train_loader, test_loader = _celeba_loaders(root, batch_size)
-        cfg = VAEConfig(image_channels=3, image_size=64,
-                        base_channels=32, n_down=4)
+        # Grayscale 32x32 matches MNIST's input geometry; same VAE arch.
+        cfg = VAEConfig(image_channels=1, image_size=32,
+                        base_channels=32, n_down=3)
     else:
         raise ValueError(f"Unknown dataset: {dataset!r}")
 
