@@ -76,6 +76,7 @@ class TrainConfig:
     t_max: float = 3.0
     fixed_t: float | None = None         # set for RFNN training
     log_every: int = 1_000               # stdout cadence
+    checkpoint_every: int = 0            # 0 = save at every eval; >0 = step interval
 
 
 def train_loop(model: nn.Module,
@@ -142,6 +143,24 @@ def train_loop(model: nn.Module,
             metrics_file.flush()
             if step == 1 or step % cfg.log_every == 0:
                 _stdout_summary(step, wall, row)
+
+            # Periodic model snapshot. Saves to last_model.pt (overwritten each
+            # time) so a killed run leaves behind a usable checkpoint at the
+            # most recent eval boundary. Default cadence (checkpoint_every=0)
+            # is "every eval"; set >0 to checkpoint less often if disk I/O
+            # matters.
+            should_ckpt = (
+                cfg.checkpoint_every == 0
+                or step % cfg.checkpoint_every == 0
+            )
+            if should_ckpt:
+                tmp = out_dir / 'last_model.pt.tmp'
+                torch.save({
+                    'step': step,
+                    'state_dict': {k: v.detach().cpu()
+                                   for k, v in model.state_dict().items()},
+                }, tmp)
+                tmp.replace(out_dir / 'last_model.pt')   # atomic on POSIX
 
     metrics_file.close()
 
