@@ -1,8 +1,8 @@
 [
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d8/vae.pt",   "n_train": 500, "total_steps": 500000, "out": "results/celeba_mlp_d8"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d16/vae.pt",  "n_train": 500, "total_steps": 500000, "out": "results/celeba_mlp_d16"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d32/vae.pt",  "n_train": 500, "total_steps": 500000, "out": "results/celeba_mlp_d32"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d64/vae.pt",  "n_train": 500, "total_steps": 500000, "out": "results/celeba_mlp_d64"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d128/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/celeba_mlp_d128"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d256/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/celeba_mlp_d256"}
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d8/vae.pt",   "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d8"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d16/vae.pt",  "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d16"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d32/vae.pt",  "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d32"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d64/vae.pt",  "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d64"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d128/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d128"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d256/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d256"}
 ]
