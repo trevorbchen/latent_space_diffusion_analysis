@@ -1,8 +1,8 @@
 [
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d10/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d10"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d15/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d15"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d20/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d20"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d25/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d25"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d30/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d30"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d40/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d40"}
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d10/vae.pt", "n_train": 500, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/mnist_mlp_d10"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d15/vae.pt", "n_train": 500, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/mnist_mlp_d15"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d20/vae.pt", "n_train": 500, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/mnist_mlp_d20"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d25/vae.pt", "n_train": 500, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/mnist_mlp_d25"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d30/vae.pt", "n_train": 500, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/mnist_mlp_d30"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d40/vae.pt", "n_train": 500, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/mnist_mlp_d40"}
 ]

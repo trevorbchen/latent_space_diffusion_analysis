@@ -1,8 +1,8 @@
 [
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d20/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d20"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d25/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d25"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d30/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d30"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d35/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d35"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d40/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d40"},
-  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d50/vae.pt", "n_train": 1000, "total_steps": 500000, "out": "results/celeba_mlp_d50"}
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d20/vae.pt", "n_train": 1000, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/celeba_mlp_d20"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d25/vae.pt", "n_train": 1000, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/celeba_mlp_d25"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d30/vae.pt", "n_train": 1000, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/celeba_mlp_d30"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d35/vae.pt", "n_train": 1000, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/celeba_mlp_d35"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d40/vae.pt", "n_train": 1000, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/celeba_mlp_d40"},
+  {"data": "celeba", "model": "mlp", "vae_checkpoint": "vae_checkpoints/celeba_d50/vae.pt", "n_train": 1000, "total_steps": 5000000, "eval_interval": 10000, "mem_interval": 50000, "fid_interval": 100000, "out": "results/celeba_mlp_d50"}
 ]
