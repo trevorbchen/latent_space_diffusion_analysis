@@ -33,13 +33,14 @@ def _mnist_transform():
     ])
 
 
-def _celeba_transform(image_size: int = 64):
+def _celeba_transform(image_size: int = 32):
     from torchvision import transforms
     return transforms.Compose([
         transforms.CenterCrop(178),
         transforms.Resize(image_size),
+        transforms.Grayscale(num_output_channels=1),
         transforms.ToTensor(),
-        transforms.Normalize((0.5,) * 3, (0.5,) * 3),
+        transforms.Normalize((0.5,), (0.5,)),
     ])
 
 
