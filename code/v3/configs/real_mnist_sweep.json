@@ -1,9 +1,9 @@
 [
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d2/vae.pt",   "n_train": 5000, "total_steps": 300000, "out": "results/mnist_mlp_d2"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d4/vae.pt",   "n_train": 5000, "total_steps": 300000, "out": "results/mnist_mlp_d4"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d8/vae.pt",   "n_train": 5000, "total_steps": 300000, "out": "results/mnist_mlp_d8"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d16/vae.pt",  "n_train": 5000, "total_steps": 300000, "out": "results/mnist_mlp_d16"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d32/vae.pt",  "n_train": 5000, "total_steps": 300000, "out": "results/mnist_mlp_d32"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d64/vae.pt",  "n_train": 5000, "total_steps": 300000, "out": "results/mnist_mlp_d64"},
-  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d128/vae.pt", "n_train": 5000, "total_steps": 300000, "out": "results/mnist_mlp_d128"}
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d2/vae.pt",   "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d2"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d4/vae.pt",   "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d4"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d8/vae.pt",   "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d8"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d16/vae.pt",  "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d16"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d32/vae.pt",  "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d32"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d64/vae.pt",  "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d64"},
+  {"data": "mnist", "model": "mlp", "vae_checkpoint": "vae_checkpoints/mnist_d128/vae.pt", "n_train": 500, "total_steps": 500000, "out": "results/mnist_mlp_d128"}
 ]

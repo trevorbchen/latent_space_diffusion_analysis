@@ -199,20 +199,28 @@ def build_real_suite(model,
     \tau_gen (matching the paper's Appendix A definition). FID against the
     test set is computed every fid_interval steps.
     """
-    from lib import fid as fid_mod
     suite = training.EvalSuite()
 
     test_dev = test_latents.to(device)
     test_noise_dev = torch.randn_like(test_dev)
 
     # ---- Precompute Inception features for the real (test) side ----
-    extractor = fid_mod.InceptionFeatures().to(device)
-    real_subset = test_images[:fid_n_real]
-    real_feats = fid_mod.cached_real_features(
-        real_subset, cache_path=fid_cache_path,
-        extractor=extractor, device=device,
-    )
-    print(f"  FID real-side stats cached over {real_feats.n} test images")
+    # Skip everything FID-related if disabled (fid_interval == 0). Inception
+    # V3 alone is ~3 s/image on CPU, so the smoke test must be able to skip it.
+    fid_enabled = fid_interval > 0
+    extractor = None
+    real_feats = None
+    if fid_enabled:
+        from lib import fid as fid_mod
+        extractor = fid_mod.InceptionFeatures().to(device)
+        real_subset = test_images[:fid_n_real]
+        real_feats = fid_mod.cached_real_features(
+            real_subset, cache_path=fid_cache_path,
+            extractor=extractor, device=device,
+        )
+        print(f"  FID real-side stats cached over {real_feats.n} test images")
+    else:
+        print("  FID disabled (fid_interval=0)")
 
     def cheap_metrics(model, step):
         e_neg_t = math.exp(-t_eval)
@@ -267,29 +275,31 @@ def build_real_suite(model,
             }
         suite.add('memorization', memorization, interval=mem_interval)
 
-        # FID gets its own (heavier) cadence and a fresh, larger generation
-        def fid_eval(model, step):
-            cpu_model = models.MLPScore(
-                d_latent,
-                hidden=model.net[0].out_features,
-                n_freq=model.n_freq,
-            )
-            cpu_model.load_state_dict({k: v.cpu() for k, v in model.state_dict().items()})
-            cpu_model.eval()
-            gen_latents = diffusion.euler_maruyama(
-                cpu_model, fid_n_gen, d_latent,
-                n_steps=n_sde_steps, t_max=t_max, t_min=t_min,
-            )
-            with torch.no_grad():
-                gen_pixels = vae.decode(
-                    gen_latents.to(next(vae.parameters()).device)
-                ).cpu()
-            score = fid_mod.fid_against_real(
-                real_feats, gen_pixels,
-                extractor=extractor, device=device,
-            )
-            return {'fid': score}
-        suite.add('fid', fid_eval, interval=fid_interval)
+        # FID gets its own (heavier) cadence and a fresh, larger generation.
+        # Unlike the memorization hook (which mirrors v2's CPU sampling
+        # pattern for direct numerical comparability), FID samples on the
+        # main training device for speed. Inception V3 is already on
+        # `device`; matching the SDE step keeps everything on GPU when
+        # device == cuda.
+        if fid_enabled:
+            def fid_eval(model, step):
+                model.eval()
+                gen_latents = diffusion.euler_maruyama(
+                    model, fid_n_gen, d_latent,
+                    n_steps=n_sde_steps, t_max=t_max, t_min=t_min,
+                    device=device,
+                )
+                with torch.no_grad():
+                    gen_pixels = vae.decode(
+                        gen_latents.to(next(vae.parameters()).device)
+                    )
+                score = fid_mod.fid_against_real(
+                    real_feats, gen_pixels,
+                    extractor=extractor, device=device,
+                )
+                model.train()
+                return {'fid': score}
+            suite.add('fid', fid_eval, interval=fid_interval)
 
     return suite
 
@@ -348,6 +358,9 @@ def main():
     p.add_argument('--t_eval',          type=float, default=0.1)
     p.add_argument('--n_gen_samples',   type=int,   default=5_000)
     p.add_argument('--n_sde_steps',     type=int,   default=500)
+    p.add_argument('--save_samples_grid', type=int, default=0,
+                   help='If >0, dump a sqrt(N)xsqrt(N) grid of decoded '
+                        'samples at end of training (real-data MLP only).')
 
     p.add_argument('--seed', type=int, default=42)
     p.add_argument('--out',  type=str, required=True)
@@ -485,6 +498,34 @@ def run_real(args, out_dir: Path, device: torch.device) -> None:
                   'vae_checkpoint': args.vae_checkpoint,
                   'seed': args.seed},
     )
+
+    # Post-training: generate a grid of samples decoded back to pixel space,
+    # so we can eyeball whether the pipeline produces recognizable images.
+    if args.model == 'mlp' and args.save_samples_grid:
+        _save_final_samples_grid(model, bundle.vae, args, out_dir, device)
+
+
+def _save_final_samples_grid(model, vae, args, out_dir: Path,
+                             device: torch.device) -> None:
+    from torchvision.utils import save_image
+    n = args.save_samples_grid
+    cpu_model = models.MLPScore(
+        args.d_latent,
+        hidden=model.net[0].out_features,
+        n_freq=model.n_freq,
+    )
+    cpu_model.load_state_dict({k: v.cpu() for k, v in model.state_dict().items()})
+    cpu_model.eval()
+    gen_latents = diffusion.euler_maruyama(
+        cpu_model, n, args.d_latent,
+        n_steps=args.n_sde_steps, t_max=args.t_max, t_min=args.t_min,
+    )
+    with torch.no_grad():
+        gen_pixels = vae.decode(gen_latents.to(next(vae.parameters()).device)).cpu()
+    grid_path = out_dir / 'final_samples.png'
+    n_row = int(round(n ** 0.5))
+    save_image((gen_pixels * 0.5 + 0.5).clamp(0, 1), grid_path, nrow=n_row)
+    print(f"  saved {n} sample grid to {grid_path}")
 
 
 # ---------------------------------------------------------------------------
