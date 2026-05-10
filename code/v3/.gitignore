@@ -1,0 +1,13 @@
+# Local environment
+.venv/
+
+# Downloaded datasets and trained checkpoints (per-machine artifacts)
+data/
+vae_checkpoints/
+
+# Per-run outputs (use `git add -f path/to/specific/file` if you want to track)
+results/
+
+# Python cache (also covered by repo-root .gitignore)
+__pycache__/
+*.pyc

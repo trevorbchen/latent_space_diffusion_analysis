@@ -1,0 +1,17 @@
+[
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 20, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/zoom_mlp/di5_d20_n500_s42"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 25, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/zoom_mlp/di5_d25_n500_s42"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 30, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/zoom_mlp/di5_d30_n500_s42"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 35, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/zoom_mlp/di5_d35_n500_s42"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 40, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/zoom_mlp/di5_d40_n500_s42"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 45, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/zoom_mlp/di5_d45_n500_s42"},
+  {"data": "synthetic", "model": "mlp", "d_intrinsic": 5, "d_latent": 50, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "out": "results/zoom_mlp/di5_d50_n500_s42"},
+
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 20, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "eigvals_interval": 25000, "out": "results/zoom_rfnn/di5_d20_n500_s42"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 25, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "eigvals_interval": 25000, "out": "results/zoom_rfnn/di5_d25_n500_s42"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 30, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "eigvals_interval": 25000, "out": "results/zoom_rfnn/di5_d30_n500_s42"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 35, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "eigvals_interval": 25000, "out": "results/zoom_rfnn/di5_d35_n500_s42"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 40, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "eigvals_interval": 25000, "out": "results/zoom_rfnn/di5_d40_n500_s42"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 45, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "eigvals_interval": 25000, "out": "results/zoom_rfnn/di5_d45_n500_s42"},
+  {"data": "synthetic", "model": "rfnn", "d_intrinsic": 5, "d_latent": 50, "n": 500, "seed": 42, "sigma_noise": 0.5, "total_steps": 300000, "eval_interval": 5000, "eigvals_interval": 25000, "out": "results/zoom_rfnn/di5_d50_n500_s42"}
+]
