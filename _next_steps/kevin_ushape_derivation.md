@@ -69,8 +69,8 @@ We analyse s_θ = W₂ W₁ x_t with W₁ ∈ $\mathbb{R}^{h \times d_{\mathrm{l
 
 **Gradient flow per subspace.** Because signal and null inputs are orthogonal (by the Q rotation), the gradient on W₁ from the null output error and from the signal output error decompose into separate pushes on W₁'s columns. The aggregate update magnitude on W₁ from each error type is:
 
-$$G_{\rm sig} = d_{\rm int} \times \mathrm{Var}(s^*_{\rm sig})\times \lambda_{\rm sig}$$
-$$G_{\rm null} = d_{\rm null} \times \mathrm{Var}(s^*_{\rm null})\times \lambda_{\rm null} = d_{\rm null} \times 1.000$$
+$$G_{\rm sig} = d_{\rm int} \times \mathrm{Var}(s^{\ast}_{\rm sig})\times \lambda_{\rm sig}$$
+$$G_{\rm null} = d_{\rm null} \times \mathrm{Var}(s^{\ast}_{\rm null})\times \lambda_{\rm null} = d_{\rm null} \times 1.000$$
 
 (using the identity Var(s*_null) × λ_null = 1). Plugging in numbers:
 
@@ -92,8 +92,8 @@ $$s_\theta^{\rm null} \approx W_2^{{\rm null},:}\, W_1^{\rm sig}\, Q_{\rm sig}^{
 
 is a function of $x_t^{\mathrm{sig}}$ only. Since $x_t^{\mathrm{sig}}$ ⊥ $x_t^{\mathrm{null}}$ (the Q rotation decorrelates them) and s*_null = g($x_t^{\mathrm{null}}$):
 
-$$\varepsilon_{\rm null} = \mathbb{E}[(s_\theta^{\rm null} - s^*_{\rm null})^2]
-  = \underbrace{\mathrm{Var}(s^*_{\rm null})}_{5.514} + \underbrace{\mathrm{Var}(f(x_t^{\rm sig}))}_{V_{\rm spur} > 0} > \mathrm{Var}(s^*_{\rm null})$$
+$$\varepsilon_{\rm null} = \mathbb{E}[(s_\theta^{\rm null} - s^{\ast}_{\rm null})^2]
+  = \underbrace{\mathrm{Var}(s^{\ast}_{\rm null})}_{5.514} + \underbrace{\mathrm{Var}(f(x_t^{\rm sig}))}_{V_{\rm spur} > 0} > \mathrm{Var}(s^{\ast}_{\rm null})$$
 
 The spurious variance V_spur arises because the network is predicting the null score from the wrong input (signal features uncorrelated with the null target). This is **anti-learning**: the network actively worsens the null score by adding variance from uncorrelated predictions.
 
@@ -167,7 +167,7 @@ At d_lat = 200, 89% of the null learning has occurred (f = 0.11). The remaining 
 
 **Why larger d_lat gives better null convergence.** The aggregate gradient on W₁ from null error:
 
-$$G_{\rm null}(d_{\rm lat}) = d_{\rm null} \times \mathrm{Var}(s^*_{\rm null}) \times \lambda_{\rm null} = d_{\rm null} \times 1$$
+$$G_{\rm null}(d_{\rm lat}) = d_{\rm null} \times \mathrm{Var}(s^{\ast}_{\rm null}) \times \lambda_{\rm null} = d_{\rm null} \times 1$$
 
 grows linearly with d_null ≈ d_lat. Larger null aggregate gradient drives W₁ rows to develop null alignment faster, improving null convergence. This is the correct mechanistic argument for the 1/d_lat direction: more null dimensions generate more total gradient signal for null learning.
 
@@ -229,7 +229,7 @@ In the RFNN, W is frozen. The number of null-aligned random features grows with 
 
 Define:
 $$\lambda_{\rm sig} = e^{-2t}(\sigma_{\rm sig}^2 + s^2/d_{\rm int}) + \Delta_t \approx 2.474, \quad \lambda_{\rm null} = e^{-2t}\sigma_\perp^2 + \Delta_t \approx 0.181$$
-$$d_{\rm lat}^* = d_{\rm int}\left(1 + \mathrm{Var}(s^*_{\rm sig})\,\lambda_{\rm sig}\right), \qquad \mathrm{Var}(s^*_{\rm sig}) \approx 0.739 \text{ (from data)}$$
+$$d_{\rm lat}^* = d_{\rm int}\left(1 + \mathrm{Var}(s^{\ast}_{\rm sig})\,\lambda_{\rm sig}\right), \qquad \mathrm{Var}(s^{\ast}_{\rm sig}) \approx 0.739 \text{ (from data)}$$
 $$d_{\rm lat}^* \approx 5\times(1 + 0.739\times 2.474) \approx 14.1$$
 
 **Prediction:** The score error ε(d_lat) is non-monotone:
