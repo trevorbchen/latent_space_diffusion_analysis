@@ -41,14 +41,14 @@ $$x_t = e^{-t} x + \sqrt{\Delta_t}\, \varepsilon, \quad \Delta_t = 1 - e^{-2t} \
 
 | subspace | per-dim variance = λ |
 |----------|----------------------|
-| signal (d_int = 5 dims) | λ_sig = e^{−2t}(σ_sig² + s²/d_int) + Δ_t = **2.474** |
-| null (d_null = d_lat − 5 dims) | λ_null = e^{−2t} σ⊥² + Δ_t ≈ **Δ_t = 0.181** (σ⊥ = 0.01) |
+| signal (d_int = 5 dims) | λ_sig = $e^{-2t}$(σ_sig² + s²/d_int) + Δ_t = **2.474** |
+| null (d_null = d_lat − 5 dims) | λ_null = $e^{-2t}$ σ⊥² + Δ_t ≈ **Δ_t = 0.181** (σ⊥ = 0.01) |
 
 **Connection to Ryan's noise-dim bulk.** The four-bulk theorem (Appendix I) gives the noise-dim bulk eigenvalue as
 
 $$\lambda_{\rm noise\text{-}dim} = \mu_1^2\,(e^{-2t}\,\sigma_\perp^2 + \Delta_t)$$
 
-where μ₁ is the first Hermite coefficient of the activation function (μ₁ ≈ 0.80 for GELU). The input covariance eigenvalue λ_null computed above equals μ₁⁻² × λ_noise-dim. At σ⊥ = 0.01 and t = 0.1, σ⊥² e^{−2t} ≈ 8.2 × 10⁻⁵ ≪ Δ_t = 0.181, so the noise-dim bulk sits on the **diffusion floor Δ_t**. At σ⊥ = 0.5 this term contributes comparably (σ⊥² e^{−2t} = 0.205 ≈ Δ_t), giving
+where μ₁ is the first Hermite coefficient of the activation function (μ₁ ≈ 0.80 for GELU). The input covariance eigenvalue λ_null computed above equals μ₁⁻² × λ_noise-dim. At σ⊥ = 0.01 and t = 0.1, σ⊥² $e^{-2t}$ ≈ 8.2 × 10⁻⁵ ≪ Δ_t = 0.181, so the noise-dim bulk sits on the **diffusion floor Δ_t**. At σ⊥ = 0.5 this term contributes comparably (σ⊥² $e^{-2t}$ = 0.205 ≈ Δ_t), giving
 
 $$\lambda_{\rm null}^{(0.5)} = 0.819\times 0.25 + 0.181 = 0.386 \;\approx\; 2.13\times \lambda_{\rm null}^{(0.01)}$$
 
@@ -57,7 +57,7 @@ This 2.13× ratio in eigenvalue scale is the key quantitative difference between
 **Target score:**
 
 - Signal: s*_sig(x_t) = nonlinear mixture score, Var(s*_sig,i) ≈ **0.739** per signal dim (read from step-1 score_error at d_lat = 5, where M ≈ 0 so score_error ≈ E[‖s*‖²]/d_lat).
-- Null: s*_null,i(x_t) = −x_t^{null,i}/λ_null, **exactly linear** in x_t^{null}. Var(s*_null,i) = 1/λ_null = 5.514.
+- Null: s*_null,i(x_t) = −$x_t^{\mathrm{null},i}$/λ_null, **exactly linear** in $x_t^{\mathrm{null}}$. Var(s*_null,i) = 1/λ_null = 5.514.
 
 **Identity:** Var(s*_null) × λ_null = (1/λ_null) × λ_null = **1.000**, identically, for any σ⊥. This will make the anti-learning threshold universal.
 
@@ -65,7 +65,7 @@ This 2.13× ratio in eigenvalue scale is the key quantitative difference between
 
 ## Toy model: 2-layer linear MLP with gradient competition
 
-We analyse s_θ = W₂ W₁ x_t with W₁ ∈ ℝ^{h × d_lat}, W₂ ∈ ℝ^{d_lat × h}, h = 8 d_lat. The gradient flow on W₁ and W₂ (learning rate η) in the regime where the hidden width h ≫ d_lat removes rank constraints.
+We analyse s_θ = W₂ W₁ x_t with W₁ ∈ $\mathbb{R}^{h \times d_{\mathrm{lat}}}$, W₂ ∈ $\mathbb{R}^{d_{\mathrm{lat}} \times h}$, h = 8 d_lat. The gradient flow on W₁ and W₂ (learning rate η) in the regime where the hidden width h ≫ d_lat removes rank constraints.
 
 **Gradient flow per subspace.** Because signal and null inputs are orthogonal (by the Q rotation), the gradient on W₁ from the null output error and from the signal output error decompose into separate pushes on W₁'s columns. The aggregate update magnitude on W₁ from each error type is:
 
@@ -86,11 +86,11 @@ $$G_{\rm sig} = 5 \times 0.739 \times 2.474 = 9.13, \qquad G_{\rm null} = d_{\rm
 
 ## Anti-learning: why ε_null > Var(s*_null) at d_lat ≤ 15
 
-In phase 1, once W₁ is signal-specialized (W₁ ≈ W₁^sig, W₁^null ≈ 0), the null output:
+In phase 1, once W₁ is signal-specialized (W₁ ≈ $W_1^{\mathrm{sig}}$, $W_1^{\mathrm{null}}$ ≈ 0), the null output:
 
-$$s_\theta^{\rm null} \approx W_2^{{\rm null},:}\, W_1^{\rm sig}\, Q_{\rm sig}^\top x_t = f(x_t^{\rm sig})$$
+$$s_\theta^{\rm null} \approx W_2^{{\rm null},:}\, W_1^{\rm sig}\, Q_{\rm sig}^{\top} x_t = f(x_t^{\rm sig})$$
 
-is a function of x_t^sig only. Since x_t^sig ⊥ x_t^null (the Q rotation decorrelates them) and s*_null = g(x_t^null):
+is a function of $x_t^{\mathrm{sig}}$ only. Since $x_t^{\mathrm{sig}}$ ⊥ $x_t^{\mathrm{null}}$ (the Q rotation decorrelates them) and s*_null = g($x_t^{\mathrm{null}}$):
 
 $$\varepsilon_{\rm null} = \mathbb{E}[(s_\theta^{\rm null} - s^*_{\rm null})^2]
   = \underbrace{\mathrm{Var}(s^*_{\rm null})}_{5.514} + \underbrace{\mathrm{Var}(f(x_t^{\rm sig}))}_{V_{\rm spur} > 0} > \mathrm{Var}(s^*_{\rm null})$$
@@ -127,13 +127,13 @@ In the 2-layer linear toy after signal convergence, the null output receives spu
 
 **Signal training solution.** The gradient-flow solution for W₂_{sig,:} W₁_{:,sig} = M*_sig = −(1/λ_sig) I_{d_int} at convergence. For the balanced (gradient-flow) solution with He initialization:
 
-$$W_1^{(:, \text{sig})} \approx -\frac{1}{2\lambda_{\rm sig}} W_2^{(\text{sig},:)\top}$$
+$$W_1^{(:, \text{sig})} \approx -\frac{1}{2\lambda_{\rm sig}} W_2^{(\text{sig},:){\top}}$$
 
-(derived from the stationarity condition of the 2-layer gradient flow; the factor of 2 comes from W₂^T W₂ ≈ 2 I_{d_int} for He-initialized W₂ with h entries of variance 2/h per component).
+(derived from the stationarity condition of the 2-layer gradient flow; the factor of 2 comes from $W_2^{\top} W_2 \approx 2 I_{d_{\mathrm{int}}}$ for He-initialized W₂ with h entries of variance 2/h per component).
 
 **Spurious variance per null dim.** The cross-coupling vector for null dim i:
 
-$$v_i := W_2^{({\rm null}_i, :)} W_1^{(:, {\rm sig})} \approx -\frac{1}{2\lambda_{\rm sig}} W_2^{({\rm null}_i, :)} W_2^{({\rm sig},:)\top} \in \mathbb{R}^{d_{\rm int}}$$
+$$v_i := W_2^{({\rm null}_i, :)} W_1^{(:, {\rm sig})} \approx -\frac{1}{2\lambda_{\rm sig}} W_2^{({\rm null}_i, :)} W_2^{({\rm sig},:){\top}} \in \mathbb{R}^{d_{\rm int}}$$
 
 Each component: E[(W₂_{null_i,k} W₂_{sig_j,k})²] = (2/h)² (independent He entries), and:
 
@@ -161,7 +161,7 @@ The residual ε_null per dim ≈ A/d_lat = 112/d_lat at large d_lat is almost en
 | 150   | 0.139                   | 1.974   |
 | 200   | 0.110                   | 2.212   |
 
-At d_lat = 200, 89% of the null learning has occurred (f = 0.11). The remaining 11% is the A/d_lat residual. Crucially, ln(1/f) grows sub-linearly with d_null (power-law fit: ln(1/f) ∝ d_null^{0.66}), meaning convergence is faster than exponential-in-T but not as fast as exponential-in-d_lat. The 1/d_lat approximation for ε_null/dim fits the range d_lat ∈ [40, 200] within ±8%.
+At d_lat = 200, 89% of the null learning has occurred (f = 0.11). The remaining 11% is the A/d_lat residual. Crucially, ln(1/f) grows sub-linearly with d_null (power-law fit: ln(1/f) ∝ $d_{\mathrm{null}}^{0.66}$), meaning convergence is faster than exponential-in-T but not as fast as exponential-in-d_lat. The 1/d_lat approximation for ε_null/dim fits the range d_lat ∈ [40, 200] within ±8%.
 
 ### Step 3: mechanism for the 1/d_lat scaling direction
 
@@ -211,7 +211,7 @@ with d_lat* ≈ 14.1, A ≈ 112.
 
 ## Why the RFNN never recovers
 
-For the RFNN, the first-layer W ∈ ℝ^{p × d_lat} (p = 64 d_lat) is frozen at random initialization. The trainable output matrix A must learn s_θ = A φ(x_t) where φ = tanh(Wx_t/√p).
+For the RFNN, the first-layer W ∈ $\mathbb{R}^{p \times d_{\mathrm{lat}}}$ (p = 64 d_lat) is frozen at random initialization. The trainable output matrix A must learn s_θ = A φ(x_t) where φ = tanh(Wx_t/√p).
 
 **The null detection capability of φ(x_t).** Each feature φ_k has a null-direction component that scales as (1/√p) × ‖W_{k,null}‖ × √λ_null, where the input contribution from null direction i is diluted by the random W over all d_lat input dimensions. Crucially: W is fixed, so this null content cannot be improved. The output A can reweight features, but cannot change what null information the features contain.
 
@@ -237,7 +237,7 @@ $$d_{\rm lat}^* \approx 5\times(1 + 0.739\times 2.474) \approx 14.1$$
 2. *Recovery* for d_lat > d_lat*: ε_null/dim ≈ A/d_lat with A ≈ 112 (empirically calibrated), from signal-contamination scaling as d_int/d_null.
 3. *Peak* total score error near d_lat ≈ d_lat* ≈ 14 (observed: 15, 6.7% error).
 
-The σ⊥ = 0.5 MLP shows no n-shape at T = 300k because λ_null^{(0.5)}/λ_null^{(0.01)} = 2.13: the null timescale τ_null^{(0.5)} ≈ 25.9k steps satisfies T/τ_null^{(0.5)} ≈ 11.6, so anti-learning resolves within the training budget at intermediate d_lat.
+The σ⊥ = 0.5 MLP shows no n-shape at T = 300k because $\lambda_{\mathrm{null}}^{(0.5)}/\lambda_{\mathrm{null}}^{(0.01)} = 2.13$: the null timescale $\tau_{\mathrm{null}}^{(0.5)} \approx 25.9\mathrm{k}$ steps satisfies $T/\tau_{\mathrm{null}}^{(0.5)} \approx 11.6$, so anti-learning resolves within the training budget at intermediate d_lat.
 
 The RFNN never recovers: its frozen W cannot develop the null-aligned W₁ rows that drive the MLP's 1/d_lat improvement.
 
@@ -278,7 +278,7 @@ The RFNN never recovers: its frozen W cannot develop the null-aligned W₁ rows 
 
 † Large d_lat anti-learning at σ⊥ = 0.5 reflects undertraining (300k steps insufficient for σ⊥ = 0.5; paper's Fig 12 uses 5M-step runs). Model predicts this resolves with more training.
 
-The **total score_error** at σ⊥ = 0.5 is monotone increasing in d_lat at 300k steps (d_lat = 5–150 is ordered 0.14, 0.82, 1.05, 1.16, 1.13, 1.61, 1.90, 2.06, 2.60, 2.91, …), consistent with no n-shape (the mild dip at d_lat = 20 vs 15 is within single-seed noise). The model predicts this: with τ_null^{(0.5)} 2.1× shorter, the anti-learning window at small d_lat resolves quickly, leaving monotone growth.
+The **total score_error** at σ⊥ = 0.5 is monotone increasing in d_lat at 300k steps (d_lat = 5–150 is ordered 0.14, 0.82, 1.05, 1.16, 1.13, 1.61, 1.90, 2.06, 2.60, 2.91, …), consistent with no n-shape (the mild dip at d_lat = 20 vs 15 is within single-seed noise). The model predicts this: with $\tau_{\mathrm{null}}^{(0.5)}$ 2.1× shorter, the anti-learning window at small d_lat resolves quickly, leaving monotone growth.
 
 ---
 
@@ -310,7 +310,7 @@ The **total score_error** at σ⊥ = 0.5 is monotone increasing in d_lat at 300k
 - Recovery direction (1/d_lat): mechanistically derived from G_null ∝ d_null → faster null convergence at larger d_lat. ✓  
 - A value (112): not derivable from the linear toy at finite T; dominant source is incomplete null convergence under Adam dynamics. Empirically calibrated. **Partially met** — the mechanism is derived but the coefficient A requires calibration.
 
-**Criterion 3: Connection to Ryan's four-bulk edges.** λ_null = μ₁²(e^{−2t}σ⊥² + Δ_t) directly enters: d_lat* formula uses λ_null and λ_sig; timescale difference σ⊥=0.5 vs 0.01 is λ_null(0.5)/λ_null(0.01) = 2.13×; at σ⊥=0.01 the Δ_t floor dominates and makes n-shape persistent. **Met.**
+**Criterion 3: Connection to Ryan's four-bulk edges.** $\lambda_{\mathrm{null}} = \mu_1^2(e^{-2t}\sigma_\perp^2 + \Delta_t)$ directly enters: d_lat* formula uses λ_null and λ_sig; timescale difference σ⊥=0.5 vs 0.01 is λ_null(0.5)/λ_null(0.01) = 2.13×; at σ⊥=0.01 the Δ_t floor dominates and makes n-shape persistent. **Met.**
 
 **Criterion 4: RFNN consistency.** Structural argument: p × (null SNR per feature) = 64 λ_null/λ_sig independent of d_lat (exact cancellation p ∝ d_lat with 1/d_lat dilution) → no recovery mechanism. **Met.**
 
