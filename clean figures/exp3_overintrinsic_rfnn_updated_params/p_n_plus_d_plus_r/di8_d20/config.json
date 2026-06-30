@@ -1,0 +1,16 @@
+{
+  "name": "p_n_plus_d_plus_r",
+  "n": 500,
+  "k": 10,
+  "d_latent": 20,
+  "sigma_signal": 1.0,
+  "sigma_noise": 0.3,
+  "center_scale": 1.5,
+  "t": 0.01,
+  "mc_samples": 500,
+  "rank_null": 300,
+  "p_mode": "n_plus_d_plus_r",
+  "p_ratio": 64,
+  "p_fixed": 1800,
+  "seed": 42
+}

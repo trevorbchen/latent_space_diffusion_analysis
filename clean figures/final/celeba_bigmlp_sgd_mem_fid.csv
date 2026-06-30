@@ -1,0 +1,11 @@
+d_latent,seed,step,status,memorization_fraction_pixel,memorization_percent,mean_nn_ratio_pixel,fid,n_params,notes
+10,42,5000000,complete,0.004000000189989805,0.4000000189989805,0.6598535776138306,87.94089379752972,4285450,"valid 10k generated samples; pixel-space Bonnaire NN1/NN2 ratio"
+20,42,5000000,complete,0.10559999942779541,10.559999942779541,0.44496405124664307,69.2747537118506,4305940,"valid 10k generated samples; pixel-space Bonnaire NN1/NN2 ratio"
+30,42,5000000,complete,0.3416999876499176,34.16999876499176,0.3729811906814575,58.12263096526803,4326430,"valid 10k generated samples; pixel-space Bonnaire NN1/NN2 ratio"
+40,42,5000000,complete,0.5770000219345093,57.70000219345093,0.3403957188129425,53.492438808017965,4346920,"valid 10k generated samples; pixel-space Bonnaire NN1/NN2 ratio"
+50,42,90000,failed_nan,,,,,4367410,"SGD lr=0.01 run produced NaN train loss by 10k; no valid final mem/FID"
+60,42,90000,failed_nan,,,,,4387900,"SGD lr=0.01 run produced NaN train loss by 10k; no valid final mem/FID"
+70,42,90000,failed_nan,,,,,4408390,"SGD lr=0.01 run produced NaN train loss by 10k; no valid final mem/FID"
+80,42,90000,failed_nan,,,,,4428880,"SGD lr=0.01 run produced NaN train loss by 10k; no valid final mem/FID"
+90,42,90000,failed_nan,,,,,4449370,"SGD lr=0.01 run produced NaN train loss by 10k; no valid final mem/FID"
+100,42,90000,failed_nan,,,,,4469860,"SGD lr=0.01 run produced NaN train loss by 10k; no valid final mem/FID"

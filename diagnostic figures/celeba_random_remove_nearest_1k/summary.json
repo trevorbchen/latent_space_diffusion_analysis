@@ -1,0 +1,38 @@
+{
+  "seed": 42,
+  "train_tar": "/overflow/data/cerberus/celeba_hq_256_partitioned_ws/train/celeba_hq_256-train-0000.tar",
+  "n_train": 21000,
+  "n_select": 1000,
+  "method": "Repeatedly sample one random active image, keep it, then remove its nearest remaining neighbor.",
+  "global_pairwise_estimate": {
+    "n_pairs": 250000,
+    "mean": 21.34909439086914,
+    "std": 5.2586588859558105,
+    "min": 6.286048412322998,
+    "max": 49.939205169677734,
+    "median": 20.852962493896484
+  },
+  "target_threshold_mean_plus_sd": 26.60775327682495,
+  "selected_stats": {
+    "pairwise_mean": 21.386018753051758,
+    "pairwise_std": 5.257111549377441,
+    "pairwise_min": 6.373539924621582,
+    "pairwise_max": 45.36000442504883,
+    "pairwise_median": 20.859281539916992,
+    "nearest_mean": 10.997730255126953,
+    "nearest_std": 1.964345097541809,
+    "nearest_min": 6.373539924621582,
+    "nearest_max": 18.698514938354492,
+    "nearest_median": 10.84045124053955
+  },
+  "removed_neighbor_stats": {
+    "removed_nearest_mean": 9.459856986999512,
+    "removed_nearest_std": 2.076552391052246,
+    "removed_nearest_min": 0.0,
+    "removed_nearest_max": 16.933176040649414,
+    "removed_nearest_median": 9.480070114135742
+  },
+  "all_selected_nearest_above_threshold": false,
+  "selected_nearest_min_minus_threshold": -20.23421335220337,
+  "selected_pairwise_mean_minus_threshold": -5.221734523773193
+}

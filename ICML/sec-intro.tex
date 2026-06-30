@@ -1,0 +1,81 @@
+\section{Introduction}
+\label{sec:intro}
+
+\looseness -1
+Diffusion models are the dominant generative model class for
+high-dimensional continuous data such as images, video, audio, and
+molecules~\citep{ho2020denoising, song2021scoresde,
+rombach2022highresolution, karras2022elucidating,
+leeGenMolDrugDiscovery2025}. Sampling corresponds to numerically
+integrating the time-reversed stochastic differential equation
+associated with a forward noising process; the only learnable
+component is a score network
+$s_\theta(x_t, t) \approx \nabla \log p_t(x_t)$ trained to match the
+noisy marginals of the data distribution. Sampling can equivalently
+be expressed as a deterministic ordinary differential equation with
+the score as a velocity field, an approach taken by flow-matching
+methods~\citep{lipman2023flow}.
+
+\looseness -1
+Latent diffusion models~\citep{rombach2022highresolution, esser2024sd3,
+podell2023sdxl} run forward and backward diffusion not in pixel space
+but in a learned latent space of much smaller dimensionality $\dlat$,
+typically obtained from a VAE encoder. By placing diffusion in a
+representation closer to the data's true intrinsic dimensionality
+$\dint$~\citep{pope2021, brown2022manifold, stanczuk2024manifold,
+kamkari2024geometric}, though still well above it (with
+$\dlat \gg \dint$ in practice), latent diffusion achieves comparable
+or better sample quality at a fraction of the compute of pixel-space
+diffusion.
+
+\looseness -1
+A model achieving zero training loss without regularization learns
+the empirical score and reproduces training samples at the end of
+the backward process~\citep{gu2023memorization}; the regime kicks
+in when the training set is small relative to model capacity and
+disappears past a dataset-size threshold~\citep{kadkhodaie2023learning}. What is missing is
+a sharp account of how this transition depends on the latent-space
+dimensionality, the design knob that distinguishes
+latent-diffusion from pixel-space diffusion. We ask:
+\emph{how does the gap between $\dlat$ and $\dint$ shape the
+transition from generalization to memorization, and is there a
+mechanism a practitioner can tune by adjusting the latent width?}
+
+\looseness -1
+Existing theory provides a starting point.
+\citet{bonnaire2025} characterize diffusion training as a
+competition between a generalization time $\taugen$, at which the
+score network learns the population distribution, and a
+memorization time $\taumem$, at which it begins fitting individual
+training points. Their analysis assumes isotropic data covariance,
+which collapses the distinction between the
+$\dint$-dimensional signal subspace and the $\dlat - \dint$ null
+directions of the latent space. We extend their spectral analysis
+to the latent-diffusion regime $\dlat > \dint$, identify a new
+noise-dimension bulk that opens between the population and sample
+bulks, and show that it acts as a buffer that delays memorization.
+
+\textbf{Contributions.}
+\begin{itemize}\itemsep1pt
+  \item We extend Bonnaire's two-bulk theorem to anisotropic data
+    and identify a four-bulk eigenvalue structure for the score
+    network's feature correlation matrix, with bulk-count
+    boundaries that land exactly at indices $\dint$ and $\dlat$.
+  \item We identify the noise-dimension bulk as a memorization
+    buffer: increasing $\dlat$ adds $\dlat - \dint$ extra modes
+    that the readout must absorb before reaching the sample bulk,
+    delaying $\taumem$ while leaving $\taugen$ approximately
+    fixed.
+  \item We confirm the buffer mechanism in trainable MLP score
+    networks on synthetic data with five-seed confidence intervals,
+    holding hidden width fixed so the $\dlat$ sweep is not a model
+    capacity sweep.
+  \item We test the same idea in VAE latent spaces on CelebA and
+    CIFAR-10. Memorization first rises as the VAE becomes faithful,
+    then decreases at high $\dlat$, while FID is best at
+    intermediate latent widths.
+  \item We introduce a data-only spectral predictor: compute the
+    VAE latent covariance spectrum, calibrate a single global
+    pressure curve, and overlay predicted memorization thresholds on
+    empirical memorization trajectories.
+\end{itemize}

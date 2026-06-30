@@ -1,0 +1,19 @@
+\begin{abstract}%
+We study how the gap between latent and intrinsic dimensionality
+shapes memorization in diffusion models. Extending recent spectral
+analysis to anisotropic latent data, we find that excess null
+dimensions populate a new ``noise-dimension'' bulk in the score
+network's feature-correlation spectrum, sitting between
+population-driven and sample-specific eigenmodes. Because gradient
+flow learns modes in decreasing-eigenvalue order, this bulk acts as
+a buffer: each excess latent direction adds a mode that must be
+absorbed before sample-specific memorization begins. Synthetic
+random-feature and MLP experiments isolate this mechanism. On
+CelebA and CIFAR-10 latent diffusion, memorization is
+non-monotone in $\dlat$: it first rises as the VAE becomes
+expressive enough to reconstruct the training subset, then falls at
+larger latent widths while FID is best at intermediate dimensions.
+Finally, a data-spectrum surrogate computed from the frozen VAE
+encoder predicts much of the empirical memorization trajectory,
+suggesting a route from latent geometry to stopping-time estimates.
+\end{abstract}

@@ -1,0 +1,7 @@
+[
+  {"data":"mnist","model":"mlp","vae_checkpoint":"vae_checkpoints/mnist_d5/vae.pt","n_train":1000,"total_steps":5000000,"eval_interval":10000,"mem_interval":50000,"fid_interval":10000,"out":"results/mnist_n1k_multiseed/d5_s42","hidden":256,"seed":42},
+  {"data":"mnist","model":"mlp","vae_checkpoint":"vae_checkpoints/mnist_d5/vae.pt","n_train":1000,"total_steps":5000000,"eval_interval":10000,"mem_interval":50000,"fid_interval":10000,"out":"results/mnist_n1k_multiseed/d5_s43","hidden":256,"seed":43},
+  {"data":"mnist","model":"mlp","vae_checkpoint":"vae_checkpoints/mnist_d5/vae.pt","n_train":1000,"total_steps":5000000,"eval_interval":10000,"mem_interval":50000,"fid_interval":10000,"out":"results/mnist_n1k_multiseed/d5_s44","hidden":256,"seed":44},
+  {"data":"mnist","model":"mlp","vae_checkpoint":"vae_checkpoints/mnist_d5/vae.pt","n_train":1000,"total_steps":5000000,"eval_interval":10000,"mem_interval":50000,"fid_interval":10000,"out":"results/mnist_n1k_multiseed/d5_s45","hidden":256,"seed":45},
+  {"data":"mnist","model":"mlp","vae_checkpoint":"vae_checkpoints/mnist_d5/vae.pt","n_train":1000,"total_steps":5000000,"eval_interval":10000,"mem_interval":50000,"fid_interval":10000,"out":"results/mnist_n1k_multiseed/d5_s46","hidden":256,"seed":46}
+]

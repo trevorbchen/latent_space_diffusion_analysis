@@ -1,0 +1,92 @@
+[
+  {
+    "d_latent": 10,
+    "bonnaire_mean_nn_ratio": 0.8315950036048889,
+    "bonnaire_mem_fraction": 0.0010000000474974513,
+    "bonnaire_mem_count": 1,
+    "old_anchor_mean_nn_ratio": 0.6559631824493408,
+    "old_anchor_mem_fraction": 0.0020000000949949026,
+    "old_anchor_mem_count": 2
+  },
+  {
+    "d_latent": 20,
+    "bonnaire_mean_nn_ratio": 0.8684188723564148,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.6948338747024536,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 30,
+    "bonnaire_mean_nn_ratio": 0.9083428978919983,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.7408162355422974,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 40,
+    "bonnaire_mean_nn_ratio": 0.9230427742004395,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.766513466835022,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 50,
+    "bonnaire_mean_nn_ratio": 0.9334825277328491,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.7846318483352661,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 60,
+    "bonnaire_mean_nn_ratio": 0.9422215819358826,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.8039515614509583,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 70,
+    "bonnaire_mean_nn_ratio": 0.9420766234397888,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.8135188221931458,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 80,
+    "bonnaire_mean_nn_ratio": 0.9448355436325073,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.8238115310668945,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 90,
+    "bonnaire_mean_nn_ratio": 0.9500805139541626,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.8288187980651855,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  },
+  {
+    "d_latent": 100,
+    "bonnaire_mean_nn_ratio": 0.9507894515991211,
+    "bonnaire_mem_fraction": 0.0,
+    "bonnaire_mem_count": 0,
+    "old_anchor_mean_nn_ratio": 0.8332743048667908,
+    "old_anchor_mem_fraction": 0.0,
+    "old_anchor_mem_count": 0
+  }
+]

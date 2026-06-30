@@ -1,0 +1,22 @@
+{
+  "name": "gmm_main",
+  "data_kind": "gmm",
+  "sweep": "exp2",
+  "row_label": "GMM",
+  "row_value": null,
+  "n": 500,
+  "k": 10,
+  "d_intrinsic": 5,
+  "d_latent": 20,
+  "sigma_signal": 1.0,
+  "sigma_noise": 0.5,
+  "center_scale": 3.0,
+  "t": 0.01,
+  "mc_samples": 500,
+  "rank_null": 300,
+  "p_mode": "n_plus_d_plus_r",
+  "p_ratio": 64,
+  "p_fixed": 1800,
+  "null_energy": null,
+  "seed": 42
+}

@@ -1,0 +1,18 @@
+{
+  "name": "sigma_0.2_gmm_exp2",
+  "sweep": "exp2",
+  "data_kind": "gmm",
+  "n": 500,
+  "k": 10,
+  "d_intrinsic": 5,
+  "d_latent": 20,
+  "sigma_signal": 1.0,
+  "sigma_noise": 0.2,
+  "center_scale": 1.5,
+  "t": 0.01,
+  "mc_samples": 500,
+  "rank_null": 300,
+  "width_mode": "controlled",
+  "p_ratio": 64,
+  "seed": 42
+}

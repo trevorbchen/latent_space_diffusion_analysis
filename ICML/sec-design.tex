@@ -1,0 +1,51 @@
+\section{Setup and theory roadmap}
+\label{sec:design}
+
+\textbf{Question.}
+\looseness -1
+We study diffusion in a latent space of dimension $\dlat$ when the
+data occupy an effective $\dint$-dimensional subset. The central
+object is the gap between the time at which a score model learns
+population structure, $\taugen$, and the time at which it begins to
+fit individual training samples, $\taumem$. The working hypothesis
+is that the excess width $\dlat-\dint$ is not inert: it creates a
+sequence of low-variance directions that the model must traverse
+before reaching sample-specific modes.
+
+\textbf{Synthetic data choices.}
+\looseness -1
+We use Gaussian-mixture data because it gives us the cleanest
+control over the mechanism. A $k$-component mixture is sampled in a
+signal subspace of dimension $\dint$, embedded into an ambient
+latent space of dimension $\dlat$, and padded with isotropic
+null-direction variance $\signoise^2$. The signal variance and
+cluster scale control the population bulk; the null variance
+controls the buffer bulk. This construction gives an analytic score
+for the trainable MLP, exact knowledge of which coordinates are
+signal versus null, and controlled sweeps in either $\dlat$ at
+fixed $\dint$ or $\dint$ at fixed $\dlat$.
+
+\textbf{RFNN theory.}
+\looseness -1
+For the random-feature network, freezing the first layer makes the
+score-matching loss quadratic in the readout. Gradient flow then
+diagonalizes in the eigenbasis of the empirical feature covariance
+$\Umat$, and each mode is learned on timescale $1/\lambda_i$. The
+theory section below derives the qualitative prediction we need:
+anisotropic data split the usual population/sample spectrum into a
+signal bulk, a noise-dimension buffer bulk, a sample bulk, and a
+rank-null tail. A closed-form theorem for the bulk edges is still a
+TODO; the current paper uses the RFNN eigenspectra as the
+mechanistic microscope.
+
+\textbf{Trainable MLP and real latents.}
+\looseness -1
+We then ask whether the same picture survives after replacing the
+frozen RFNN with a trainable MLP score model. In synthetic data, the
+hidden width is held fixed across the $\dlat$ sweep so parameter
+count and per-step FLOPs stay roughly constant. In real data, we
+train VAEs on CelebA and CIFAR-10, encode a diverse 1k-image subset,
+and train the same latent-space MLP diffusion model for 5M steps
+over five seeds. We measure memorization with the
+\citet{somepalli2023diffusion} nearest-neighbor ratio test and
+quality with FID.

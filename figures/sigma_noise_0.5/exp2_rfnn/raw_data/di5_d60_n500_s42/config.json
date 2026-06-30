@@ -1,0 +1,18 @@
+{
+  "d_intrinsic": 5,
+  "d_latent": 60,
+  "k": 10,
+  "sigma_noise": 0.5,
+  "sigma_signal": 1.0,
+  "scale": 3.0,
+  "n": 500,
+  "p_ratio": 64,
+  "t_fixed": 0.01,
+  "lr": -1,
+  "momentum": 0.0,
+  "total_steps": 300000,
+  "eval_interval": 5000,
+  "n_noise_samples": 50,
+  "seed": 42,
+  "results_dir": "results_rfnn_exp2_wide/di5_d60_n500_s42"
+}

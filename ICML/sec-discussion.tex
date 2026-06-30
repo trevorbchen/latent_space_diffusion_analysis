@@ -1,0 +1,41 @@
+\section{Conclusion and limitations}
+\label{sec:discussion}
+
+\textbf{Conclusion.}
+\looseness -1
+The experiments support a simple mechanistic picture: latent
+dimensions beyond the data's effective signal dimension are not
+just wasted coordinates. In the RFNN they appear as a distinct
+noise-dimension bulk between population and sample-specific modes.
+In the trainable synthetic MLP, increasing the latent buffer sharply
+reduces memorization under fixed hidden width. In real VAE latents,
+the same force competes with VAE fidelity: small bottlenecks do not
+reconstruct well enough to memorize in pixel space, intermediate
+dimensions both reconstruct and memorize, and very wide latents
+again reduce memorization while often hurting FID.
+
+\textbf{Practical implication.}
+\looseness -1
+The best latent dimension is not the smallest possible code or the
+largest possible code. Too small loses reconstruction fidelity; too
+large makes diffusion harder. The useful regime is near the point
+where VAE quality has saturated but before the diffusion model pays
+too much optimization cost. The spectral predictor in
+Sec.~\ref{sec:spectral-predictor} is a first attempt to estimate
+this regime directly from the latent data spectrum, without running
+every diffusion training curve to completion.
+
+\textbf{Limitations.}
+\looseness -1
+(i)~The RFNN theory is still incomplete: the current manuscript has
+a mechanism and empirical eigenspectra, but the closed-form
+anisotropic bulk-edge theorem is left as a TODO. (ii)~The synthetic
+data manifold is a linear Gaussian mixture, so curved manifolds and
+class hierarchies are only tested indirectly through CelebA and
+CIFAR-10. (iii)~The real-data memorization metric is pixel-space
+nearest-neighbor ratio on a diverse 1k subset; other definitions
+may shift the absolute percentages. (iv)~The VAE and diffusion
+systems interact: low-dimensional VAEs suppress measured
+memorization by blurring reconstructions, while high-dimensional
+VAEs can degrade FID through optimization difficulty. Separating
+these effects more cleanly is the main next ablation.

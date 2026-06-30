@@ -1,0 +1,416 @@
+{
+  "d_latent": 2,
+  "recon_mse": 0.004755343310534954,
+  "metrics": [
+    {
+      "step": 1,
+      "loss": 1.009386658668518,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.9184074401855469,
+      "nn_ratio_median": 0.964608907699585,
+      "norm_mean": 3.4949119091033936,
+      "norm_std": 1.8578765392303467,
+      "frac_on_manifold": 0.550000011920929
+    },
+    {
+      "step": 5000,
+      "loss": 0.6489078402519226,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8904833197593689,
+      "nn_ratio_median": 0.9254940152168274,
+      "norm_mean": 2.2194199562072754,
+      "norm_std": 0.5911032557487488,
+      "frac_on_manifold": 0.9900000095367432
+    },
+    {
+      "step": 10000,
+      "loss": 0.6399120092391968,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8642427921295166,
+      "nn_ratio_median": 0.8878617882728577,
+      "norm_mean": 2.266021966934204,
+      "norm_std": 0.636287271976471,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 15000,
+      "loss": 0.6393783092498779,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.9004582762718201,
+      "nn_ratio_median": 0.9179133176803589,
+      "norm_mean": 2.222224473953247,
+      "norm_std": 0.5626584887504578,
+      "frac_on_manifold": 0.9900000095367432
+    },
+    {
+      "step": 20000,
+      "loss": 0.6572888493537903,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8972012400627136,
+      "nn_ratio_median": 0.9218494296073914,
+      "norm_mean": 2.2646310329437256,
+      "norm_std": 0.5879238843917847,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 25000,
+      "loss": 0.673958420753479,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.89610755443573,
+      "nn_ratio_median": 0.9224704504013062,
+      "norm_mean": 2.2338898181915283,
+      "norm_std": 0.5715207457542419,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 30000,
+      "loss": 0.6339892148971558,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8870326280593872,
+      "nn_ratio_median": 0.9151045083999634,
+      "norm_mean": 2.2917635440826416,
+      "norm_std": 0.5914681553840637,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 35000,
+      "loss": 0.6813298463821411,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8766010999679565,
+      "nn_ratio_median": 0.9144744277000427,
+      "norm_mean": 2.2618563175201416,
+      "norm_std": 0.6090683937072754,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 40000,
+      "loss": 0.6833702921867371,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8703970313072205,
+      "nn_ratio_median": 0.9063509106636047,
+      "norm_mean": 2.2407143115997314,
+      "norm_std": 0.610766589641571,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 45000,
+      "loss": 0.6321772933006287,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8997161984443665,
+      "nn_ratio_median": 0.9189420342445374,
+      "norm_mean": 2.3021340370178223,
+      "norm_std": 0.6197317838668823,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 50000,
+      "loss": 0.6201424598693848,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8833304047584534,
+      "nn_ratio_median": 0.9248245358467102,
+      "norm_mean": 2.2119667530059814,
+      "norm_std": 0.6019594073295593,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 55000,
+      "loss": 0.6642496585845947,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8900506496429443,
+      "nn_ratio_median": 0.921997606754303,
+      "norm_mean": 2.3617658615112305,
+      "norm_std": 0.6825674772262573,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 60000,
+      "loss": 0.6522384881973267,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.9034937024116516,
+      "nn_ratio_median": 0.9458588361740112,
+      "norm_mean": 2.2743139266967773,
+      "norm_std": 0.5972350835800171,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 65000,
+      "loss": 0.6328145861625671,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.87935471534729,
+      "nn_ratio_median": 0.9018649458885193,
+      "norm_mean": 2.2343225479125977,
+      "norm_std": 0.5677465200424194,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 70000,
+      "loss": 0.6318936944007874,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8796770572662354,
+      "nn_ratio_median": 0.9170693755149841,
+      "norm_mean": 2.371683120727539,
+      "norm_std": 0.6149539947509766,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 75000,
+      "loss": 0.6575258374214172,
+      "mem_ratio": 0.019999999552965164,
+      "nn_ratio_mean": 0.8643195629119873,
+      "nn_ratio_median": 0.9003905057907104,
+      "norm_mean": 2.2257847785949707,
+      "norm_std": 0.6244356632232666,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 80000,
+      "loss": 0.7275882363319397,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8832024931907654,
+      "nn_ratio_median": 0.9092123508453369,
+      "norm_mean": 2.2906644344329834,
+      "norm_std": 0.5907872319221497,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 85000,
+      "loss": 0.6441044211387634,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.9069189429283142,
+      "nn_ratio_median": 0.9431574940681458,
+      "norm_mean": 2.263131618499756,
+      "norm_std": 0.656670868396759,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 90000,
+      "loss": 0.6333050727844238,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.871298611164093,
+      "nn_ratio_median": 0.8922882676124573,
+      "norm_mean": 2.2543342113494873,
+      "norm_std": 0.5667068958282471,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 95000,
+      "loss": 0.5934287309646606,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8427865505218506,
+      "nn_ratio_median": 0.8792502284049988,
+      "norm_mean": 2.2448599338531494,
+      "norm_std": 0.569765567779541,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 100000,
+      "loss": 0.6256133913993835,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8935660719871521,
+      "nn_ratio_median": 0.9203993678092957,
+      "norm_mean": 2.301464080810547,
+      "norm_std": 0.569608747959137,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 105000,
+      "loss": 0.6279450058937073,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8770055174827576,
+      "nn_ratio_median": 0.9069899916648865,
+      "norm_mean": 2.275818347930908,
+      "norm_std": 0.6209020614624023,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 110000,
+      "loss": 0.6205630302429199,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8963955640792847,
+      "nn_ratio_median": 0.9305553436279297,
+      "norm_mean": 2.24226450920105,
+      "norm_std": 0.6142428517341614,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 115000,
+      "loss": 0.6236098408699036,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8726148009300232,
+      "nn_ratio_median": 0.9155542850494385,
+      "norm_mean": 2.375380039215088,
+      "norm_std": 0.5622878074645996,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 120000,
+      "loss": 0.6298992037773132,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8774359226226807,
+      "nn_ratio_median": 0.9237856268882751,
+      "norm_mean": 2.1844887733459473,
+      "norm_std": 0.5860349535942078,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 125000,
+      "loss": 0.5918939709663391,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8777885437011719,
+      "nn_ratio_median": 0.9237528443336487,
+      "norm_mean": 2.3482065200805664,
+      "norm_std": 0.5898497104644775,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 130000,
+      "loss": 0.6519574522972107,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8713141083717346,
+      "nn_ratio_median": 0.918329656124115,
+      "norm_mean": 2.2922439575195312,
+      "norm_std": 0.6498354077339172,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 135000,
+      "loss": 0.6530799865722656,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8846691846847534,
+      "nn_ratio_median": 0.9240867495536804,
+      "norm_mean": 2.3440117835998535,
+      "norm_std": 0.6010076999664307,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 140000,
+      "loss": 0.671753466129303,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8935279250144958,
+      "nn_ratio_median": 0.9356769919395447,
+      "norm_mean": 2.2133212089538574,
+      "norm_std": 0.6012040376663208,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 145000,
+      "loss": 0.6683475375175476,
+      "mem_ratio": 0.029999999329447746,
+      "nn_ratio_mean": 0.8605926632881165,
+      "nn_ratio_median": 0.9231736660003662,
+      "norm_mean": 2.317072629928589,
+      "norm_std": 0.6109558939933777,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 150000,
+      "loss": 0.6821616291999817,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8753114938735962,
+      "nn_ratio_median": 0.9093290567398071,
+      "norm_mean": 2.270765781402588,
+      "norm_std": 0.5513409376144409,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 155000,
+      "loss": 0.6594268679618835,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.9045496582984924,
+      "nn_ratio_median": 0.9373773336410522,
+      "norm_mean": 2.197892665863037,
+      "norm_std": 0.5318076610565186,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 160000,
+      "loss": 0.6563739776611328,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8918017745018005,
+      "nn_ratio_median": 0.9239227175712585,
+      "norm_mean": 2.2596535682678223,
+      "norm_std": 0.6044291257858276,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 165000,
+      "loss": 0.6659594774246216,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8804463148117065,
+      "nn_ratio_median": 0.91938716173172,
+      "norm_mean": 2.319235324859619,
+      "norm_std": 0.6061742901802063,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 170000,
+      "loss": 0.6519671678543091,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8763906955718994,
+      "nn_ratio_median": 0.9061151146888733,
+      "norm_mean": 2.330897092819214,
+      "norm_std": 0.6236140727996826,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 175000,
+      "loss": 0.6576211452484131,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8690029382705688,
+      "nn_ratio_median": 0.9161742925643921,
+      "norm_mean": 2.325437545776367,
+      "norm_std": 0.634148120880127,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 180000,
+      "loss": 0.6260517835617065,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8900536894798279,
+      "nn_ratio_median": 0.9192785620689392,
+      "norm_mean": 2.247025966644287,
+      "norm_std": 0.6043304204940796,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 185000,
+      "loss": 0.6259544491767883,
+      "mem_ratio": 0.019999999552965164,
+      "nn_ratio_mean": 0.8559272885322571,
+      "nn_ratio_median": 0.9162507653236389,
+      "norm_mean": 2.318732976913452,
+      "norm_std": 0.6044914126396179,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 190000,
+      "loss": 0.6126900911331177,
+      "mem_ratio": 0.019999999552965164,
+      "nn_ratio_mean": 0.8436036109924316,
+      "nn_ratio_median": 0.9101779460906982,
+      "norm_mean": 2.22240948677063,
+      "norm_std": 0.5557453036308289,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 195000,
+      "loss": 0.6242754459381104,
+      "mem_ratio": 0.009999999776482582,
+      "nn_ratio_mean": 0.8734772205352783,
+      "nn_ratio_median": 0.8982083797454834,
+      "norm_mean": 2.292717933654785,
+      "norm_std": 0.5894895792007446,
+      "frac_on_manifold": 1.0
+    },
+    {
+      "step": 200000,
+      "loss": 0.6189403533935547,
+      "mem_ratio": 0.0,
+      "nn_ratio_mean": 0.8897255063056946,
+      "nn_ratio_median": 0.9226561784744263,
+      "norm_mean": 2.256420850753784,
+      "norm_std": 0.6079508662223816,
+      "frac_on_manifold": 1.0
+    }
+  ]
+}

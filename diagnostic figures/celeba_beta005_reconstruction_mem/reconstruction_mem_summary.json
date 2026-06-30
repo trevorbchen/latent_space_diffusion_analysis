@@ -1,0 +1,56 @@
+[
+  {
+    "d_latent": 10,
+    "memorized_count": 1,
+    "memorized_fraction": 0.0010000000474974513,
+    "mean_nn_ratio": 0.6391566395759583
+  },
+  {
+    "d_latent": 15,
+    "memorized_count": 4,
+    "memorized_fraction": 0.004000000189989805,
+    "mean_nn_ratio": 0.549712061882019
+  },
+  {
+    "d_latent": 20,
+    "memorized_count": 21,
+    "memorized_fraction": 0.020999999716877937,
+    "mean_nn_ratio": 0.48504775762557983
+  },
+  {
+    "d_latent": 25,
+    "memorized_count": 65,
+    "memorized_fraction": 0.06499999761581421,
+    "mean_nn_ratio": 0.44875335693359375
+  },
+  {
+    "d_latent": 30,
+    "memorized_count": 126,
+    "memorized_fraction": 0.12600000202655792,
+    "mean_nn_ratio": 0.41998493671417236
+  },
+  {
+    "d_latent": 35,
+    "memorized_count": 197,
+    "memorized_fraction": 0.19699999690055847,
+    "mean_nn_ratio": 0.39470410346984863
+  },
+  {
+    "d_latent": 40,
+    "memorized_count": 271,
+    "memorized_fraction": 0.2709999978542328,
+    "mean_nn_ratio": 0.3783058524131775
+  },
+  {
+    "d_latent": 45,
+    "memorized_count": 326,
+    "memorized_fraction": 0.32600000500679016,
+    "mean_nn_ratio": 0.3657684028148651
+  },
+  {
+    "d_latent": 50,
+    "memorized_count": 402,
+    "memorized_fraction": 0.4020000100135803,
+    "mean_nn_ratio": 0.3525073230266571
+  }
+]

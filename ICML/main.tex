@@ -1,0 +1,138 @@
+%%%%%%%% HiLD 2026 / ICML 2026 SUBMISSION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Submission deadline: 11 May 2026 (AoE)
+%
+%  This file uses the official ICML 2026 template (`icml2026.sty`).
+%  HiLD also ships its own JMLR-based class (`hld2026.cls`); both are
+%  in this folder. To switch, replace the icml2026 \usepackage line with
+%  \documentclass[anon]{hld2026} and rewrite the title/author block per
+%  the HiLD `sample.tex`. The body section files (`sec-*.tex`) are
+%  class-agnostic and need no changes.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended packages for figures and typography
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{float}                  % provides the [H] placement specifier
+\usepackage{placeins}               % provides \FloatBarrier
+
+% hyperref makes hyperlinks in the resulting PDF.
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Initial blind submission
+\usepackage{icml2026}
+% \usepackage[preprint]{icml2026}        % for preprint
+% \usepackage[accepted]{icml2026}        % for camera-ready
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{nicefrac}
+
+% cleveref (capitalized refs)
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% Theorem styles
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Drafting macros (mirror GenMol style)
+\newcommand{\todo}[1]{\textcolor{magenta}{#1}}
+\newcommand{\needcite}{\rule[-0.2ex]{1.5em}{1.4ex}}
+\newcommand{\figplaceholder}[1]{%
+  \fbox{\parbox{0.97\linewidth}{\centering\vspace{1.4cm}%
+    \textcolor{magenta}{\sffamily\bfseries [PLACEHOLDER FIGURE: #1]}%
+    \vspace{1.4cm}}}%
+}
+\newcommand{\figsquare}[1]{%
+  \fbox{\parbox{0.55\linewidth}{\centering\vspace{2.6cm}%
+    \textcolor{magenta}{\sffamily\bfseries [PLACEHOLDER FIGURE: #1]}%
+    \vspace{2.6cm}}}%
+}
+
+% Math macros
+\newcommand{\dlat}{d_{\mathrm{latent}}}
+\newcommand{\dint}{d_{\mathrm{intrinsic}}}
+\newcommand{\taugen}{\tau_{\mathrm{gen}}}
+\newcommand{\taumem}{\tau_{\mathrm{mem}}}
+\newcommand{\Umat}{\bm{U}}
+\newcommand{\Sigmadata}{\bm{\Sigma}_{\mathrm{data}}}
+\newcommand{\sigsig}{\sigma_{\mathrm{sig}}}
+\newcommand{\signoise}{\sigma_{\perp}}
+\newcommand{\nsamp}{n}
+\newcommand{\pwidth}{p}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\diag}{diag}
+
+% Running header
+\icmltitlerunning{Excess Latent Dimensionality Delays Memorization}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{How Excess Latent Dimensionality Delays Memorization
+             in Diffusion Models}
+
+  \icmlsetsymbol{equal}{*}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Anonymous Author}{anon}
+  \end{icmlauthorlist}
+
+  \icmlaffiliation{anon}{Affiliation withheld for double-blind review}
+
+  \icmlcorrespondingauthor{Anonymous Author}{anonymous@example.com}
+
+  \icmlkeywords{diffusion models, generalization, memorization,
+                random matrix theory, learning dynamics,
+                random feature networks}
+
+  \vskip 0.3in
+]
+
+% Required (must come immediately after the closing ] of \twocolumn[...])
+\printAffiliationsAndNotice{}
+
+% --- Abstract ---------------------------------------------------------------
+\input{abstract}
+
+% --- Body -------------------------------------------------------------------
+\input{sec-intro}
+\input{sec-design}
+\input{sec-rfnn}
+\input{sec-mlp}
+\input{sec-discussion}
+
+% --- References -------------------------------------------------------------
+% Force references to start on a new page (ICML/HiLD body is 5 pages, so
+% references land on page 6 as long as the body fits within the limit).
+\clearpage
+\bibliography{references}
+\bibliographystyle{icml2026}
+
+% --- Appendix (does not count toward 5-page workshop limit) -----------------
+\newpage
+\appendix
+\onecolumn
+\input{sec-appendix}
+
+\end{document}

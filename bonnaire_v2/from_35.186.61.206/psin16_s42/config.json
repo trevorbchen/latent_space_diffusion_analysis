@@ -1,0 +1,13 @@
+{
+  "d": 100,
+  "psi_p": 64,
+  "psi_n": 16,
+  "t_fixed": 0.01,
+  "lr": -1,
+  "momentum": 0.0,
+  "total_steps": 300000,
+  "eval_interval": 1000,
+  "n_noise_samples": 50,
+  "seed": 42,
+  "results_dir": "results_bonnaire/psin16_s42"
+}

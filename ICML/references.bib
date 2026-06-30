@@ -1,0 +1,448 @@
+% =============================================================================
+%  Bibliography for the HiLD 2026 / ICML 2026 submission.
+%  Many entries are starter-level; verify author lists, page numbers, and venue
+%  details against canonical sources before camera-ready.
+% =============================================================================
+
+% --- Headline reference (Bonnaire et al. NeurIPS 2025 oral) ----------------
+@inproceedings{bonnaire2025,
+ author = {Bonnaire, Tony and Urfin, Rapha\"{e}l and Biroli, Giulio and Mezard, Marc},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {D. Belgrave and C. Zhang and H. Lin and R. Pascanu and P. Koniusz and M. Ghassemi and N. Chen},
+ pages = {141266--141286},
+ publisher = {Curran Associates, Inc.},
+ title = {Why Diffusion Models Don’t Memorize:  The Role of Implicit Dynamical Regularization in Training},
+ volume = {38},
+ year = {2025}
+}
+
+
+% --- Core diffusion / latent-diffusion references ---------------------------
+@inproceedings{ho2020denoising,
+ author = {Ho, Jonathan and Jain, Ajay and Abbeel, Pieter},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+ pages = {6840--6851},
+ publisher = {Curran Associates, Inc.},
+ title = {Denoising Diffusion Probabilistic Models},
+ volume = {33},
+ year = {2020}
+}
+
+
+@inproceedings{song2021scoresde,
+title={Score-Based Generative Modeling through Stochastic Differential Equations},
+author={Yang Song and Jascha Sohl-Dickstein and Diederik P Kingma and Abhishek Kumar and Stefano Ermon and Ben Poole},
+booktitle={International Conference on Learning Representations},
+year={2021},
+}
+
+@InProceedings{rombach2022highresolution,
+    author    = {Rombach, Robin and Blattmann, Andreas and Lorenz, Dominik and Esser, Patrick and Ommer, Bj\"orn},
+    title     = {High-Resolution Image Synthesis With Latent Diffusion Models},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2022},
+    pages     = {10684-10695}
+}
+
+@inproceedings{karras2022elucidating,
+ author = {Karras, Tero and Aittala, Miika and Aila, Timo and Laine, Samuli},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {S. Koyejo and S. Mohamed and A. Agarwal and D. Belgrave and K. Cho and A. Oh},
+ pages = {26565--26577},
+ publisher = {Curran Associates, Inc.},
+ title = {Elucidating the Design Space of Diffusion-Based Generative Models},
+ volume = {35},
+ year = {2022}
+}
+
+
+@inproceedings{
+lipman2023flow,
+title={Flow Matching for Generative Modeling},
+author={Yaron Lipman and Ricky T. Q. Chen and Heli Ben-Hamu and Maximilian Nickel and Matthew Le},
+booktitle={The Eleventh International Conference on Learning Representations },
+year={2023},
+}
+
+@InProceedings{esser2024sd3,
+  title = 	 {Scaling Rectified Flow Transformers for High-Resolution Image Synthesis},
+  author =       {Esser, Patrick and Kulal, Sumith and Blattmann, Andreas and Entezari, Rahim and M\"{u}ller, Jonas and Saini, Harry and Levi, Yam and Lorenz, Dominik and Sauer, Axel and Boesel, Frederic and Podell, Dustin and Dockhorn, Tim and English, Zion and Rombach, Robin},
+  booktitle = 	 {Proceedings of the 41st International Conference on Machine Learning},
+  pages = 	 {12606--12633},
+  year = 	 {2024},
+  editor = 	 {Salakhutdinov, Ruslan and Kolter, Zico and Heller, Katherine and Weller, Adrian and Oliver, Nuria and Scarlett, Jonathan and Berkenkamp, Felix},
+  volume = 	 {235},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {21--27 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v235/main/assets/esser24a/esser24a.pdf},
+  abstract = 	 {Diffusion models create data from noise by inverting the forward paths of data towards noise and have emerged as a powerful generative modeling technique for high-dimensional, perceptual data such as images and videos. Rectified flow is a recent generative model formulation that connects data and noise in a straight line. Despite its better theoretical properties and conceptual simplicity, it is not yet decisively established as standard practice. In this work, we improve existing noise sampling techniques for training rectified flow models by biasing them towards perceptually relevant scales. Through a large-scale study, we demonstrate the superior performance of this approach compared to established diffusion formulations for high-resolution text-to-image synthesis. Additionally, we present a novel transformer-based architecture for text-to-image generation that uses separate weights for the two modalities and enables a bidirectional flow of information between image and text tokens, improving text comprehension, typography, and human preference ratings. We demonstrate that this architecture follows predictable scaling trends and correlates lower validation loss to improved text-to-image synthesis as measured by various metrics and human evaluations. Our largest models outperform state-of-the-art models. Stability AI is considering making experimental data, code, and model weights publicly available.}
+}
+
+
+@inproceedings{
+podell2023sdxl,
+title={{SDXL}: Improving Latent Diffusion Models for High-Resolution Image Synthesis},
+author={Dustin Podell and Zion English and Kyle Lacey and Andreas Blattmann and Tim Dockhorn and Jonas M{\"u}ller and Joe Penna and Robin Rombach},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+}
+
+@misc{brooks2024sora,
+  title        = {Video generation models as world simulators},
+  author       = {Brooks, Tim and Peebles, Bill and Holmes, Connor and others},
+  year         = {2024},
+  howpublished = {OpenAI technical report},
+}
+
+@inproceedings{
+leeGenMolDrugDiscovery2025,
+title={GenMol: A Drug Discovery Generalist with Discrete Diffusion},
+author={Seul Lee and Karsten Kreis and Srimukh Prasad Veccham and Meng Liu and Danny Reidenbach and Yuxing Peng and Saee Gopal Paliwal and Weili Nie and Arash Vahdat},
+booktitle={Forty-second International Conference on Machine Learning},
+year={2025},
+}
+
+% --- Memorization in diffusion models ---------------------------------------
+@inproceedings{somepalli2023diffusion,
+  title={Diffusion art or digital forgery? investigating data replication in diffusion models},
+  author={Somepalli, Gowthami and Singla, Vasu and Goldblum, Micah and Geiping, Jonas and Goldstein, Tom},
+  booktitle={Proceedings of the IEEE/CVF conference on computer vision and pattern recognition},
+  pages={6048--6058},
+  year={2023}
+}
+
+@inproceedings {carlini2023extracting,
+author = {Nicolas Carlini and Jamie Hayes and Milad Nasr and Matthew Jagielski and Vikash Sehwag and Florian Tram{\`e}r and Borja Balle and Daphne Ippolito and Eric Wallace},
+title = {Extracting Training Data from Diffusion Models},
+booktitle = {32nd USENIX Security Symposium (USENIX Security 23)},
+year = {2023},
+isbn = {978-1-939133-37-3},
+address = {Anaheim, CA},
+pages = {5253--5270},
+publisher = {USENIX Association},
+month = aug
+}
+
+@article{
+gu2023memorization,
+title={On Memorization in Diffusion Models},
+author={Xiangming Gu and Chao Du and Tianyu Pang and Chongxuan Li and Min Lin and Ye Wang},
+journal={Transactions on Machine Learning Research},
+issn={2835-8856},
+year={2025},
+note={}
+}
+
+% --- Intrinsic dimensionality of data ---------------------------------------
+@inproceedings{
+pope2021,
+title={The Intrinsic Dimension of Images and Its Impact on Learning},
+author={Phil Pope and Chen Zhu and Ahmed Abdelkader and Micah Goldblum and Tom Goldstein},
+booktitle={International Conference on Learning Representations},
+year={2021},
+}
+
+@inproceedings{
+brown2022manifold,
+title={Verifying the Union of Manifolds Hypothesis for Image Data},
+author={Bradley CA Brown and Anthony L. Caterini and Brendan Leigh Ross and Jesse C Cresswell and Gabriel Loaiza-Ganem},
+booktitle={The Eleventh International Conference on Learning Representations },
+year={2023},
+}
+
+@InProceedings{stanczuk2024manifold,
+  title = 	 {Diffusion Models Encode the Intrinsic Dimension of Data Manifolds},
+  author =       {Stanczuk, Jan Pawel and Batzolis, Georgios and Deveney, Teo and Sch\"{o}nlieb, Carola-Bibiane},
+  booktitle = 	 {Proceedings of the 41st International Conference on Machine Learning},
+  pages = 	 {46412--46440},
+  year = 	 {2024},
+  editor = 	 {Salakhutdinov, Ruslan and Kolter, Zico and Heller, Katherine and Weller, Adrian and Oliver, Nuria and Scarlett, Jonathan and Berkenkamp, Felix},
+  volume = 	 {235},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {21--27 Jul},
+  publisher =    {PMLR},
+  pdf = 	 {https://raw.githubusercontent.com/mlresearch/v235/main/assets/stanczuk24a/stanczuk24a.pdf},
+  abstract = 	 {In this work, we provide a mathematical proof that diffusion models encode data manifolds by approximating their normal bundles. Based on this observation we propose a novel method for extracting the intrinsic dimension of the data manifold from a trained diffusion model. Our insights are based on the fact that a diffusion model approximates the score function i.e. the gradient of the log density of a noise-corrupted version of the target distribution for varying levels of corruption. We prove that as the level of corruption decreases, the score function points towards the manifold, as this direction becomes the direction of maximal likelihood increase. Therefore, at low noise levels, the diffusion model provides us with an approximation of the manifold’s normal bundle, allowing for an estimation of the manifold’s intrinsic dimension. To the best of our knowledge our method is the first estimator of intrinsic dimension based on diffusion models and it outperforms well established estimators in controlled experiments on both Euclidean and image data.}
+}
+
+
+@inproceedings{kamkari2024geometric,
+ author = {Kamkari, Hamidreza and Ross, Brendan Leigh and Hosseinzadeh, Rasa and Cresswell, Jesse and Loaiza-Ganem, Gabriel},
+ booktitle = {Advances in Neural Information Processing Systems},
+ doi = {10.52202/079017-1211},
+ editor = {A. Globerson and L. Mackey and D. Belgrave and A. Fan and U. Paquet and J. Tomczak and C. Zhang},
+ pages = {38307--38354},
+ publisher = {Curran Associates, Inc.},
+ title = {A Geometric View of Data Complexity: Efficient Local Intrinsic Dimension Estimation with Diffusion Models},
+ volume = {37},
+ year = {2024}
+}
+
+@inproceedings{levina2004maximum,
+ author = {Levina, Elizaveta and Bickel, Peter},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {L. Saul and Y. Weiss and L. Bottou},
+ pages = {},
+ publisher = {MIT Press},
+ title = {Maximum Likelihood Estimation of Intrinsic Dimension},
+ volume = {17},
+ year = {2004}
+}
+
+@article{facco2017twonn,
+	abstract = {Analyzing large volumes of high-dimensional data is an issue of fundamental importance in data science, molecular simulations and beyond. Several approaches work on the assumption that the important content of a dataset belongs to a manifold whose Intrinsic Dimension (ID) is much lower than the crude large number of coordinates. Such manifold is generally twisted and curved; in addition points on it will be non-uniformly distributed: two factors that make the identification of the ID and its exploitation really hard. Here we propose a new ID estimator using only the distance of the first and the second nearest neighbor of each point in the sample. This extreme minimality enables us to reduce the effects of curvature, of density variation, and the resulting computational cost. The ID estimator is theoretically exact in uniformly distributed datasets, and provides consistent measures in general. When used in combination with block analysis, it allows discriminating the relevant dimensions as a function of the block size. This allows estimating the ID even when the data lie on a manifold perturbed by a high-dimensional noise, a situation often encountered in real world data sets. We demonstrate the usefulness of the approach on molecular simulations and image analysis.},
+	author = {Facco, Elena and d'Errico, Maria and Rodriguez, Alex and Laio, Alessandro},
+	date = {2017/09/22},
+	date-added = {2026-05-10 20:01:09 -0700},
+	date-modified = {2026-05-10 20:01:09 -0700},
+	doi = {10.1038/s41598-017-11873-y},
+	id = {Facco2017},
+	isbn = {2045-2322},
+	journal = {Scientific Reports},
+	number = {1},
+	pages = {12140},
+	title = {Estimating the intrinsic dimension of datasets by a minimal neighborhood information},
+	volume = {7},
+	year = {2017},
+	bdsk-url-1 = {https://doi.org/10.1038/s41598-017-11873-y}}
+
+
+% --- Random matrix theory / mean-field training dynamics --------------------
+@article{
+mei2018meanfield,
+author = {Song Mei  and Andrea Montanari  and Phan-Minh Nguyen },
+title = {A mean field view of the landscape of two-layer neural networks},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {115},
+number = {33},
+pages = {E7665-E7671},
+year = {2018},
+doi = {10.1073/pnas.1806579115},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.1806579115},
+abstract = {Multilayer neural networks have proven extremely successful in a variety of tasks, from image classification to robotics. However, the reasons for this practical success and its precise domain of applicability are unknown. Learning a neural network from data requires solving a complex optimization problem with millions of variables. This is done by stochastic gradient descent (SGD) algorithms. We study the case of two-layer networks and derive a compact description of the SGD dynamics in terms of a limiting partial differential equation. Among other consequences, this shows that SGD dynamics does not become more complex when the network size increases. Multilayer neural networks are among the most powerful models in machine learning, yet the fundamental reasons for this success defy mathematical understanding. Learning a neural network requires optimizing a nonconvex high-dimensional objective (risk function), a problem that is usually attacked using stochastic gradient descent (SGD). Does SGD converge to a global optimum of the risk or only to a local optimum? In the former case, does this happen because local minima are absent or because SGD somehow avoids them? In the latter, why do local minima reached by SGD have good generalization properties? In this paper, we consider a simple case, namely two-layer neural networks, and prove that—in a suitable scaling limit—SGD dynamics is captured by a certain nonlinear partial differential equation (PDE) that we call distributional dynamics (DD). We then consider several specific examples and show how DD can be used to prove convergence of SGD to networks with nearly ideal generalization error. This description allows for “averaging out” some of the complexities of the landscape of neural networks and can be used to prove a general convergence result for noisy SGD.}}
+
+@inproceedings{chizat2018global,
+ author = {Chizat, L\'{e}na\"{\i}c and Bach, Francis},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {S. Bengio and H. Wallach and H. Larochelle and K. Grauman and N. Cesa-Bianchi and R. Garnett},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {On the Global Convergence of Gradient Descent for Over-parameterized Models using Optimal Transport},
+ volume = {31},
+ year = {2018}
+}
+
+@inproceedings{chizat2019lazy,
+ author = {Chizat, L\'{e}na\"{\i}c and Oyallon, Edouard and Bach, Francis},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {On Lazy Training in Differentiable Programming},
+ volume = {32},
+ year = {2019}
+}
+
+@article{rotskoff2018trainability,
+author = {Rotskoff, Grant and Vanden-Eijnden, Eric},
+title = {Trainability and Accuracy of Artificial Neural Networks: An Interacting Particle System Approach},
+journal = {Communications on Pure and Applied Mathematics},
+volume = {75},
+number = {9},
+pages = {1889-1935},
+doi = {https://doi.org/10.1002/cpa.22074},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/cpa.22074},
+abstract = {Abstract Neural networks, a central tool in machine learning, have demonstrated remarkable, high fidelity performance on image recognition and classification tasks. These successes evince an ability to accurately represent high-dimensional functions, but rigorous results about the approximation error of neural networks after training are few. Here we establish conditions for global convergence of the standard optimization algorithm used in machine learning applications, stochastic gradient descent (SGD), and quantifying the scaling of its error with the size of the network. This is done by reinterpreting SGD as the evolution of a particle system with interactions governed by a potential related to the objective or “loss” function used to train the network. We show that, when the number n of units is large, the empirical distribution of the particles descends on a convex landscape towards the global minimum at a rate independent of n, with a resulting approximation error that universally scales as O(n−1). These properties are established in the form of a law of large numbers and a central limit theorem for the empirical distribution. Our analysis also quantifies the scale and nature of the noise introduced by SGD and provides guidelines for the step size and batch size to use when training a neural network. We illustrate our findings on examples in which we train neural networks to learn the energy function of the continuous 3-spin model on the sphere. The approximation error scales as our analysis predicts in as high a dimension as d = 25. © 2022 Courant Institute of Mathematics and Wiley Periodicals LLC.},
+year = {2022}
+}
+
+@article{sirignano2020mean,
+author = {Sirignano, Justin and Spiliopoulos, Konstantinos},
+title = {Mean Field Analysis of Neural Networks: A Law of Large Numbers},
+journal = {SIAM Journal on Applied Mathematics},
+volume = {80},
+number = {2},
+pages = {725-752},
+year = {2020},
+doi = {10.1137/18M1192184},
+
+eprint = {https://doi.org/10.1137/18M1192184},
+abstract = {Machine learning, and in particular neural network models, have revolutionized fields such as image, text, and speech recognition. Today, many important real-world applications in these areas are driven by neural networks. There are also growing applications in engineering, robotics, medicine, and finance. Despite their immense success in practice, there is limited mathematical understanding of neural networks. This paper illustrates how neural networks can be studied via stochastic analysis and develops approaches for addressing some of the technical challenges which arise. We analyze one-layer neural networks in the asymptotic regime of simultaneously (a) large network sizes and (b) large numbers of stochastic gradient descent training iterations. We rigorously prove that the empirical distribution of the neural network parameters converges to the solution of a nonlinear partial differential equation. This result can be considered a law of large numbers for neural networks. In addition, a consequence of our analysis is that the trained parameters of the neural network asymptotically become independent, a property which is commonly called “propagation of chaos.”}
+}
+
+@inproceedings{jacot2018ntk,
+ author = {Jacot, Arthur and Gabriel, Franck and Hongler, Clement},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {S. Bengio and H. Wallach and H. Larochelle and K. Grauman and N. Cesa-Bianchi and R. Garnett},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {Neural Tangent Kernel: Convergence and Generalization in Neural Networks},
+ volume = {31},
+ year = {2018}
+}
+
+@inproceedings{lee2019wide,
+ author = {Lee, Jaehoon and Xiao, Lechao and Schoenholz, Samuel and Bahri, Yasaman and Novak, Roman and Sohl-Dickstein, Jascha and Pennington, Jeffrey},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {Wide Neural Networks of Any Depth Evolve as Linear Models Under Gradient Descent},
+ volume = {32},
+ year = {2019}
+}
+
+@inproceedings{pennington2017nonlinear,
+ author = {Pennington, Jeffrey and Worah, Pratik},
+ booktitle = {Advances in Neural Information Processing Systems},
+ editor = {I. Guyon and U. Von Luxburg and S. Bengio and H. Wallach and R. Fergus and S. Vishwanathan and R. Garnett},
+ pages = {},
+ publisher = {Curran Associates, Inc.},
+ title = {Nonlinear random matrix theory for deep learning},
+ volume = {30},
+ year = {2017}
+}
+
+@article{ELKaroui2010spectrum,
+author = {Noureddine El Karoui},
+title = {{The spectrum of kernel random matrices}},
+volume = {38},
+journal = {The Annals of Statistics},
+number = {1},
+publisher = {Institute of Mathematical Statistics},
+pages = {1 -- 50},
+abstract = {We place ourselves in the setting of high-dimensional statistical inference where the number of variables p in a dataset of interest is of the same order of magnitude as the number of observations n. We consider the spectrum of certain kernel random matrices, in particular n×n matrices whose (i, j)th entry is f(X'iXj/p) or f(‖Xi−Xj‖2/p) where p is the dimension of the data, and Xi are independent data vectors. Here f is assumed to be a locally smooth function. The study is motivated by questions arising in statistics and computer science where these matrices are used to perform, among other things, nonlinear versions of principal component analysis. Surprisingly, we show that in high-dimensions, and for the models we analyze, the problem becomes essentially linear—which is at odds with heuristics sometimes used to justify the usage of these methods. The analysis also highlights certain peculiarities of models widely studied in random matrix theory and raises some questions about their relevance as tools to model high-dimensional data encountered in practice.},
+keywords = {concentration of measure, Covariance matrices, eigenvalues of covariance matrices, Hadamard matrix functions, high-dimensional inference, kernel matrices, machine learning, multivariate statistical analysis, Random matrix theory},
+year = {2010},
+doi = {10.1214/08-AOS648},
+}
+
+@book{couillet2011rmt, place={Cambridge}, title={Random Matrix Methods for Wireless Communications}, publisher={Cambridge University Press}, author={Couillet, Romain and Debbah, Mérouane}, year={2011}}
+
+@article{benigni2021eigenvalue,
+author = {Lucas Benigni and Sandrine P{\'e}ch{\'e}},
+title = {{Eigenvalue distribution of some nonlinear models of random matrices}},
+volume = {26},
+journal = {Electronic Journal of Probability},
+number = {none},
+publisher = {Institute of Mathematical Statistics and Bernoulli Society},
+pages = {1 -- 37},
+abstract = {This paper is concerned with the asymptotic empirical eigenvalue distribution of some non linear random matrix ensemble. More precisely we consider M=1 mYY∗ with Y=f(WX) where W and X are random rectangular matrices with i.i.d. centered entries. The function f is applied pointwise and can be seen as an activation function in (random) neural networks. We compute the asymptotic empirical distribution of this ensemble in the case where W and X have sub-Gaussian tails and f is real analytic. This extends a result of [32] where the case of Gaussian matrices W and X is considered. We also investigate the same questions in the multi-layer case, regarding neural network and machine learning applications.},
+keywords = {machine learning, neural networks, random matrices},
+year = {2021},
+doi = {10.1214/21-EJP699},
+}
+
+
+% --- Generalization in diffusion models -------------------------------------
+@inproceedings{
+kadkhodaie2023learning,
+title={Generalization in diffusion models arises from geometry-adaptive harmonic representations},
+author={Zahra Kadkhodaie and Florentin Guth and Eero P Simoncelli and St{\'e}phane Mallat},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+}
+
+@article{biroli2024dynamical,
+	abstract = {We study generative diffusion models in the regime where both the data dimension and the sample size are large, and the score function is trained optimally. Using statistical physics methods, we identify three distinct dynamical regimes during the generative diffusion process. The generative dynamics, starting from pure noise, first encounters a speciation transition, where the broad structure of the data emerges, akin to symmetry breaking in phase transitions. This is followed by a collapse phase, where the dynamics is attracted to a specific training point through a mechanism similar to condensation in a glass phase. The speciation time can be obtained from a spectral analysis of the data's correlation matrix, while the collapse time relates to an excess entropy measure, and reveals the existence of a curse of dimensionality for diffusion models. These theoretical findings are supported by analytical solutions for Gaussian mixtures and confirmed by numerical experiments on real datasets.},
+	author = {Biroli, Giulio and Bonnaire, Tony and de Bortoli, Valentin and M{\'e}zard, Marc},
+	date = {2024/11/17},
+	date-added = {2026-05-10 20:12:42 -0700},
+	date-modified = {2026-05-10 20:12:42 -0700},
+	doi = {10.1038/s41467-024-54281-3},
+	id = {Biroli2024},
+	isbn = {2041-1723},
+	journal = {Nature Communications},
+	number = {1},
+	pages = {9957},
+	title = {Dynamical regimes of diffusion models},
+	volume = {15},
+	year = {2024},
+	bdsk-url-1 = {https://doi.org/10.1038/s41467-024-54281-3}}
+
+@article{yi2023generalization,
+  title={On the generalization of diffusion model},
+  author={Yi, Mingyang and Sun, Jiacheng and Li, Zhenguo},
+  journal={arXiv preprint arXiv:2305.14712},
+  year={2023}
+}
+
+@article{
+scarvelis2023closedform,
+title={Closed-Form Diffusion Models},
+author={Christopher Scarvelis and Haitz S{\'a}ez de Oc{\'a}riz Borde and Justin Solomon},
+journal={Transactions on Machine Learning Research},
+issn={2835-8856},
+year={2025},
+note={}
+}
+
+% --- Double descent / capacity ----------------------------------------------
+@article{
+belkin2019reconciling,
+author = {Mikhail Belkin  and Daniel Hsu  and Siyuan Ma  and Soumik Mandal },
+title = {Reconciling modern machine-learning practice and the classical bias–variance trade-off},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {116},
+number = {32},
+pages = {15849-15854},
+year = {2019},
+doi = {10.1073/pnas.1903070116},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.1903070116},
+abstract = {While breakthroughs in machine learning and artificial intelligence are changing society, our fundamental understanding has lagged behind. It is traditionally believed that fitting models to the training data exactly is to be avoided as it leads to poor performance on unseen data. However, powerful modern classifiers frequently have near-perfect fit in training, a disconnect that spurred recent intensive research and controversy on whether theory provides practical insights. In this work, we show how classical theory and modern practice can be reconciled within a single unified performance curve and propose a mechanism underlying its emergence. We believe this previously unknown pattern connecting the structure and performance of learning architectures will help shape design and understanding of learning algorithms. Breakthroughs in machine learning are rapidly changing science and society, yet our fundamental understanding of this technology has lagged far behind. Indeed, one of the central tenets of the field, the bias–variance trade-off, appears to be at odds with the observed behavior of methods used in modern machine-learning practice. The bias–variance trade-off implies that a model should balance underfitting and overfitting: Rich enough to express underlying structure in data and simple enough to avoid fitting spurious patterns. However, in modern practice, very rich models such as neural networks are trained to exactly fit (i.e., interpolate) the data. Classically, such models would be considered overfitted, and yet they often obtain high accuracy on test data. This apparent contradiction has raised questions about the mathematical foundations of machine learning and their relevance to practitioners. In this paper, we reconcile the classical understanding and the modern practice within a unified performance curve. This “double-descent” curve subsumes the textbook U-shaped bias–variance trade-off curve by showing how increasing model capacity beyond the point of interpolation results in improved performance. We provide evidence for the existence and ubiquity of double descent for a wide spectrum of models and datasets, and we posit a mechanism for its emergence. This connection between the performance and the structure of machine-learning models delineates the limits of classical analyses and has implications for both the theory and the practice of machine learning.}}
+
+@inproceedings{
+nakkiran2021deepdd,
+title={Deep Double Descent: Where Bigger Models and More Data Hurt},
+author={Preetum Nakkiran and Gal Kaplun and Yamini Bansal and Tristan Yang and Boaz Barak and Ilya Sutskever},
+booktitle={International Conference on Learning Representations},
+year={2020},
+}
+
+% --- Sparse-autoencoder / monosemanticity (for the U-shape hypothesis) ------
+@article{bricken2023monosemanticity,
+       title={Towards Monosemanticity: Decomposing Language Models With Dictionary Learning},
+       author={Bricken, Trenton and Templeton, Adly and Batson, Joshua and Chen, Brian and Jermyn, Adam and Conerly, Tom and Turner, Nick and Anil, Cem and Denison, Carson and Askell, Amanda and Lasenby, Robert and Wu, Yifan and Kravec, Shauna and Schiefer, Nicholas and Maxwell, Tim and Joseph, Nicholas and Hatfield-Dodds, Zac and Tamkin, Alex and Nguyen, Karina and McLean, Brayden and Burke, Josiah E and Hume, Tristan and Carter, Shan and Henighan, Tom and Olah, Christopher},
+       year={2023},
+       journal={Transformer Circuits Thread},
+       note={https://transformer-circuits.pub/2023/monosemantic-features/index.html}
+    }
+
+@inproceedings{
+cunningham2024sparse,
+title={Sparse Autoencoders Find Highly Interpretable Features in Language Models},
+author={Robert Huben and Hoagy Cunningham and Logan Riggs Smith and Aidan Ewart and Lee Sharkey},
+booktitle={The Twelfth International Conference on Learning Representations},
+year={2024},
+}
+
+% --- Neural scaling laws from statistical mechanics / RMT -------------------
+@article{maloney2022scaling,
+  title={A Solvable Model of Neural Scaling Laws},
+  author={Maloney, Alexander and Roberts, Daniel A and Sully, James},
+  journal={arXiv preprint arXiv:2210.16859},
+  year={2022}
+}
+
+@article{kaplan2020scaling,
+  title={Scaling Laws for Neural Language Models},
+  author={Kaplan, Jared and McCandlish, Sam and Henighan, Tom and Brown, Tom B and Chess, Benjamin and Child, Rewon and Gray, Scott and Radford, Alec and Wu, Jeffrey and Amodei, Dario},
+  journal={arXiv preprint arXiv:2001.08361},
+  year={2020}
+}
+@article{
+bahri2024explaining,
+author = {Yasaman Bahri  and Ethan Dyer  and Jared Kaplan  and Jaehoon Lee  and Utkarsh Sharma },
+title = {Explaining neural scaling laws},
+journal = {Proceedings of the National Academy of Sciences},
+volume = {121},
+number = {27},
+pages = {e2311878121},
+year = {2024},
+doi = {10.1073/pnas.2311878121},
+eprint = {https://www.pnas.org/doi/pdf/10.1073/pnas.2311878121},
+abstract = {The population loss of trained deep neural networks has been empirically observed to improve as a power law in a variety of large models and datasets. We investigate the origins behind such “scaling laws” and provide a taxonomy for different scaling regimes. Our findings are based on derivations in linear random feature models—which, in addition to being a simple fruitful model, also describe the wide network limit of deep neural networks. We further formulate and verify aspects of scaling based on smoothness in interpolating a data manifold. We support our theory with empirical results in realistic settings. Our work provides insights into scaling laws and bridges the large gap between theory and experiment in modern deep learning. The population loss of trained deep neural networks often follows precise power-law scaling relations with either the size of the training dataset or the number of parameters in the network. We propose a theory that explains the origins of and connects these scaling laws. We identify variance-limited and resolution-limited scaling behavior for both dataset and model size, for a total of four scaling regimes. The variance-limited scaling follows simply from the existence of a well-behaved infinite data or infinite width limit, while the resolution-limited regime can be explained by positing that models are effectively resolving a smooth data manifold. In the large width limit, this can be equivalently obtained from the spectrum of certain kernels, and we present evidence that large width and large dataset resolution-limited scaling exponents are related by a duality. We exhibit all four scaling regimes in the controlled setting of large random feature and pretrained models and test the predictions empirically on a range of standard architectures and datasets. We also observe several empirical relationships between datasets and scaling exponents under modifications of task and architecture aspect ratio. Our work provides a taxonomy for classifying different scaling regimes, underscores that there can be different mechanisms driving improvements in loss, and lends insight into the microscopic origin and relationships between scaling exponents.}}
+

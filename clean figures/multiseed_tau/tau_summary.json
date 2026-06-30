@@ -1,0 +1,602 @@
+[
+  {
+    "d_intrinsic": 5,
+    "d_latent": 5,
+    "ratio": 1.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 140000.0,
+    "tau_mem_ci95": 19600.0,
+    "tau_mem_sem": 10000.0,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 0,
+    "effect_mem_minus_gen": 90000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d5_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": 150000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d5_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": 100000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d5_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": 150000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d5_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 150000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d5_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": 150000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 8,
+    "ratio": 1.6,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 260000.0,
+    "tau_mem_ci95": 19600.0,
+    "tau_mem_sem": 10000.0,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 0,
+    "effect_mem_minus_gen": 210000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d8_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": 250000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d8_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": 250000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d8_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": 250000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d8_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 250000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d8_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": 300000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 10,
+    "ratio": 2.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 300000.0,
+    "tau_mem_ci95": 0.0,
+    "tau_mem_sem": 0.0,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 0,
+    "effect_mem_minus_gen": 250000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d10_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": 300000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d10_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": 300000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d10_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": 300000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d10_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 300000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d10_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": 300000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 12,
+    "ratio": 2.4,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 410000.0,
+    "tau_mem_ci95": 19600.0,
+    "tau_mem_sem": 10000.0,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 0,
+    "effect_mem_minus_gen": 360000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d12_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": 400000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d12_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": 400000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d12_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": 400000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d12_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 400000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d12_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": 450000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 15,
+    "ratio": 3.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 580000.0,
+    "tau_mem_ci95": 49970.39123320929,
+    "tau_mem_sem": 25495.097567963923,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 0,
+    "effect_mem_minus_gen": 530000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d15_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": 600000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d15_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": 650000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d15_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": 500000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d15_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 550000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d15_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": 600000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 20,
+    "ratio": 4.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 1100000.0,
+    "tau_mem_ci95": 43826.93235899587,
+    "tau_mem_sem": 22360.679774997894,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 0,
+    "effect_mem_minus_gen": 1050000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d20_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": 1050000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d20_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": 1100000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d20_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": 1150000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d20_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 1050000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d20_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": 1150000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 25,
+    "ratio": 5.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 2510000.0,
+    "tau_mem_ci95": 113443.20164734419,
+    "tau_mem_sem": 57879.18451395112,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 0,
+    "effect_mem_minus_gen": 2460000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d25_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": 2550000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d25_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": 2500000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d25_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": 2300000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d25_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 2550000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d25_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": 2650000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 30,
+    "ratio": 6.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 4970000.0,
+    "tau_mem_ci95": 58799.99999999999,
+    "tau_mem_sem": 29999.999999999996,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 4,
+    "effect_mem_minus_gen": 4920000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d30_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d30_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d30_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d30_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": 4850000,
+        "tau_mem_censored": false,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d30_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 35,
+    "ratio": 7.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 5000000.0,
+    "tau_mem_ci95": 0.0,
+    "tau_mem_sem": 0.0,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 5,
+    "effect_mem_minus_gen": 4950000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d35_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d35_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d35_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d35_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d35_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      }
+    ]
+  },
+  {
+    "d_intrinsic": 5,
+    "d_latent": 40,
+    "ratio": 8.0,
+    "n": 500,
+    "sigma_noise": 0.5,
+    "num_seeds": 5,
+    "tau_gen_mean": 50000.0,
+    "tau_gen_ci95": 0.0,
+    "tau_gen_sem": 0.0,
+    "tau_gen_n": 5,
+    "tau_mem_mean": 5000000.0,
+    "tau_mem_ci95": 0.0,
+    "tau_mem_sem": 0.0,
+    "tau_mem_n": 5,
+    "tau_mem_censored_seeds": 5,
+    "effect_mem_minus_gen": 4950000.0,
+    "seed_rows": [
+      {
+        "seed": 42,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d40_n500_s42",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 43,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d40_n500_s43",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 44,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d40_n500_s44",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 45,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d40_n500_s45",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      },
+      {
+        "seed": 46,
+        "run": "multiseed_runs\\exp2_mlp_dlat_sn05_5m_bonnaire_hidden256\\di5_d40_n500_s46",
+        "tau_gen": 50000,
+        "tau_mem": null,
+        "tau_mem_censored": true,
+        "last_step": 5000000
+      }
+    ]
+  }
+]
