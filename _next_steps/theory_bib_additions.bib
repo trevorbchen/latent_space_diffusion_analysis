@@ -1,0 +1,231 @@
+NOTES (moved out of entries; BibTeX has no % comment syntax):
+  ============================================================================
+  theory_bib_additions.bib
+  BibTeX entries for every citation key used in _next_steps/theory_pieces_raw.md
+  (either in a piece's "Citations needed" list or in its LaTeX) that is NOT already
+  present in ICLR_2026/references.bib.  Append this file's contents to references.bib.
+  Already present in references.bib (do NOT duplicate): bonnaire2025, biroli2024dynamical,
+  scarvelis2023closedform, gu2023memorization, somepalli2023diffusion, kadkhodaie2023learning,
+  pennington2017nonlinear, benigni2021eigenvalue, ELKaroui2010spectrum, couillet2011rmt,
+  song2021scoresde, facco2017twonn, levina2004maximum.
+  ALIAS KEYS.  The pieces were written independently and use two keys for the same paper in
+  three cases.  Both keys are provided below so every \cite in the pieces resolves; the
+  orchestrator should unify them (sed one key onto the other) before camera-ready:
+  hu2022universality  == hu2023universality   (Hu & Lu, IEEE TIT 2023, arXiv 2020)
+  ba2022highdim       == ba2022onestep        (Ba et al., NeurIPS 2022)   [ba2022highdimensional
+  appears only in a "Citations needed" list, never
+  in LaTeX; also provided]
+  marchenko1967       == marchenko1967distribution
+  baik2005phase       == baik2005bbp          (baik2005bbp appears only in "Citations needed"
+  lists; LaTeX uses baik2005phase)
+  Piece 4's "Citations needed" list gives george2025dsm the title "Analysis of Diffusion Models
+  for Manifold Data"; that is WRONG for arXiv:2502.00336.  The correct title is used below.
+  Lines marked % VERIFY carry an arXiv id or page range I am not certain of.
+  ============================================================================
+  ---------- George, Veiga & Macris 2025 (linear pencil with block dims (p, d-D, D, n)) ----------
+  ---------- Hu & Lu (universality of the conjugate kernel / random features) ----------
+  ---------- Goldt et al. (Gaussian equivalence) ----------
+  ---------- Ba, Erdogdu, Suzuki, Wang, Wu, Yang (one gradient step of feature learning) ----------
+  ---------- Baik, Ben Arous & P\'ech\'e (BBP transition) ----------
+  note    = {arXiv:math/0403022}… -- VERIFY arXiv id
+  note    = {arXiv:math/0408165}… -- VERIFY arXiv id
+  ---------- Benaych-Georges & Nadakuditi (low-rank perturbations, multiplicative case) ----------
+  note    = {arXiv:0910.2120}… -- VERIFY arXiv id
+  ---------- Louart, Liao & Couillet (random-matrix approach to random-feature networks) ----------
+  note    = {arXiv:1702.05419}… -- VERIFY arXiv id
+  ---------- Liao & Couillet (spectrum of random-feature maps of high-dimensional data) ----------
+  note      = {arXiv:1805.11916}… -- VERIFY arXiv id
+  ---------- Fan & Wang (conjugate kernel / NTK spectra at linear width) ----------
+  note      = {arXiv:2005.11879}… -- VERIFY arXiv id
+  ---------- Marchenko & Pastur ----------
+  ---------- Vincent (denoising score matching) ----------
+  ---------- Efron (Tweedie's formula) ----------
+  ---------- Lucas, Tucker, Grosse & Norouzi (posterior collapse) ----------
+  note      = {arXiv:1911.02469}… -- VERIFY arXiv id
+  ---------- NOT referenced by any piece's LaTeX; listed in the task prompt as "if referenced" ----------
+  Damian, Lee & Soltanolkotabi 2022 (arXiv:2206.15144) is not cited anywhere in the pieces; omitted.
+  yoon2023generalize is suggested by a Piece 5 referee report (never applied); if the orchestrator
+  adopts that FIX, add:
+  @inproceedings{yoon2023generalize,
+  title     = {Diffusion Probabilistic Models Generalize when They Fail to Memorize},
+  author    = {Yoon, TaeHo and Choi, Joo Young and Kwon, Sehyun and Ryu, Ernest K.},
+  booktitle = {ICML 2023 Workshop on Structured Probabilistic Inference \& Generative Modeling},
+  year      = {2023}
+  }   % VERIFY venue
+
+
+
+@article{george2025dsm,
+  title   = {Denoising Score Matching with Random Features: Insights on Diffusion Models from Precise Learning Curves},
+  author  = {George, Anand Jerry and Veiga, Rodrigo and Macris, Nicolas},
+  journal = {arXiv preprint arXiv:2502.00336},
+  year    = {2025}
+}
+
+
+@article{hu2022universality,
+  title   = {Universality Laws for High-Dimensional Learning with Random Features},
+  author  = {Hu, Hong and Lu, Yue M.},
+  journal = {IEEE Transactions on Information Theory},
+  volume  = {69},
+  number  = {3},
+  pages   = {1932--1964},
+  year    = {2023},
+  note    = {arXiv:2009.07669 (2020)}
+}
+
+@article{mei2022generalization,
+  title   = {The Generalization Error of Random Features Regression: Precise Asymptotics and the Double Descent Curve},
+  author  = {Mei, Song and Montanari, Andrea},
+  journal = {Communications on Pure and Applied Mathematics},
+  volume  = {75},
+  number  = {4},
+  pages   = {667--766},
+  year    = {2022},
+  note    = {arXiv:1908.05355}
+}
+
+
+@inproceedings{goldt2022gaussian,
+  title     = {The {G}aussian Equivalence of Generative Models for Learning with Shallow Neural Networks},
+  author    = {Goldt, Sebastian and Loureiro, Bruno and Reeves, Galen and Krzakala, Florent and M{\'e}zard, Marc and Zdeborov{\'a}, Lenka},
+  booktitle = {Proceedings of the 2nd Mathematical and Scientific Machine Learning Conference (MSML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {145},
+  pages     = {426--471},
+  year      = {2022},
+  publisher = {PMLR},
+  note      = {arXiv:2006.14709}
+}
+
+
+@inproceedings{ba2022highdimensional,
+  title={High-dimensional Asymptotics of Feature Learning: How One Gradient Step Improves the Representation},
+  author={Ba, Jimmy and Erdogdu, Murat A. and Suzuki, Taiji and Wang, Zhichao and Wu, Denny and Yang, Greg},
+  booktitle={Advances in Neural Information Processing Systems},
+  volume={35},
+  year={2022},
+  note={arXiv:2205.01445}
+}
+
+
+@article{baik2005phase,
+  title   = {Phase Transition of the Largest Eigenvalue for Nonnull Complex Sample Covariance Matrices},
+  author  = {Baik, Jinho and {Ben Arous}, G{\'e}rard and P{\'e}ch{\'e}, Sandrine},
+  journal = {The Annals of Probability},
+  volume  = {33},
+  number  = {5},
+  pages   = {1643--1697},
+  year    = {2005},
+  note    = {arXiv:math/0403022}
+}
+
+@article{baik2006eigenvalues,
+  title   = {Eigenvalues of Large Sample Covariance Matrices of Spiked Population Models},
+  author  = {Baik, Jinho and Silverstein, Jack W.},
+  journal = {Journal of Multivariate Analysis},
+  volume  = {97},
+  number  = {6},
+  pages   = {1382--1408},
+  year    = {2006},
+  note    = {arXiv:math/0408165}
+}
+
+
+@article{benaychgeorges2011eigenvalues,
+  title   = {The Eigenvalues and Eigenvectors of Finite, Low Rank Perturbations of Large Random Matrices},
+  author  = {Benaych-Georges, Florent and Nadakuditi, Raj Rao},
+  journal = {Advances in Mathematics},
+  volume  = {227},
+  number  = {1},
+  pages   = {494--521},
+  year    = {2011},
+  note    = {arXiv:0910.2120}
+}
+
+
+@article{louart2018random,
+  title   = {A Random Matrix Approach to Neural Networks},
+  author  = {Louart, Cosme and Liao, Zhenyu and Couillet, Romain},
+  journal = {The Annals of Applied Probability},
+  volume  = {28},
+  number  = {2},
+  pages   = {1190--1248},
+  year    = {2018},
+  note    = {arXiv:1702.05419}
+}
+
+
+@inproceedings{liao2018spectrum,
+  title     = {On the Spectrum of Random Features Maps of High Dimensional Data},
+  author    = {Liao, Zhenyu and Couillet, Romain},
+  booktitle = {Proceedings of the 35th International Conference on Machine Learning (ICML)},
+  series    = {Proceedings of Machine Learning Research},
+  volume    = {80},
+  pages     = {3063--3071},
+  year      = {2018},
+  publisher = {PMLR},
+  note      = {arXiv:1805.11916}
+}
+
+
+@inproceedings{fanwang2020spectra,
+  title     = {Spectra of the Conjugate Kernel and Neural Tangent Kernel for Linear-Width Neural Networks},
+  author    = {Fan, Zhou and Wang, Zhichao},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {33},
+  pages     = {7710--7721},
+  year      = {2020},
+  note      = {arXiv:2005.11879}
+}
+
+
+@article{marchenko1967distribution,
+  title={Distribution of eigenvalues for some sets of random matrices},
+  author={Marchenko, Vladimir A. and Pastur, Leonid A.},
+  journal={Mathematics of the USSR-Sbornik},
+  volume={1},
+  number={4},
+  pages={457--483},
+  year={1967}
+}
+
+
+@article{vincent2011connection,
+  title   = {A Connection Between Score Matching and Denoising Autoencoders},
+  author  = {Vincent, Pascal},
+  journal = {Neural Computation},
+  volume  = {23},
+  number  = {7},
+  pages   = {1661--1674},
+  year    = {2011}
+}
+
+
+@article{efron2011tweedie,
+  title   = {Tweedie's Formula and Selection Bias},
+  author  = {Efron, Bradley},
+  journal = {Journal of the American Statistical Association},
+  volume  = {106},
+  number  = {496},
+  pages   = {1602--1614},
+  year    = {2011}
+}
+
+
+@inproceedings{lucas2019dontblame,
+  title     = {Don't Blame the {ELBO}! {A} Linear {VAE} Perspective on Posterior Collapse},
+  author    = {Lucas, James and Tucker, George and Grosse, Roger and Norouzi, Mohammad},
+  booktitle = {Advances in Neural Information Processing Systems},
+  volume    = {32},
+  year      = {2019},
+  note      = {arXiv:1911.02469}
+}
+
+
+@book{vershynin2018hdp,
+  title={High-Dimensional Probability: An Introduction with Applications in Data Science},
+  author={Vershynin, Roman},
+  publisher={Cambridge University Press},
+  year={2018}
+}

@@ -16,8 +16,8 @@ Avni Garg (buffer corollary), Kevin Peng (n-shape thread — now moot, see §3.1
 - `main` == `origin/main` == `f35df1c` (2026-06-30). GitHub does NOT have `ICLR_2026/` (untracked, 22 MB).
   SSH to github.com times out on this machine; fetch with
   `git fetch https://github.com/trevorbchen/latent_space_diffusion_analysis.git main:refs/remotes/origin/main`.
-- **Uncommitted**: the transpose fix (§3.1) in 4 files + `code/v3/tests/test_true_score.py`. Commit it.
-- `ICLR_2026/sec-theory.tex` is (or was, if the writer finished) a 9-line `\todo{}` stub that PRINTS in the PDF.
+- The transpose fix (§3.1), the test, and all `_next_steps/` files are committed locally as `2bd8d60` (not pushed).
+- `ICLR_2026/sec-theory.tex` is now the assembled Section 2 (197 lines); `sec-appendix-theory.tex` is the theory appendix (1416 lines). See §7 for what still needs an author. `main.tex` does not yet `\input` the appendix.
   `main.tex` inputs `sec-appendix-integrated.tex` (no theorems); the old theorem lives in `ICLR_2026/sec-appendix.tex`
   (not input; also wrong — see `THEORY_TODO.md` §2).
 - Disk was full on 2026-09-13; `code/v3/data/encoded/celeba_train_*.pt` are two 8 GB regenerable caches.
@@ -27,7 +27,7 @@ Avni Garg (buffer corollary), Kevin Peng (n-shape thread — now moot, see §3.1
 
 ## 3. What has been done (all in `_next_steps/` unless noted)
 
-### 3.1 Bug fix (verified, uncommitted)
+### 3.1 Bug fix (verified, committed in `2bd8d60`)
 `precompute_sigma_t` / `precompute_score_params` computed `Qᵀ D⁻¹ Q`; data frame is `x = Q·x_orig` so the
 correct inverse is `Q D⁻¹ Qᵀ`. Fixed in `code/v3/lib/true_score.py:63`, `code/experiment_v2.py:215`,
 `experiment_v2.py:215`, `figures/code/experiment_v2.py:215`. Test: `python3 code/v3/tests/test_true_score.py`
@@ -52,7 +52,7 @@ Eight pieces, each derive → 2 hostile referees → revise. 81 formal statement
 Pieces: P1 setup+definitions · P2 four-bulk proposition · P3 buffer corollary · P4 linear score model ·
 P5 bridge lemma · P6 predictor · P7 real data/`d_eff`/collapse · P8 regime boundaries.
 
-### 3.6 Assembly (IN PROGRESS when this was written — check the files)
+### 3.6 Assembly (DONE 2026-09-14; see §7 for the critic's findings)
 Three writers were producing, in chunks: `ICLR_2026/sec-theory.tex` (main text), `ICLR_2026/sec-appendix-theory.tex`
 (proofs), `_next_steps/theory_bib_additions.bib`, `_next_steps/theory_prose_edits.md`; then a critic compiles.
 **Check**: `wc -l ICLR_2026/sec-theory.tex` (>9 lines = writer ran; ~180–300 = done),
@@ -75,7 +75,9 @@ If `sec-theory.tex` / `sec-appendix-theory.tex` are incomplete, assemble them fr
   \sigsig \signoise`; theorem/proposition/lemma/corollary/definition/assumption/remark).
 - Then add ONE line to `main.tex` after line 137: `\input{sec-appendix-theory}`; append `theory_bib_additions.bib`
   to `references.bib`; build: `cd ICLR_2026 && pdflatex main && bibtex main && pdflatex main && pdflatex main`.
-  (main.tex currently inputs `main.bbl` directly; regenerate it.)
+  (main.tex currently inputs `main.bbl` directly; regenerate it — or use `_next_steps/main.bbl.regenerated`, produced 2026-09-14
+  from references.bib + theory_bib_additions.bib with icml2026.bst; 45 entries.) Gotcha: BibTeX has no `%` comment syntax;
+  the `% VERIFY` notes were moved to a plain-text header in the .bib file.
 - Do NOT reproduce the falsified claims (`THEORY_TODO.md` §2): no `/ψ_p` edges, no count×timescale bound,
   no "τ_gen is d_lat-independent", no "Bonnaire assumes isotropy".
 
@@ -108,3 +110,35 @@ mechanism: mode count vs tanh de-saturation), E5 isotropic control (minutes).
 - Don't delete `code/v3/data/encoded/*.pt` without asking (regenerable, but 16 GB to rebuild).
 - Don't cite `n_shape_heuristic_derivation.md` or any synthetic `score_error` number from before the fix.
 - Don't `cp -R ICLR_2026` for build tests (22 MB figures; disk is tight) — copy `*.tex *.sty *.cls *.bst *.bib *.bbl` and symlink `figures/`.
+
+## 7. Assembly outcome (2026-09-14) and what the build critic found
+
+The three writers finished: `ICLR_2026/sec-theory.tex` (197 lines, ~5.5 two-column pages — over the 1.5–3 target),
+`ICLR_2026/sec-appendix-theory.tex` (1416 lines, 85 statements, ~58 pages), `_next_steps/theory_bib_additions.bib`,
+`_next_steps/theory_prose_edits.md`. Mechanical build issues (cref names, 9 duplicate labels, bib duplicates) were
+fixed by script the same day. `main.tex` is NOT modified: to build, add `\input{sec-appendix-theory}` after line 137
+and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to references.bib alone does nothing).
+
+### Substantive issues the critic found — these need an AUTHOR decision, not a script
+1. **Two sets of timescale numbers.** Main text quotes both "τ_gen grows 11×, R 21→428" (pieces, recomputed from
+   `eigenvalues_pre.npy`) and "8×, 31→576" (audit). The pieces could not reproduce the audit's step-unit numbers.
+   Pick one set, document its unit conversion (`rem:clock-p1`), delete the other. A referee will not accept "audit vs table".
+2. **Single-draw vs ξ-averaged cliff at n.** The machine-precision cliff holds for a single noise draw; the released
+   50-draw `U` shows a soft shoulder (ratio 1.0–1.7). The text cites two different shoulder-ratio series
+   (appendix l.29 vs l.346). Reconcile against the actual spectra; state which object `sec-design` reports.
+3. **Isotropic control.** `rem:isotropic-buf` says no σ⊥=1 spectra exist and withdraws the 10.7× claim; `rem:fourbulk-isotropic`
+   reports a measured isotropic run at d=100. Contradictory. Run E5 (minutes) and state what was actually simulated.
+4. **NN-ratio convention is attributed backwards in the bridge piece.** `code/v3/lib/metrics.py` is Somepalli's
+   d(gen,NN1)/d(NN1,NN2); the *old* `code/experiment_v2.py:370` is d(gen,NN1)/d(gen,NN2). `def:bridge-objects` says the reverse,
+   so its "9 vs 8" constants and ceilings apply to the sweeps the other way round. Piece 5 never got its revision pass.
+5. **Real-data numbers inconsistent across statements**: CIFAR floor threshold (160 vs ~200 vs "d≥240"); CelebA q
+   (2.92→1.30 vs "flat 1.71–1.84 over d=20–120" vs 1.83→1.25). Recompute once from the CSVs and use one set.
+6. **Hitting-time tables** (`tab:flatdeff-real`, leave-one-out errors) are referenced as "released" but appear nowhere in the
+   paper. Add them to the appendix or recast the validation on the fraction curves the paper actually reports.
+7. **George–Veiga–Macris phrasing**: main text l.87 cites the wrong remark (should be `rem:fourbulk-sigperp0`); "no longer
+   separated from the sample block" is a claim about *our* parameters (Δ_t vs a⋆²/n), not their result — phrase it so.
+8. **Length.** Move `rem:median-main`, the numeric halves of the predictor/real-data/regime paragraphs, and the duplicate
+   `tab:fourbulk-numbers-main` to the appendix to get near 3 pages.
+9. **Clock conventions differ across pieces** (e^{−λT} vs e^{−2λT} vs 1/(4λ)); one is fixed in `sec:theory-setup` with
+   a convention note, but check every quoted timescale carries the right factor.
+10. Bib: six arXiv ids and one page range are marked `% VERIFY`. `yoon2023generalize` is a commented placeholder.
