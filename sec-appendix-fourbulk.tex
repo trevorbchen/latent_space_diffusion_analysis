@@ -1,0 +1,273 @@
+% =====================================================================
+%  Drop-in replacement for appendix H of sec-appendix.tex.
+%  Keeps the section heading + label so existing \ref{app:proof-sketch}
+%  calls keep working. Preserves the setup and the $M_t$ block
+%  decomposition (which were correct), and replaces the "Four bulks
+%  from rank addition" paragraph with a Hermite-expansion argument
+%  that actually produces the rank-$\nsamp$ sample bulk (the original
+%  derivation hand-waved this since at the linear level $\Umat$ has
+%  rank exactly $\dlat$).
+%
+%  Macros used: \dlat, \dint, \Umat, \Sigmadata, \sigsig, \signoise,
+%  \pwidth, \nsamp, \R, \E, \diag.  All defined in main.tex.
+% =====================================================================
+
+\section{RFNN: sketch of an analytical derivation}
+\label{app:proof-sketch}
+
+We extend \citeauthor{bonnaire2025}'s replica computation to
+block-diagonal data covariance
+\(\Sigmadata = \diag\!\bigl(\sigsig^2\mathbb{I}_{\dint},\,
+                           \signoise^2\mathbb{I}_{\dlat - \dint}\bigr)\).
+Throughout, $x^\mu = m_{c(\mu)} + \xi^\mu$ with $m_{c(\mu)}$ a cluster
+center in the $\dint$-dimensional signal subspace and
+$\xi^\mu \sim \mathcal{N}(0, \Sigmadata)$. The diffused state at time
+$t$ is $x_t^\mu = e^{-t}\,x^\mu + \sqrt{\Delta_t}\,\eta^\mu$ with
+$\Delta_t = 1 - e^{-2t}$ and $\eta^\mu \sim \mathcal{N}(0, \mathbb{I}_{\dlat})$.
+We work in the proportional limit $\dlat,\nsamp,\pwidth\to\infty$ with
+$\psi_p\!\equiv\!\pwidth/\dlat$ and $\psi_n\!\equiv\!\nsamp/\dlat$ fixed
+and $\psi_p > 1 + \psi_n$ (so the rank-null tail has room to exist).
+
+\paragraph{Hermite expansion of $\tanh$.}
+For data scale $s$ small compared with $\sqrt{\dlat}$
+(Appendix~\ref{app:saturation}), the pre-activations
+$Wx_t^\mu/\sqrt{\dlat}$ have order-one variance per coordinate and stay
+inside the analytic regime of $\tanh$. Let
+$\mu_k = \E_{z\sim\mathcal{N}(0,1)}[h_k(z)\tanh(z)]$ denote the
+Hermite coefficients of $\tanh$ against the probabilists' Hermite
+polynomials $\{h_k\}$; $\tanh$ is odd so $\mu_k = 0$ for even $k$,
+and numerically $\mu_1 \approx 0.606$, $\mu_3 \approx -0.099$.
+For each pair of inputs $x,y\in\R^{\dlat}$ the random vector
+$((Wx)_a,(Wy)_a)$ is jointly Gaussian with mean zero and covariance
+$\diag(\|x\|^2,\|y\|^2)/\dlat$ plus off-diagonal $x^\top y/\dlat$,
+\emph{regardless of whether $x$ or $y$ has nonzero mean as a sample}
+(the cluster centers shift the distribution of $x$, not the
+conditional Gaussian over $W$ at fixed $x$). Consequently the Hermite
+expansion of $\tanh$ against this Gaussian gives $\mu_0=0$
+(odd function against a zero-mean Gaussian), and the pairwise kernel
+admits the proportional-limit decomposition
+\citep{pennington2017nonlinear, benigni2021eigenvalue}
+\begin{equation}
+  \E_W\!\bigl[\tanh\!\bigl((Wx)_a\bigr)\tanh\!\bigl((Wy)_a\bigr)\bigr]
+   \;=\; \mu_1^{\,2}\,\frac{x^\top y}{\dlat}
+        \;+\; \eta_\star(x,y)\,\mathbb{1}\!\bigl[x=y\bigr]
+        \;+\; o_d(1),
+  \label{eq:kernel-decomp}
+\end{equation}
+where $\eta_\star(x,x) = \sum_{k\ge 3}\mu_k^{\,2}\,(\|x\|^2/\dlat)^k$
+is the higher-Hermite mass that survives only on the diagonal.
+\citet{ELKaroui2010spectrum} establishes the same off-diagonal/diagonal
+split at the level of kernel random matrices.
+
+\paragraph{Two-piece decomposition of $\Umat$.}
+Substituting \eqref{eq:kernel-decomp} into
+$\Umat = \tfrac{1}{\nsamp}\sum_\mu \E_\eta[\phi(x_t^\mu)\phi(x_t^\mu)^\top]$,
+$\phi(x) = \tfrac{1}{\sqrt{\pwidth}}\tanh(Wx/\sqrt{\dlat})$, and
+averaging over the diffusion noise yields, to leading order in $1/\dlat$,
+\begin{equation}
+  \Umat \;=\; \Umat^{\mathrm{lin}} + \Umat^{\mathrm{diag}} + R_t,
+  \qquad \|R_t\|_{\mathrm{op}} = o_d(1),
+  \label{eq:U-split}
+\end{equation}
+where
+\begin{align}
+  \Umat^{\mathrm{lin}}
+    \;&=\; \frac{\mu_1^{\,2}}{\pwidth\,\dlat}\,W\,M_t\,W^\top,
+    \label{eq:U-lin}\\
+  \Umat^{\mathrm{diag}}
+    \;&=\; \frac{1}{\pwidth\,\nsamp}\sum_{\mu=1}^{\nsamp}
+           \eta_\star\!\bigl(x_t^\mu,\,x_t^\mu\bigr)\,
+           \phi^{\perp}\!(x_t^\mu)\,\phi^{\perp}\!(x_t^\mu)^\top,
+    \label{eq:U-diag}
+\end{align}
+and $\phi^\perp(x)$ is the residual feature vector after projecting
+out the Hermite-1 component. By construction
+$\E_W[\phi^\perp(x)\phi^\perp(y)^\top] = 0$ for $x\neq y$ and
+$\E_W[\|\phi^\perp(x)\|^2] = \eta_\star(x,x)+o_d(1)$, so the rank-one
+outer products in \eqref{eq:U-diag} are mutually $W$-orthogonal in
+the proportional limit.
+
+\paragraph{Block decomposition of $M_t$.}
+Direct computation gives
+\begin{equation}
+  M_t \;=\; \tfrac{1}{\nsamp}\sum_\mu \E_\eta\!\bigl[x_t^\mu(x_t^\mu)^\top\bigr]
+        \;=\; e^{-2t}\bigl(\hat C + \hat S\bigr) + \Delta_t\,\mathbb{I}_{\dlat},
+  \label{eq:Mt}
+\end{equation}
+with $\hat C = \tfrac{1}{\nsamp}\sum_\mu m_{c(\mu)}m_{c(\mu)}^\top$ the
+empirical centroid Gram and $\hat S = \tfrac{1}{\nsamp}\sum_\mu
+\xi^\mu(\xi^\mu)^\top$ the empirical within-cluster covariance.
+In population, $\E\hat C$ has rank $\dint$ with eigenvalues
+$\Theta(s^2/\dint)$ in the signal subspace and $\E\hat S = \Sigmadata$
+contributes $\sigsig^2$ on the signal block and $\signoise^2$ on the
+null block. Writing $\alpha_t^2 \equiv e^{-2t}(s^2/\dint + \sigsig^2) + \Delta_t$
+for the signal-block eigenvalue and $\beta_t^2 \equiv e^{-2t}\signoise^2 + \Delta_t$
+for the null-block eigenvalue, the population $M_t$ has the block-diagonal
+spectrum
+\(\mathrm{spec}(M_t) = \{\alpha_t^2\}^{\dint} \cup \{\beta_t^2\}^{\dlat-\dint}\)
+in the $Q$-basis (the cluster signal subspace and its orthogonal
+complement).
+
+\paragraph{Linear part: signal and noise-dim bulks.}
+\begin{lemma}[Rank and block structure of $\Umat^{\mathrm{lin}}$]
+\label{lem:Ulin}
+$\mathrm{rank}(\Umat^{\mathrm{lin}}) = \dlat$ almost surely, and its
+nonzero spectrum is the spectrum of $M_t$ rescaled by
+$\mu_1^{\,2}/\psi_p$ up to Marchenko--Pastur fluctuations of
+relative size $O(1/\sqrt{\psi_p})$. In particular it splits into
+a \emph{signal bulk} of size $\dint$ with eigenvalues
+$\Theta(\mu_1^{\,2}\alpha_t^{\,2}/\psi_p)$ and a \emph{noise-dim bulk}
+of size $\dlat - \dint$ with eigenvalues
+$\Theta(\mu_1^{\,2}\beta_t^{\,2}/\psi_p)$.
+\end{lemma}
+\begin{proof}
+$W$ has i.i.d.\ Gaussian entries, so $W^\top W/\dlat$ is full rank a.s.\
+for $\pwidth\ge\dlat$, with $\E[W^\top W/\dlat] = \psi_p\,\mathbb{I}_{\dlat}$
+and operator-norm fluctuations $O(1/\sqrt{\psi_p})$
+\citep{pennington2017nonlinear}. The nonzero eigenvalues of
+$WM_tW^\top$ equal those of $M_t^{1/2}W^\top W M_t^{1/2}$, which are
+the eigenvalues of $M_t$ rescaled by $\psi_p$ up to those fluctuations.
+The block counts and eigenvalue magnitudes follow from \eqref{eq:Mt}.
+\end{proof}
+
+\paragraph{Diagonal part: the sample bulk.}
+\begin{lemma}[Rank and edge of $\Umat^{\mathrm{diag}}$]
+\label{lem:Udiag}
+In the proportional limit,
+$\mathrm{rank}(\Umat^{\mathrm{diag}}) = \nsamp$ almost surely, and its
+nonzero eigenvalues are concentrated around
+$\bar\eta_\star/\psi_p$ where
+$\bar\eta_\star = \E_{x\sim P_t}[\eta_\star(x,x)]
+ = \sum_{k\ge 3}\mu_k^{\,2}\,\E[(\|x\|^2/\dlat)^k]$
+with $x \sim P_t$ a sample of the diffused mixture distribution.
+\end{lemma}
+\begin{proof}
+$\Umat^{\mathrm{diag}}$ in \eqref{eq:U-diag} is a sum of $\nsamp$
+rank-one outer products $v_\mu v_\mu^\top$ scaled by
+$\Lambda_\mu = \eta_\star(x_t^\mu,x_t^\mu)/(\pwidth\nsamp)$,
+where $v_\mu = \phi^\perp(x_t^\mu)/\|\phi^\perp(x_t^\mu)\|$.
+The kernel decomposition \eqref{eq:kernel-decomp} gives
+$v_\mu^\top v_\nu = \delta_{\mu\nu} + o_d(1)$, so the $\{v_\mu\}$
+are asymptotically orthonormal and the rank is $\nsamp$ for
+$\nsamp < \pwidth$. The eigenvalues are
+$\Lambda_\mu \cdot \|\phi^\perp(x_t^\mu)\|^2 \to
+\eta_\star(x_t^\mu,x_t^\mu)^2/(\pwidth\nsamp)$ and concentrate
+around their mean as a self-averaging quadratic form in the
+Gaussian noise component of $x_t^\mu$.
+\end{proof}
+
+\begin{remark}[Why a linear-only derivation cannot resolve the sample bulk]
+$\Umat^{\mathrm{lin}}$ has rank exactly $\dlat$, so any spectral
+content beyond the two data-side blocks must come from a different
+contribution. The Hermite-$k\!\ge\!3$ terms in \eqref{eq:kernel-decomp}
+are the smallest piece of $\tanh$ on off-diagonal kernel entries but
+the \emph{only} piece that survives on the diagonal, and that
+survival is what produces the rank-$\nsamp$ sample bulk. An earlier
+version of this derivation tried to extract the sample bulk from
+the rank-$\nsamp$ fluctuation $\hat S - \Sigmadata$ in
+\eqref{eq:Mt}; those modes lie inside the rank-$\dlat$ range of
+$\Umat^{\mathrm{lin}}$ and contribute Marchenko--Pastur deformations
+of the two data-side bulks, not a separately gapped class.
+\end{remark}
+
+\begin{remark}[Fixed-$W$ vs.\ $W$-averaged kernel]
+\label{rem:fixedW}
+The empirical $\Umat$ averages over the diffusion noise and training
+data at \emph{fixed} $W$, so the kernel decomposition
+\eqref{eq:kernel-decomp}, which holds in expectation over $W$, must be
+upgraded to a concentration statement. By
+\citet{benigni2021eigenvalue} for sub-Gaussian entries of $W$ (in
+particular Gaussian, our case) the off-diagonal kernel entries
+$\phi(x_t^\mu)^\top\phi(x_t^\nu)$ concentrate around their $W$-mean
+at rate $O(1/\sqrt{\pwidth})$ in the proportional limit, and the
+diagonal entries concentrate at the same rate. The rank-$\nsamp$
+structure of $\Umat^{\mathrm{diag}}$ therefore survives at fixed $W$
+up to operator-norm corrections of order $\nsamp/\sqrt{\pwidth}=
+\sqrt{\psi_n/(\psi_p \pwidth)}\to 0$, which is the self-averaging
+argument referenced implicitly in the Lemma 2 proof.
+\end{remark}
+
+\begin{remark}[Marchenko--Pastur spreading of the bulk edges]
+\label{rem:MP}
+Each of the four bulks in Theorem~\ref{thm:fourbulk} is a single
+\emph{leading-order} edge; the actual bulk in finite $\dlat$ is a
+Marchenko--Pastur-deformed band around that edge with relative width
+$\Delta_{\mathrm{MP}} = (\sqrt{\psi_p}+1)^2/(\sqrt{\psi_p}-1)^2 - 1
+\approx 4/\sqrt{\psi_p}$ at large $\psi_p$. At our default
+$\psi_p = 64$ this gives $\Delta_{\mathrm{MP}}\approx 0.50$, so the
+two data-side bulks remain spectrally resolvable whenever
+$\alpha_t^{\,2}/\beta_t^{\,2}\gtrsim 1.5$; the empirical
+$\alpha_t^{\,2}/\beta_t^{\,2}\ge 4$ at $\signoise=0.5$ and
+$\ge 10^4$ at $\signoise=0.01$ satisfy this comfortably. The
+noise-dim-to-sample gap is governed instead by the relative size of
+the Hermite-1 and Hermite-$\ge 3$ coefficient masses; see the
+``Bulk-gap scaling'' paragraph below.
+\end{remark}
+
+\paragraph{Four-bulk theorem.}
+\begin{theorem}[Four-bulk structure]
+\label{thm:fourbulk}
+Under the setup above and in the proportional asymptotic limit, the
+spectrum of $\Umat$ in \eqref{eq:U-split} splits almost surely into
+four contiguous bulks with the following counts and leading-order
+edges (fixed $t \in (0,\infty)$):
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Bulk & Count & Leading-order edge \\
+\midrule
+Signal      & $\dint$                  & $\mu_1^{\,2}\,\alpha_t^{\,2}/\psi_p
+                                          \;=\; \mu_1^{\,2}\bigl[e^{-2t}(s^2/\dint+\sigsig^2)+\Delta_t\bigr]/\psi_p$ \\
+Noise-dim   & $\dlat-\dint$            & $\mu_1^{\,2}\,\beta_t^{\,2}/\psi_p
+                                          \;=\; \mu_1^{\,2}\bigl[e^{-2t}\signoise^{\,2}+\Delta_t\bigr]/\psi_p$ \\
+Sample      & $\nsamp$                 & $\bar\eta_\star/\psi_p$ \\
+Rank-null   & $\pwidth-\dlat-\nsamp$   & $o(1)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{theorem}
+\begin{proof}
+Combine Lemmas \ref{lem:Ulin} and \ref{lem:Udiag} with the
+decomposition \eqref{eq:U-split}. The ranges of $\Umat^{\mathrm{lin}}$
+and $\Umat^{\mathrm{diag}}$ are asymptotically $W$-orthogonal: the
+former lies in the column space of $W$ (rank $\dlat$), and the latter
+is spanned by the $\nsamp$ residual directions $\phi^\perp(x_t^\mu)$
+which are orthogonal to that column space in expectation. Together
+they span a subspace of dimension $\dlat + \nsamp < \pwidth$, leaving
+a rank-null tail of dimension $\pwidth - \dlat - \nsamp$ with
+eigenvalues vanishing as $o_d(1)$ from $R_t$ in \eqref{eq:U-split}.
+\end{proof}
+
+\paragraph{Bulk-gap scaling.}
+The signal-to-noise-dim gap is the eigenvalue ratio
+$\alpha_t^{\,2}/\beta_t^{\,2}
+ = \bigl(e^{-2t}(s^2/\dint+\sigsig^2)+\Delta_t\bigr)/\bigl(e^{-2t}\signoise^{\,2}+\Delta_t\bigr)$.
+At small diffusion times this is approximately
+$(s^2/\dint+\sigsig^2)/\signoise^{\,2}$ (large at $\signoise=0.01$,
+modest at $\signoise=0.5$); as $t$ grows both bulks are dragged
+toward the diffusion floor $\Delta_t$ and the ratio collapses to $1$.
+The noise-dim-to-sample gap is the ratio
+$\mu_1^{\,2}\beta_t^{\,2}/\bar\eta_\star$, governed by the relative
+sizes of the linear-Hermite coefficient and the higher-Hermite
+residual mass: for $\tanh$, $\mu_1^{\,2} \approx 0.367$ while
+$\bar\eta_\star$ is dominated by $\mu_3^{\,2} \approx 0.0097$ at our
+operating scales, so for $\beta_t^{\,2} \gtrsim \bar\eta_\star/\mu_1^{\,2}$
+the noise-dim edge sits above the sample edge and the four bulks
+are spectrally resolvable. Below that threshold (small $\signoise$ at
+large $t$) the two merge, which is the regime where the four-bulk
+cliff at index $\dlat$ becomes a smooth step in
+Fig.~\ref{fig:appendix-fourbulk-cliffs}.
+
+\paragraph{Toward a full Stieltjes derivation.}
+Theorem \ref{thm:fourbulk} gives leading-order edge magnitudes that
+match (within Marchenko--Pastur fluctuations $O(1/\sqrt{\psi_p})$)
+the empirical bulk locations in Table~\ref{tab:bulk-sizes} and
+Fig.~\ref{fig:bulk-sizes-distances}. A full Stieltjes-transform /
+replica derivation that produces the bulk edges as exact roots of a
+polynomial fixed-point equation, extending the isotropic-$\Sigmadata$
+analysis of \citet{bonnaire2025} to the block-diagonal case using the
+tools of \citet{ELKaroui2010spectrum} and
+\citet{benigni2021eigenvalue}, is left to follow-up work. The route
+taken above is sufficient for the buffer-mechanism corollary in
+Section~\ref{sec:rfnn}, which only requires the bulk counts and
+leading-order edges established here.

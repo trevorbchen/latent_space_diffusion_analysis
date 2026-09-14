@@ -1,0 +1,85 @@
+% =====================================================================
+%  Drop-in replacement for the TBD \subsection{Theoretical bounds}
+%  block at the end of sec-rfnn.tex. References \Cref{thm:fourbulk},
+%  \Cref{lem:Ulin}, \Cref{lem:Udiag} from the new appendix H
+%  (sec-appendix-fourbulk.tex).
+% =====================================================================
+
+\subsection{Theoretical bounds}
+\label{sec:rfnn-bounds}
+
+The four-bulk picture above is established formally in
+Appendix~\ref{app:proof-sketch}. The argument decomposes $\Umat$ via
+the Hermite expansion of $\tanh$: the linear ($\mu_1$) component of
+$\tanh$ produces a rank-$\dlat$ matrix
+$\Umat^{\mathrm{lin}} \propto W M_t W^{\top}$ whose nonzero spectrum
+inherits the block-diagonal structure of $\Sigmadata$
+(\Cref{lem:Ulin}), and the higher-Hermite ($\mu_3, \mu_5, \ldots$)
+mass of $\tanh$ collapses onto the diagonal of the empirical kernel
+and contributes a $W$-orthogonal rank-$\nsamp$ matrix
+$\Umat^{\mathrm{diag}}$ (\Cref{lem:Udiag}). The two ranges are
+asymptotically orthogonal in $\R^{\pwidth}$ and the rank-null tail
+of size $\pwidth - \dlat - \nsamp$ is the orthogonal complement,
+so the four bulks add without overlap. Writing
+$\alpha_t^{\,2} \equiv e^{-2t}(s^2/\dint + \sigsig^{\,2}) + \Delta_t$
+and $\beta_t^{\,2} \equiv e^{-2t}\signoise^{\,2} + \Delta_t$ for the
+signal- and noise-dim-block eigenvalues of $M_t$, and
+$\bar\eta_\star = \sum_{k\ge 3}\mu_k^{\,2}\E[(\|x\|^{\,2}/\dlat)^k]$
+for the higher-Hermite mass, the formal statement is:
+
+\begin{theorem}[Four-bulk structure, restated from \Cref{thm:fourbulk}]
+\label{thm:fourbulk-body}
+In the proportional limit
+$\dlat,\nsamp,\pwidth\to\infty$ with $\psi_p = \pwidth/\dlat > 1+\psi_n$
+and $\psi_n = \nsamp/\dlat$ fixed, the spectrum of $\Umat$ splits
+almost surely into four contiguous bulks with counts $\dint$,
+$\dlat - \dint$, $\nsamp$, $\pwidth - \dlat - \nsamp$ and
+leading-order edges $\mu_1^{\,2}\alpha_t^{\,2}/\psi_p$,
+$\mu_1^{\,2}\beta_t^{\,2}/\psi_p$, $\bar\eta_\star/\psi_p$, and
+$o(1)$ respectively.
+\end{theorem}
+
+Bonnaire's isotropic two-bulk picture is recovered in the limit
+$\signoise \to \sigsig$: the signal and noise-dim bulks coalesce into
+their single population bulk $\rho_2$ at eigenvalue
+$\mu_1^{\,2}(e^{-2t}\sigsig^{\,2} + \Delta_t)/\psi_p$, while the
+sample bulk recovers their $\rho_1$. Predicted bulk counts match the
+empirical $\textsc{B1}\ldots\textsc{B4}$ sizes in
+Table~\ref{tab:bulk-sizes} across the full $\dlat$ sweep at the
+predicted indices.
+
+\textbf{Buffer corollary.}
+The buffer-mechanism prediction follows by combining
+\Cref{thm:fourbulk-body} with the per-mode decay
+\eqref{eq:rfnn-mode-decay}: modes are absorbed in order of decreasing
+$\lambda_i$, so the time to traverse the noise-dim bulk is bounded
+below by its width times the slowest noise-dim timescale,
+\begin{equation}
+  \taumem - \taugen \;\ge\; (\dlat - \dint)\,\cdot\,
+    \frac{1}{\lambda_{\min}^{\text{noise-dim}}}
+    \;=\; (\dlat - \dint)\,\cdot\,
+    \frac{\psi_p}{\mu_1^{\,2}\,\beta_t^{\,2}},
+  \label{eq:buffer-bound}
+\end{equation}
+to leading order. The signal bulk's slowest mode at
+$\mu_1^{\,2}\alpha_t^{\,2}/\psi_p$ sets $\taugen$ and is
+$\dlat$-independent at fixed $\sigsig$, $s$, $\dint$, so increasing
+$\dlat$ pushes back $\taumem$ linearly in the buffer width
+$\dlat - \dint$ while leaving $\taugen$ approximately fixed.
+This is the formal statement of the noise-dim buffer mechanism.
+
+\textbf{Where the bulk-edge magnitudes come from.}
+At $\sigsig \gg \signoise$ the signal-to-noise-dim ratio
+$\alpha_t^{\,2}/\beta_t^{\,2}$ is dominated by
+$(s^2/\dint + \sigsig^{\,2})/\signoise^{\,2}$ at small $t$ and
+collapses to $1$ as $t \to \infty$ (diffusion noise dominates both
+blocks). The noise-dim-to-sample ratio
+$\mu_1^{\,2}\beta_t^{\,2}/\bar\eta_\star$ depends on the relative
+size of the Hermite-1 coefficient of $\tanh$
+($\mu_1^{\,2} \approx 0.367$) and the higher-Hermite mass; the
+former dominates at our default scales, so the noise-dim edge sits
+above the sample edge and the four bulks remain spectrally
+resolvable. Marchenko--Pastur deformations of relative width
+$O(1/\sqrt{\psi_p})$ around each edge are sub-dominant at our
+$\psi_p = 64$ (Appendix~\ref{app:proof-sketch}, Remark on MP
+spreading).

@@ -60,6 +60,6 @@ def precompute_sigma_t(d_intrinsic: int,
 
     sigma_t_diag = delta_t + e_neg_2t * sigma_data_diag
     Q_t = Q.float()
-    sigma_t_inv = Q_t.T @ torch.diag(1.0 / sigma_t_diag) @ Q_t
+    sigma_t_inv = Q_t @ torch.diag(1.0 / sigma_t_diag) @ Q_t.T
     log_det = torch.log(sigma_t_diag).sum()
     return sigma_t_inv, log_det

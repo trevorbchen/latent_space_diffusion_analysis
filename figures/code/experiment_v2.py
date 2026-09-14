@@ -212,7 +212,7 @@ def precompute_score_params(d_intrinsic, d_latent, Q, sigma_noise, t, sigma_sign
     # In rotated coords: Sigma_t = Q diag(sigma_t_diag) Q^T
     # Sigma_t_inv = Q diag(1/sigma_t_diag) Q^T
     Q_t = Q.float()
-    sigma_t_inv = Q_t.T @ torch.diag(1.0 / sigma_t_diag) @ Q_t
+    sigma_t_inv = Q_t @ torch.diag(1.0 / sigma_t_diag) @ Q_t.T
     log_det = torch.log(sigma_t_diag).sum()
 
     return sigma_t_inv, log_det
