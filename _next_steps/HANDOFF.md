@@ -159,5 +159,6 @@ and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to re
 8. **Length — CANDIDATE READY.** `sec-theory-short.tex` (2,296 words, ~4 pp). Swap the input line in main.tex to use it. Further cuts mean dropping equations.
 9. **Clock conventions — STATED, not re-verified line by line.** `app:theory-linear` opens with the convention note; every cross-piece
    ratio quoted in the main text is unit-free. A line-by-line audit of absolute step counts in the appendix has NOT been done.
-10. **Bib — IN PROGRESS 2026-09-15.** The 9 entries marked VERIFY in `theory_bib_additions.bib` are being checked against arXiv/publisher
-   pages; `yoon2023generalize` was only a commented placeholder and was dropped when the (illegal) `%` comments were removed.
+10. **Bib — RESOLVED 2026-09-15.** All 16 theory entries verified against arXiv/publisher pages; every flagged id was correct.
+   George–Veiga–Macris is AISTATS 2026 (renders as 2026); Ba et al. gained NeurIPS pages. The header had hidden a 17th entry; gone.
+   `references.bib` = Trevor's original + these 16; `main.bbl` regenerated (45 entries).

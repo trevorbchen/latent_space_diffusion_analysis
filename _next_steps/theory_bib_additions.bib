@@ -1,65 +1,68 @@
-NOTES (moved out of entries; BibTeX has no % comment syntax):
-  ============================================================================
-  theory_bib_additions.bib
-  BibTeX entries for every citation key used in _next_steps/theory_pieces_raw.md
-  (either in a piece's "Citations needed" list or in its LaTeX) that is NOT already
-  present in ICLR_2026/references.bib.  Append this file's contents to references.bib.
+NOTES (plain text outside entries; BibTeX ignores it. No percent signs, no at-signs here.)
+  theory_bib_additions.bib -- BibTeX entries for every citation key used in
+  _next_steps/theory_pieces_raw.md that is NOT already in ICLR_2026/references.bib.
+  Append this file's 16 entries to references.bib.
   Already present in references.bib (do NOT duplicate): bonnaire2025, biroli2024dynamical,
   scarvelis2023closedform, gu2023memorization, somepalli2023diffusion, kadkhodaie2023learning,
   pennington2017nonlinear, benigni2021eigenvalue, ELKaroui2010spectrum, couillet2011rmt,
   song2021scoresde, facco2017twonn, levina2004maximum.
-  ALIAS KEYS.  The pieces were written independently and use two keys for the same paper in
-  three cases.  Both keys are provided below so every \cite in the pieces resolves; the
-  orchestrator should unify them (sed one key onto the other) before camera-ready:
-  hu2022universality  == hu2023universality   (Hu & Lu, IEEE TIT 2023, arXiv 2020)
-  ba2022highdim       == ba2022onestep        (Ba et al., NeurIPS 2022)   [ba2022highdimensional
-  appears only in a "Citations needed" list, never
-  in LaTeX; also provided]
-  marchenko1967       == marchenko1967distribution
-  baik2005phase       == baik2005bbp          (baik2005bbp appears only in "Citations needed"
-  lists; LaTeX uses baik2005phase)
+  ALIAS KEYS used by the pieces (unify with sed before camera-ready):
+    hu2022universality == hu2023universality (only hu2022universality is defined here)
+    ba2022highdim == ba2022onestep == ba2022highdimensional (only ba2022highdimensional is defined here)
+    marchenko1967 == marchenko1967distribution (only the latter is defined here)
+    baik2005phase == baik2005bbp (only baik2005phase is defined here)
   Piece 4's "Citations needed" list gives george2025dsm the title "Analysis of Diffusion Models
-  for Manifold Data"; that is WRONG for arXiv:2502.00336.  The correct title is used below.
-  Lines marked % VERIFY carry an arXiv id or page range I am not certain of.
-  ============================================================================
-  ---------- George, Veiga & Macris 2025 (linear pencil with block dims (p, d-D, D, n)) ----------
-  ---------- Hu & Lu (universality of the conjugate kernel / random features) ----------
-  ---------- Goldt et al. (Gaussian equivalence) ----------
-  ---------- Ba, Erdogdu, Suzuki, Wang, Wu, Yang (one gradient step of feature learning) ----------
-  ---------- Baik, Ben Arous & P\'ech\'e (BBP transition) ----------
-  note    = {arXiv:math/0403022}… -- VERIFY arXiv id
-  note    = {arXiv:math/0408165}… -- VERIFY arXiv id
-  ---------- Benaych-Georges & Nadakuditi (low-rank perturbations, multiplicative case) ----------
-  note    = {arXiv:0910.2120}… -- VERIFY arXiv id
-  ---------- Louart, Liao & Couillet (random-matrix approach to random-feature networks) ----------
-  note    = {arXiv:1702.05419}… -- VERIFY arXiv id
-  ---------- Liao & Couillet (spectrum of random-feature maps of high-dimensional data) ----------
-  note      = {arXiv:1805.11916}… -- VERIFY arXiv id
-  ---------- Fan & Wang (conjugate kernel / NTK spectra at linear width) ----------
-  note      = {arXiv:2005.11879}… -- VERIFY arXiv id
-  ---------- Marchenko & Pastur ----------
-  ---------- Vincent (denoising score matching) ----------
-  ---------- Efron (Tweedie's formula) ----------
-  ---------- Lucas, Tucker, Grosse & Norouzi (posterior collapse) ----------
-  note      = {arXiv:1911.02469}… -- VERIFY arXiv id
-  ---------- NOT referenced by any piece's LaTeX; listed in the task prompt as "if referenced" ----------
-  Damian, Lee & Soltanolkotabi 2022 (arXiv:2206.15144) is not cited anywhere in the pieces; omitted.
-  yoon2023generalize is suggested by a Piece 5 referee report (never applied); if the orchestrator
-  adopts that FIX, add:
-  @inproceedings{yoon2023generalize,
-  title     = {Diffusion Probabilistic Models Generalize when They Fail to Memorize},
-  author    = {Yoon, TaeHo and Choi, Joo Young and Kwon, Sehyun and Ryu, Ernest K.},
-  booktitle = {ICML 2023 Workshop on Structured Probabilistic Inference \& Generative Modeling},
-  year      = {2023}
-  }   % VERIFY venue
+  for Manifold Data"; that is wrong for arXiv:2502.00336. The correct title is used below.
+  yoon2023generalize (suggested by a Piece 5 referee report, never applied) is NOT an entry here.
+  If adopted, cite: Yoon, TaeHo; Choi, Joo Young; Kwon, Sehyun; Ryu, Ernest K.,
+  "Diffusion Probabilistic Models Generalize when They Fail to Memorize", ICML 2023 Workshop on
+  Structured Probabilistic Inference and Generative Modeling, 2023 (icml.cc/virtual/2023/28053).
+
+  VERIFICATION LOG (2026-09-15; every entry checked against the primary source):
+  george2025dsm: arxiv.org/abs/2502.00336 (title, authors; comments say "Published at AISTATS 2026")
+    + virtual.aistats.org/virtual/2026/day/5/4 (spotlight, Oral Session 6 and Poster Session 3).
+    Changed article->inproceedings AISTATS 2026. PMLR volume/pages for AISTATS 2026 not yet
+    listed on proceedings.mlr.press; add them when they appear.
+  hu2022universality: arxiv.org/abs/2009.07669 + Crossref DOI 10.1109/TIT.2022.3217698
+    (IEEE Trans. Inf. Theory 69(3):1932-1964, March 2023). Unchanged.
+  mei2022generalization: arxiv.org/abs/1908.05355 + Crossref DOI 10.1002/cpa.22008
+    (Comm. Pure Appl. Math. 75(4):667-766, print April 2022; online June 2021). Unchanged.
+  goldt2022gaussian: arxiv.org/abs/2006.14709 + proceedings.mlr.press/v145/goldt22a.html
+    (MSML, PMLR 145:426-471; PMLR cites year 2022, arXiv journal-ref says 2021). Unchanged.
+  ba2022highdimensional: arxiv.org/abs/2205.01445 + proceedings.neurips.cc 2022 BibTeX
+    (NeurIPS 35, pages 37932-37946, Curran Associates). Added pages and publisher.
+  baik2005phase: arxiv.org/abs/math/0403022 + projecteuclid.org DOI 10.1214/009117905000000233
+    (Ann. Probab. 33(5):1643-1697, Sept 2005). Unchanged.
+  baik2006eigenvalues: arxiv.org/abs/math/0408165 + Crossref DOI 10.1016/j.jmva.2005.08.003
+    (J. Multivariate Anal. 97(6):1382-1408, 2006). Unchanged.
+  benaychgeorges2011eigenvalues: arxiv.org/abs/0910.2120 + Crossref DOI 10.1016/j.aim.2011.02.007
+    (Adv. Math. 227(1):494-521, 2011). Unchanged.
+  louart2018random: arxiv.org/abs/1702.05419 + projecteuclid.org DOI 10.1214/17-AAP1328
+    (Ann. Appl. Probab. 28(2):1190-1248, April 2018). Unchanged.
+  liao2018spectrum: arxiv.org/abs/1805.11916 + proceedings.mlr.press/v80/liao18a.html
+    (ICML 2018, PMLR 80:3063-3071). Unchanged.
+  fanwang2020spectra: arxiv.org/abs/2005.11879 + proceedings.neurips.cc 2020 BibTeX
+    (NeurIPS 33, pages 7710-7721). Unchanged.
+  marchenko1967distribution: mathnet.ru/eng/sm4101 (Math. USSR-Sb. 1(4):457-483, 1967;
+    DOI 10.1070/SM1967v001n04ABEH001994; Russian original Mat. Sb. 72(114)(4):537-557). Unchanged.
+  vincent2011connection: Crossref DOI 10.1162/NECO_a_00142 + direct.mit.edu/neco/article/23/7/1661
+    (Neural Computation 23(7):1661-1674, July 2011). Unchanged.
+  efron2011tweedie: Crossref DOI 10.1198/jasa.2011.tm11181 + author PDF at
+    efron.ckirby.su.domains/papers/2011TweediesFormula.pdf (JASA 106(496):1602-1614, Dec 2011). Unchanged.
+  lucas2019dontblame: arxiv.org/abs/1911.02469 + proceedings.neurips.cc 2019 BibTeX
+    (NeurIPS 32, 2019; NeurIPS lists no pages). Unchanged.
+  vershynin2018hdp: Crossref DOI 10.1017/9781108231596 + webapps.math.uci.edu/~rvershyn/papers/HDP-book
+    (Cambridge University Press, first edition Sept 2018; a second edition appeared Feb 2026). Unchanged.
 
 
-
-@article{george2025dsm,
-  title   = {Denoising Score Matching with Random Features: Insights on Diffusion Models from Precise Learning Curves},
-  author  = {George, Anand Jerry and Veiga, Rodrigo and Macris, Nicolas},
-  journal = {arXiv preprint arXiv:2502.00336},
-  year    = {2025}
+@inproceedings{george2025dsm,
+  title     = {Denoising Score Matching with Random Features: Insights on Diffusion Models from Precise Learning Curves},
+  author    = {George, Anand Jerry and Veiga, Rodrigo and Macris, Nicolas},
+  booktitle = {Proceedings of the 29th International Conference on Artificial Intelligence and Statistics (AISTATS)},
+  series    = {Proceedings of Machine Learning Research},
+  publisher = {PMLR},
+  year      = {2026},
+  note      = {arXiv:2502.00336}
 }
 
 
@@ -104,6 +107,8 @@ NOTES (moved out of entries; BibTeX has no % comment syntax):
   author={Ba, Jimmy and Erdogdu, Murat A. and Suzuki, Taiji and Wang, Zhichao and Wu, Denny and Yang, Greg},
   booktitle={Advances in Neural Information Processing Systems},
   volume={35},
+  pages={37932--37946},
+  publisher={Curran Associates, Inc.},
   year={2022},
   note={arXiv:2205.01445}
 }

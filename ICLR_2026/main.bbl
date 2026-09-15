@@ -11,7 +11,7 @@ Ba, J., Erdogdu, M.~A., Suzuki, T., Wang, Z., Wu, D., and Yang, G.
 \newblock High-dimensional asymptotics of feature learning: How one gradient
   step improves the representation.
 \newblock In \emph{Advances in Neural Information Processing Systems},
-  volume~35, 2022.
+  volume~35, pp.\  37932--37946. Curran Associates, Inc., 2022.
 \newblock arXiv:2205.01445.
 
 \bibitem[Baik \& Silverstein(2006)Baik and Silverstein]{baik2006eigenvalues}
@@ -131,11 +131,14 @@ Fan, Z. and Wang, Z.
   volume~33, pp.\  7710--7721, 2020.
 \newblock arXiv:2005.11879.
 
-\bibitem[George et~al.(2025)George, Veiga, and Macris]{george2025dsm}
+\bibitem[George et~al.(2026)George, Veiga, and Macris]{george2025dsm}
 George, A.~J., Veiga, R., and Macris, N.
 \newblock Denoising score matching with random features: Insights on diffusion
   models from precise learning curves.
-\newblock \emph{arXiv preprint arXiv:2502.00336}, 2025.
+\newblock In \emph{Proceedings of the 29th International Conference on
+  Artificial Intelligence and Statistics (AISTATS)}, Proceedings of Machine
+  Learning Research. PMLR, 2026.
+\newblock arXiv:2502.00336.
 
 \bibitem[Goldt et~al.(2022)Goldt, Loureiro, Reeves, Krzakala, M{\'e}zard, and
   Zdeborov{\'a}]{goldt2022gaussian}
