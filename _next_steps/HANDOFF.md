@@ -103,6 +103,8 @@ mechanism: mode count vs tanh de-saturation), E5 isotropic control (minutes).
   "31→576, τ_gen 8.1×" does NOT reproduce from any file on disk and is retired. Median statistic reverses (shrinks ~14×).
 - `τ_gen` = 1/λ_min^signal grows 11.0× in flow units (λ_code/p) over the sweep; in optimizer steps it FALLS because lr = 0.01·d_lat/Δ_t.
 - Isotropic control: `_next_steps/e5_isotropic_results.txt` (2026-09-15) — see §7 item 3 for what it settles.
+- Fixed-width control (`clean figures/p_fixed_energy_fixed/exp2_main_gmm`, p=1800, n=500): R = 16.7 → 889 over d_lat 5→200 (verified 2026-09-15).
+  Beyond d_lat ≥ n the sample block is empty and the index-based R is meaningless (ignore the d=500, 1000 runs for R).
 - Real VAE latents: effective rank ≈ 0.45–0.55·d; `λ_min = Δ_t = 0.181` for d ≥ 140 (dead dims); CelebA `d_eff`
   saturates ~88–90 for d ≥ 160. Source: `clean figures/*/*_spectral_features_primary_t.csv`.
 - Bonnaire 2025 (2505.17638) Thm 3.1 is for arbitrary ρ_Σ. George–Veiga–Macris (2502.00336) has block dims (p, d−D, D, n).
