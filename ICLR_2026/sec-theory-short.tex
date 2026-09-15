@@ -1,0 +1,140 @@
+\section{Theory: spectral buffer mechanism}
+\label{sec:theory}
+
+This section states what we can prove, sketch, or only conjecture about why excess latent dimensions delay memorization, for the frozen-feature score model of \cref{sec:rfnn} trained by gradient flow at fixed diffusion time: every timescale is an eigenvalue of one matrix, $\Umat$, and the mechanism is a statement about the \emph{ratio} of two of its spectral edges. Statements are tagged \emph{proved}, \emph{sketched} (a named unproved step) or \emph{conjectured}; full versions and proofs are in \cref{app:theory-setup,app:theory-fourbulk,app:theory-buffer,app:theory-linear,app:theory-bridge,app:theory-predictor,app:theory-general,app:theory-scope}.
+
+\subsection{Setup, standing assumptions, and the two timescales}
+\label{sec:theory-setup}
+
+\paragraph{Model and expected gradient flow.}
+Fix $t>0$, $\Delta_t=1-e^{-2t}$, $x_t=e^{-t}x+\sqrt{\Delta_t}\,\eta$. The score $s_A(x)=A\phi(x)$, $\phi(x)=\pwidth^{-1/2}\tanh(Wx/\sqrt{\dlat})$ with $W$ frozen Gaussian, is trained from $A(0)=0$ by noisy full-batch gradient descent, in mean the gradient flow of $L_{\nsamp}(A)=\tfrac1{2\nsamp}\sum_\mu\E_\eta\|A\phi(x_t^\mu)-y^\mu\|^2$, $y^\mu=-\eta^\mu/\sqrt{\Delta_t}$ (\cref{prop:sgdmean-p1}, proved). With $\Umat=\tfrac1{\nsamp}\sum_\mu\E_\eta[\phi(x^\mu_t)\phi(x^\mu_t)^{\top}]=\sum_{i\le\pwidth}\lambda_iv_iv_i^{\top}$ and $V=\tfrac1{\nsamp}\sum_\mu\E_\eta[y^\mu\phi(x^\mu_t)^{\top}]$, the flow $\dot A=-(A\Umat-V)$ is diagonal in the $\Umat$ eigenbasis (\cref{lem:gf-p1}, proved):
+\begin{equation}\label{eq:mode-decay-main}
+a_i(T):=A(T)v_i=a_i^\star\bigl(1-e^{-\lambda_iT}\bigr),\qquad a_i^\star=Vv_i/\lambda_i ,
+\end{equation}
+so mode $i$ is absorbed on the clock $1/\lambda_i$; timescale \emph{ratios} are clock-free, step counts carry $\dlat^{-1}$ (\cref{rem:clock-p1}).
+
+\paragraph{Standing assumptions (\cref{ass:standing-p1}).}
+(A1) fixed $t$; (A2) $\pwidth\ge\nsamp$ (violated at $\dlat=5$); (A3) the clustered data of \cref{sec:design}, $(k,s,\dint,\sigsig,\signoise,\nsamp)$ fixed, $\dlat\to\infty$ at fixed $\psi_p=\pwidth/\dlat$, so $\psi_n=\nsamp/\dlat$ must exceed $1$ and the signal block is a finite-rank spike set; (A4) with $\alpha_t^2=e^{-2t}(s^2/\dint+\sigsig^2)+\Delta_t$, $\beta_t^2=e^{-2t}\signoise^2+\Delta_t$ the population signal and null eigenvalues of $M_t=\tfrac1\nsamp\sum_\mu\E[x_t^\mu x_t^{\mu\top}]$,
+\begin{equation}\label{eq:fourbulk-q-main}
+q(\dlat)=\frac{\operatorname{tr}M_t}{\dlat}=\beta_t^2+\frac{\dint(\alpha_t^2-\beta_t^2)}{\dlat},
+\end{equation}
+which decreases to $\beta_t^2$ (\cref{lem:q-p1}); the Gaussian-equivalence coefficients $a_1(q)=\E[\tanh'(\sqrt qz)]$, $a_*(q)^2=\E[\tanh(\sqrt qz)^2]-a_1(q)^2q$ \citep{pennington2017nonlinear,benigni2021eigenvalue,goldt2022gaussian,hu2022universality} are evaluated at $q(\dlat)$ ($q=2.76\to0.33$, $a_1^2=0.18\to0.63$, $a_*^2=0.079\to0.0047$ over $\dlat=5\to200$ at $t=0.01$, $\signoise=0.5$), so nothing below is $\dlat$-independent; (A5) the sorted spectrum splits by index into $\mathcal S=[1,\dint]$, $\mathcal N=(\dint,\dlat]$, $\mathcal M=(\dlat,\nsamp]$, $\mathcal Z=(\nsamp,\pwidth]$, with $\lambda^{\mathcal S}_{\min}>\lambda^{\mathcal N}_{\max}$ and $\lambda^{\mathcal N}_{\min}>\lambda^{\mathcal M}_{\max}$.
+
+\begin{definition}[Generalisation time; \cref{def:taugen-p1}]\label{def:taugen-main}
+For a block $\mathcal B$ let $\pi_i=\|A^\star v_i\|^2$, $E_{\mathcal B}(T)=\sum_{i\in\mathcal B}\pi_ie^{-2\lambda_iT}$ and $\Pi_{\mathcal B}=E_{\mathcal B}(0)$, so that $\|A(T)-A^\star\|_F^2=E_{[1,\pwidth]}(T)$ exactly (\cref{prop:rse-p1}). Then $\taugen(\varepsilon):=\inf\{T:E_{\mathcal S}(T)\le\varepsilon\,\Pi_{\mathcal S}\}$; $\tau_{\rm pop}(\varepsilon)$ is the same with $\mathcal S\cup\mathcal N$.
+\end{definition}
+$\taugen$ is the time at which the signal-subspace score, which determines sample quality, is absorbed; it is pinned to the slowest signal mode, $\lambda^{\mathcal S}_{\min}=a_1(q(\dlat))^2\bigl(e^{-2t}\ell_{\min}+\Delta_t\bigr)/\dlat\,(1+o(1))$ with $\ell_{\min}$ the smallest signal-subspace eigenvalue of the realised training set, so $\taugen$ \emph{grows} with $\dlat$ in flow time ($10.9\times$ over $\dlat=5\to200$) and \emph{falls} in repository steps ($158\to43$) (\cref{prop:taugen-p1}, proved).
+
+\begin{definition}[Memorisation onset; \cref{def:taumem-p1,prop:gap-p1}]\label{def:taumem-main}
+Split $\mathcal M=\mathcal M_{\rm spk}\cup\mathcal M_{\rm blk}$ by population alignment $\gamma_i>\gamma_0$ (spikes are cluster residuals that \emph{lower} test loss) and define the onset $\taumem^{\rm onset}:=1/\lambda^{\rm blk}_{\max}$; the index-based $1/\lambda^{\mathcal M}_{\max}$ of \cref{sec:rfnn} is a lower bound, with equality when $\mathcal M_{\rm spk}=\emptyset$.
+\end{definition}
+The onset is the earliest time the test--train gap can move; the paper's primary statistic, the memorised \emph{fraction} $F(T)$ \citep{somepalli2023diffusion,bonnaire2025}, additionally needs the within-bulk decomposition of \cref{sec:theory-bridge,sec:theory-predictor} (\cref{rem:proxy-p1} discusses the logged proxies).
+
+\subsection{Four spectral blocks of the feature correlation matrix}
+\label{sec:theory-fourbulk}\label{sec:theory-edges}
+
+Write $q_\mu=\|x_t^\mu\|^2/\dlat$, $q=\tfrac1\nsamp\sum_\mu q_\mu\simeq\operatorname{tr}M_t/\dlat$ as in \eqref{eq:fourbulk-q-main}, $\sigma_r:=a_*(q)^2/\nsamp$, and split $M_t=e^{-2t}(\hat C+\hat S)+\Delta_tI$ into its $\dint\times\dint$ signal block $e^{-2t}(\hat C+\hat S_\parallel)+\Delta_tI$ and its null block $M_\perp=e^{-2t}\hat S_\perp+\Delta_tI$, $\hat S_\perp$ being $\signoise^2$ times a white Wishart matrix of aspect ratio $\gamma_\perp=(\dlat-\dint)/\nsamp$. Set $\gamma_p=\nsamp/\pwidth$ and $\kappa_{\mathrm{MP}}=\pwidth^{-1}(\sqrt{\nsamp-\dlat}+\sqrt{\pwidth-\dlat})^2$. Conditioning on $W$, the feature kernel is exactly a Hermite series $K=A_1(X_tX_t^{\top}/\dlat)A_1+K_{\mathrm{res}}$ with $A_1=\diag(a_1(q_\mu))$ and $(K_{\mathrm{res}})_{\mu\mu}=a_*(q_\mu)^2$ (\cref{lem:fourbulk-kernel}, proved).
+
+\begin{proposition}[Four spectral blocks of $\Umat$; sketched]\label{prop:fourbulk-main}
+Assume $\pwidth\ge\nsamp>\dlat>\dint$, $\dint$ and $t>0$ fixed, and $\dlat,\nsamp,\pwidth\to\infty$ with $\gamma_\perp,\gamma_p$ fixed. Under Gaussian equivalence of the feature Gram (\cref{ass:fourbulk-ge}: proved for the bulk by \citealp{louart2018random,liao2018spectrum}; open for the $\dint$ outliers and the $\xi$-average), the ordered spectrum of $\Umat$ consists of four index blocks:
+\begin{itemize}\setlength\itemsep{0pt}
+\item[(i)] $\dint$ \emph{signal} outliers, $\lambda^{\mathrm{sig}}_j=\tfrac{a_1(q)^2}{\dlat}\bigl[e^{-2t}\lambda_j(\hat C+\hat S_\parallel)+\Delta_t\bigr]\bigl(1+O(\pwidth^{-1/2})\bigr)+\sigma_r(1+O(\gamma_p))$, population mean $a_1(q)^2\alpha_t^2/\dlat$;
+\item[(ii)] $\dlat-\dint$ \emph{noise-dimension} eigenvalues, mean $a_1(q)^2\beta_t^2/\dlat$ exactly, support $\tfrac{a_1(q)^2}{\dlat}\bigl[e^{-2t}\signoise^2(1\pm\sqrt{\gamma_\perp})^2+\Delta_t\bigr]$ at leading order in $\dlat/\pwidth$, median $\pwidth$-independent;
+\item[(iii)] $\nsamp-\dlat$ \emph{sample} eigenvalues, the Marchenko--Pastur--Silverstein image (with $\pwidth-\dlat$ effective samples) of $P_\perp K_{\mathrm{res}}P_\perp/\nsamp$: mean $\sigma_r(1-\dlat/\pwidth)\,r_t(q)$ and top edge $\kappa_{\mathrm{top}}\sigma_r$, with $\kappa_{\mathrm{top}}=\kappa_{\mathrm{MP}}$ for a homogeneous residual and a single copy;
+\item[(iv)] $\pwidth-\nsamp$ \emph{residual-floor} eigenvalues of total mass $\simeq(1-r_t(q))\,a_*(q)^2$, exact zeros for a single diffused copy (\cref{rem:fourbulk-singlecopy}).
+\end{itemize}
+Here $r_t(q)=\kappa_{\rm res}(q-\Delta_t)/\kappa_{\rm res}(q)\in(0,1]$ is the noise-coherent fraction of nonlinear feature mass ($0.97\to0.82$ over the sweep). The block means satisfy the exact trace identity
+\begin{align}
+&\dint\tfrac{a_1^2\alpha_t^2}{\dlat}+(\dlat-\dint)\tfrac{a_1^2\beta_t^2}{\dlat}+\nsamp\,\sigma_r\nonumber\\
+&\qquad=a_1(q)^2q+a_*(q)^2=\E\bigl[\tanh(\sqrt qz)^2\bigr],\label{eq:fourbulk-trace-main}
+\end{align}
+whose right side is $O(1)$ for every $\dlat$ (measured to $1.5\%$ at every $\dlat$).
+\end{proposition}
+Every data-side eigenvalue scales as $a_1(q(\dlat))^2/\dlat$ and is $\pwidth$-independent at leading order in $\dlat/\pwidth$ (the code normalisation $\Umat_{\rm code}=\pwidth\Umat$ reintroduces $\psi_p$); the sample block scales as $a_*(q(\dlat))^2/\nsamp$. The counts follow from rank alone, by interlacing of a rank-$\dlat$ data term with the residual kernel (\cref{lem:fourbulk-counts,lem:fourbulk-bbp}, proved). The proposition buys parameter-free block positions whose drift with $\dlat$, through $q$ alone, is reproduced in \cref{tab:fourbulk-numbers} with no fitted parameter, whereas a fixed-$a_1$ theory predicts flat blocks ($64.9$ and $6.22$ in code units) and is rejected.
+
+\begin{corollary}[Separation conditions; sketched]\label{cor:fourbulk-separation-main}
+Under \cref{prop:fourbulk-main}, at leading order in $\dlat/\pwidth$ the blocks are disjoint iff
+\begin{gather}
+\lambda_{\min}(\hat C+\hat S_\parallel)\;>\;\signoise^2\bigl(1+\sqrt{\gamma_\perp}\bigr)^2,\label{eq:fourbulk-sep1-main}\\
+\tfrac{\nsamp}{\dlat}\,\tfrac{a_1(q)^2}{a_*(q)^2}\Bigl[e^{-2t}\signoise^2\bigl(1-\sqrt{\gamma_\perp}\bigr)^2+\Delta_t\Bigr]\;>\;\kappa_{\mathrm{top}} ,\label{eq:fourbulk-sep2-main}
+\end{gather}
+(signal $\succ$ noise-dim, noise-dim $\succ$ sample). In \eqref{eq:fourbulk-sep1-main} $a_1^2$, $1/\dlat$, $\Delta_t$ cancel and $\pwidth$ never enters; with population means it reads $(s^2/\dint+\sigsig^2)/\signoise^2>(1+\sqrt{\gamma_\perp})^2$ ($11.2$ vs $\le2.7$ at $\signoise=0.5$). The left side of \eqref{eq:fourbulk-sep2-main} carries $\nsamp/\dlat$, the de-saturation ratio $a_1^2/a_*^2$ ($2.3\to134$ over the sweep) and a bracket closing as $\dlat\to\nsamp$ or $\signoise\to0$; the measured gap $\lambda^{\mathrm{nd}}_{\min}/\lambda^{\mathrm{samp}}_{\max}$ is non-monotone ($4.4,7.7,13,18,12$ at $\dlat=10,\dots,200$).
+\end{corollary}
+For $\signoise=\sigsig$, \eqref{eq:fourbulk-sep1-main} fails once $\gamma_\perp\gtrsim0.1$ and blocks (i)--(ii) merge into the $\rho_2$ bulk of \citet{bonnaire2025} (block (iii) is their $\rho_1$) while the noise-dimension modes still exist and stay separated from the sample bulk by \eqref{eq:fourbulk-sep2-main}, whereas as $\signoise\to0$ blocks (ii)--(iii) merge instead, the smooth data/sample transition seen at $\signoise=0.01$ (\cref{rem:fourbulk-isotropic,rem:fourbulk-sigperp0}).
+
+\paragraph{Relation to prior spectral results.}
+Theorem~3.1 of \citet{bonnaire2025} gives the limiting density of $\Umat$ for an \emph{arbitrary} population spectral measure; \cref{prop:fourbulk-main} is that theorem evaluated, not extended, at the two-atom measure $\rho_\Sigma=\tfrac{\dint}{\dlat}\delta_{\alpha_t^2}+(1-\tfrac{\dint}{\dlat})\delta_{\beta_t^2}$, with the caveat that at fixed $\dint$ the signal atom has vanishing mass and block (i) is governed by spiked-covariance perturbation theory \citep{baik2005phase}. \citet{george2025dsm} already analyse a linear pencil with block dimensions $(\pwidth,\dlat-\dint,\dint,\nsamp)$ for data supported exactly on a $\dint$-dimensional subspace ($\signoise=0$), the merged limit above. What is new is strictly positive $\signoise$, which lifts (ii) off the sample bulk by $e^{-2t}\signoise^2$ with a Marchenko--Pastur width of ratio $\gamma_\perp$, the reading of the blocks as gradient-flow learning-rate bands, and everything downstream (\cref{sec:theory-buffer,sec:theory-bridge,sec:theory-predictor}).
+
+\subsection{The buffer is a ratio of two spectral edges}
+\label{sec:theory-buffer}
+
+By \eqref{eq:mode-decay-main}, absorbing mode $i$ to tolerance $\varepsilon$ takes $\lambda_i^{-1}\log(1/\varepsilon)$; we use $\taugen=\log(1/\varepsilon)/\lambda^{\mathcal S}_{\min}$, the onset $\taumem^{\rm on}=\log(1/\varepsilon)/\lambda^{\mathcal M}_{\max}$ (\cref{def:abs-times-buf}), and their ratio $R:=\taumem^{\rm on}/\taugen=\lambda^{\mathcal S}_{\min}/\lambda^{\mathcal M}_{\max}$, free of $\varepsilon$, of the learning rate and of the code normalisation. Write $\kappa_{\rm top}(\dlat):=\lambda^{\mathcal M}_{\max}\nsamp/a_*(q)^2$ for the sample-bulk top in units of residual mass per point (measured column of \cref{tab:fourbulk-numbers}).
+
+\begin{proposition}[$\taugen$ and $\taumem^{\rm on}$ along the sweep; \cref{prop:taugen-buf,prop:onset-buf}]\label{prop:buffer-main}
+Under \cref{assump:inputs-buf} (Gaussian equivalence at block scale, coherent $\xi$-averaging, $\pwidth\ge\nsamp>\dlat$, the edges of \cref{prop:fourbulk-main}, and block separation, which holds at $\signoise=0.5$ but not at $\signoise=0.01$),
+\begin{gather}
+\taugen=\frac{\dlat\,\log(1/\varepsilon)}{a_1(q(\dlat))^2\,\bigl(e^{-2t}\ell_{\min}+\Delta_t\bigr)}\,(1+o(1)),\label{eq:tau-scalings-buf}\\
+\taumem^{\rm on}=\frac{\nsamp\,\log(1/\varepsilon)}{a_*(q(\dlat))^2\,\kappa_{\rm top}(\dlat)}\,(1+o(1)),\label{eq:tauon-main}
+\end{gather}
+where $\ell_{\min}(\dlat)=\nu_{\min}\bigl(1+\gamma_\perp\signoise^2/(\nu_{\min}-\signoise^2)\bigr)$ is the smallest signal-subspace data eigenvalue $\nu_{\min}$ lifted by the spiked-covariance factor of the null block \citep{baik2005phase} (proved given the edges). The prefactor $\dlat/a_1(q(\dlat))^2$ is strictly increasing (proved); $\kappa_{\rm top}$ is bracketed by interlacing, falls from $\approx16$--$19$ at $\dlat\le10$ to $\approx1.4$ at $\dlat=200$, and has no closed form at small $\dlat$, where the residual Gram is rank-deficient (sketched).
+\end{proposition}
+
+\begin{corollary}[The buffer; \cref{cor:buffer-buf}, proved from \eqref{eq:tau-scalings-buf}]\label{cor:buffer-main}
+\begin{equation}\label{eq:R-main}
+R(\dlat)=\frac{\nsamp}{\dlat}\cdot\frac{a_1(q)^2}{a_*(q)^2}\cdot\frac{e^{-2t}\ell_{\min}+\Delta_t}{\kappa_{\rm top}},
+\end{equation}
+up to a factor $1+o(1)$, with $q=q(\dlat)$, $\ell_{\min}=\ell_{\min}(\dlat)$, $\kappa_{\rm top}=\kappa_{\rm top}(\dlat)$. $\dlat$ enters through the fan-in $1/\dlat$ of the data-side edges, through $q(\dlat)$, and through $\kappa_{\rm top}$ and $\ell_{\min}$; it never multiplies an absorption time. $R$ opens with $\dlat$ exactly when $a_1^2/a_*^2$ grows faster than $\nsamp/\dlat$ shrinks.
+\end{corollary}
+At $\signoise=0.5$ the buffer opens across the sweep because $\tanh$ de-saturates: $a_1^2/a_*^2$ grows $58\times$ and $\kappa_{\rm top}$ collapses $13\times$ while $\nsamp/\dlat$ shrinks $40\times$. On the repository spectra $\taugen$ grows $11\times$ over $\dlat=5\to200$ (predicted $10.8\times$), $\taumem^{\rm on}$ $221\times$ ($16.7\times$ from $a_*^2$, $13\times$ from $\kappa_{\rm top}$), and $R$ monotonically, $21\to428$. Beyond $d^\star=\dint(\alpha_t^2-\beta_t^2)/\beta_t^2=47$ ($q\approx\beta_t^2$) \eqref{eq:R-main} predicts a slow $\nsamp/\dlat$ decline, a \emph{conjectural} saturated phase not yet observed (\cref{prop:phases-buf}). The corollary buys the \emph{form} of the buffer: explicit functions of $q(\dlat)$ that $\signoise$ changes before any run. Since modes decay in parallel under \eqref{eq:mode-decay-main}, the intermediate block affects $R$ only through $q(\dlat)$, $\kappa_{\rm top}$ and $\ell_{\min}$ (\cref{rem:nonsequitur-buf}). The claim concerns the \emph{onset}: the small-$\dlat$ sample block is spiked ($\lambda^{\mathcal M}_{\max}/\mathrm{median}\approx540$ at $\dlat=5$, $\approx2$ at $\dlat=200$), so $\lambda^{\mathcal S}_{\min}/\mathrm{median}(\lambda^{\mathcal M})$ \emph{shrinks} $14\times$ while $R$ grows $20\times$; under isotropy $R$ peaks near $\dlat\approx40$ (\cref{rem:median-buf,rem:isotropic-buf}).
+
+\subsection{An exactly solvable linear score model}
+\label{sec:theory-linear}
+
+The part of the mechanism that needs no random-matrix input is the null block. In the rotated frame $x_t=(x_{t,\mathsf S},x_{t,\mathsf N})$, with $\gamma_t^2=e^{-2t}\sigsig^2+\Delta_t$, the noised marginal is a Gaussian mixture with component covariance $\Sigma_t=\diag(\gamma_t^2I_{\dint},\beta_t^2I_{\dlat-\dint})$ and second moment $M_t=\diag(M_{t,\mathsf S},\beta_t^2I)$ (\cref{def:lin-setting}).
+
+\begin{lemma}[Null block and best linear score; \cref{lem:null-exact-lin,prop:lin-gf-closed}, proved]\label{lem:null-exact-lin-main}
+The null block of the true score is exactly linear, $s^\star_{\mathsf N}(x_t)=-x_{t,\mathsf N}/\beta_t^2$, because the cluster means have no null component, and $\E[s^\star x_t^{\top}]=-I$ (Stein). Hence the risk $L_t(B)=\E\|Bx_t-s^\star\|^2$ of a linear score $s_B(x)=Bx$ has the unique minimiser $B^\star_t=-M_t^{-1}$, exact on $\mathsf N$ and the best linear approximation on $\mathsf S$ (irreducible residual $R_{\rm irr}=1.68$ at $t=0.01$). Gradient flow from $B_0=0$ gives $B(T)=-M_t^{-1}(I-e^{-2M_tT})$ and excess risk
+\begin{align}
+\mathcal E(T)&=\sum_{i=1}^{\dlat}\frac{e^{-4\lambda_i(M_t)T}}{\lambda_i(M_t)}
+=\sum_{i\le\dint}\frac{e^{-4\lambda^{\mathsf S}_iT}}{\lambda^{\mathsf S}_i}\nonumber\\
+&\qquad+(\dlat-\dint)\,\frac{e^{-4\beta_t^2T}}{\beta_t^2}.\label{eq:lin-excess-main}
+\end{align}
+\end{lemma}
+The slow null modes are also the largest (initial risk $1/\lambda_i$), so the per-dimension score error is affine in $\dlat$, $\dlat\cdot\mathrm{err}=a(T)+(\dlat-\dint)\,b(T)$, $b(T)=e^{-4\beta_t^2T}/\beta_t^2$ (\cref{cor:lin-blocks}). On the \emph{empirical} risk the flow converges to $-\widehat M_t^{-1}$, whose null clock is a Marchenko--Pastur band $e^{-2t}\signoise^2(1\pm\sqrt{\gamma_\perp})^2+\Delta_t$ with a slow edge growing in $\dlat/\nsamp$ and a population-error floor $F_t(\gamma_\perp)=\gamma_\perp(e^{-2t}\signoise^2)^2/\beta_t^6+O(\gamma_\perp^2)$ (\cref{prop:lin-emp}, proved); substituting $M_t\to\Umat$ identifies the data-side eigenvalues as $a_1(q)^2\widehat\lambda_i(\widehat M_t)/\dlat$, block (ii) of \cref{prop:fourbulk-main} (\cref{cor:lin-rfnn}, sketched). The lemma buys a rigorous anchor for the noise-dimension clock and for the finite-$\nsamp$ overfitting of the null block (the linear form of the return of memorisation as $\dlat\to\nsamp$), but cannot see the sample bulk (\cref{rem:lin-nomem}).
+
+\subsection{From residual error to near-duplicate generation}
+\label{sec:theory-bridge}\label{sec:theory-fraction}\label{sec:theory-mem}
+
+Spectral clocks fix \emph{when} the sample bulk is absorbed, not \emph{why} that produces near-duplicates; the bridge is the closed-form score of the noised empirical measure \citep{scarvelis2023closedform,gu2023memorization}, $s_{\rm emp}(x,t)=\sum_\mu w_\mu(x,t)(e^{-t}x^\mu-x)/\Delta_t$ with softmax weights $w_\mu$ (\cref{def:bridge-objects}). Let $\mathcal E_t(T)=\tfrac1\nsamp\sum_\mu\E\|s_T-s_{\rm emp}\|^2$ be the residual of the trained score on noised training points, $d_{\rm NN}(\mu)$ the nearest-neighbour distance within the training set and $G_{\rm NN}$ its CDF. The weights condense on one point whenever $e^{2t}\Delta_t<d_{\rm NN}(\mu)^2/(2\log\nsamp)$ \citep{biroli2024dynamical}, after which the exact empirical sampler stopped at $t_{\min}$ lands at $x^\mu+\sqrt{\Delta_{t_{\min}}}\,\eta$ (\cref{lem:condensation,lem:endpoint}, proved), so even a perfect memoriser passes the $1/3$ nearest-neighbour-ratio test \citep{somepalli2023diffusion} only up to a \emph{metric ceiling} $1-G_{\rm NN}(3\sqrt{\dlat\Delta_{t_{\min}}})$: $0.68$ at $\dlat=5$ and $\to1$ for $\dlat\ge25$ at $\signoise=0.5$, but $\le0.05$ for $\dlat\ge20$ at $\signoise=0.01$.
+
+\begin{proposition}[Bridge; \cref{prop:bridge}, sketched]\label{prop:bridge-main}
+Fix an attachment time $t\in[t_{\min},t_c]$ and assume (B1) condensation at $t$; (B2) the residual $s_T-s_{\rm emp}$ at a noised training point is approximately isotropic Gaussian with total variance $\mathcal E_{t,\mu}(T)$, independent of the forward noise; (B3) the endpoint is the Tweedie denoiser of the learned score at $t$ plus the sampler's terminal noise. Then the generated point is $x^\mu+\delta$ with $\delta\sim\mathcal N(0,\Delta_{\rm eff,\mu}(T)I)$,
+\begin{equation}\label{eq:Deff-main}
+\Delta_{\rm eff,\mu}(T)=\Delta_{t_{\min}}+\frac{e^{2t}\Delta_t^{2}}{\dlat}\,\mathcal E_{t,\mu}(T),
+\end{equation}
+the law of the \emph{exact} empirical sampler stopped at noise level $\Delta_{\rm eff}$, and the reported fraction is
+\begin{align}
+F_{\rm mem}(T)&=\frac1\nsamp\sum_\mu\mathbf 1\!\Bigl[d_{\rm NN}(\mu)>3\sqrt{\dlat\,\Delta_{\rm eff,\mu}(T)}\Bigr]\label{eq:Fmem-main}\\
+&\approx1-G_{\rm NN}\!\Bigl(3\sqrt{\dlat\Delta_{t_{\min}}+e^{2t}\Delta_t^{2}\,\mathcal E_t(T)}\Bigr).\nonumber
+\end{align}
+The metric criterion implies condensation at the effective level whenever $\dlat>\tfrac29e^{2t_c}\log\nsamp$ (worst case $10.6$ at $\dlat=200$), so the metric, not condensation, binds.
+\end{proposition}
+Consequently (\cref{cor:taumem-fraction,cor:dnn-scaling}, sketched) the smooth measured curves come from the spread of $d_{\rm NN}$ ($d^{(0.9)}_{\rm NN}/d^{(0.1)}_{\rm NN}=2.3$ at $\dlat=5$, $1.1$ at $\dlat=200$) and of the within-bulk $\lambda_i$, the most isolated points being memorised first; and since $d_{\rm NN}^2\approx C\sigsig^2(\nsamp/k)^{-2/\dint}\kappa_\mu+2\signoise^2(\dlat-\dint)-O(\signoise^2\sqrt{(\dlat-\dint)\log\nsamp})$, the data-side threshold carries a $\dint$, not $\dlat$, exponent ($\signoise=0.01$), while a dominant null term ($\signoise=0.5$) pushes the NN-ratio of non-memorised samples toward $1$ (measured $0.52\to0.87$). Unproved is (B2): a one-step evaluation of the true denoiser blend $(1-m)\hat x_{\rm pop}+m\,\hat x_{\rm emp}$ gives an $O(1)$ threshold $m_\star\approx0.5$ agreeing with \eqref{eq:Deff-main} on the ordering of $\taumem$ with $\dlat$ but not on its constant; \cref{app:theory-bridge} states the zero-parameter rerun test that decides between them, and \cref{rem:pixel} brackets the pixel-space test for VAE latents (conjectured).
+
+\subsection{From the frozen spectrum to a fraction predictor}
+\label{sec:theory-predictor}
+
+The released predictor of \cref{sec:spectral-predictor} reads $P_d(s)=\mathrm{mean}_i(1-e^{-\kappa\lambda_i(M_t)s})^2$ off $\mathrm{spec}(M_t)$ with seven fitted parameters. Under \cref{prop:fourbulk-main} the square is a convention, $\kappa$ scales as $a_1(q_d)^2/\dlat$ and $\mathrm{spec}(M_t)$ omits the $\nsamp-\dlat$ sample modes that carry memorisation (\cref{prop:mode-clocks-pred,prop:data-side-rates-pred,rem:spec-Mt-misses-mem-pred}). Gaussian equivalence resolves them per point, $\Lambda_\mu=g(q_\mu,\varrho_\mu)/\nsamp$ with $g$ increasing in $q$, so excess dimensions shrink the sample-specific feature mass through $q$ alone (\cref{prop:sample-bulk-persample-pred}, sketched); the resulting one-constant predictor $\widehat F(s)=\tfrac1\nsamp\sum_\mu\mathbf 1[\mu\in\mathcal D_{t_c}]\,\mathbf 1[g(q_\mu,\varrho_\mu)\,s\ge C\nsamp]$ (\cref{def:two-source-predictor-pred}) reaches leave-one-$\dlat$-out log-errors $0.41$ (CelebA), $0.15$ (CIFAR-10), but explains only $1.8\times$ of the $2.1$--$3.9\times$ observed slowdown (\cref{app:theory-predictor}).
+
+\paragraph{Real latent spectra: effective dimension and posterior collapse (\cref{app:theory-general}).}\label{sec:theory-real}
+Real VAE latents have a continuous spectrum $\lambda_i(M_t)=e^{-2t}s_i+\Delta_t$ with an atom at $\Delta_t$; the top $\dlat$ eigenvalues of $\Umat$ remain its pushforward $\lambda\mapsto a_1(q)^2\lambda/\dlat$ (\cref{prop:pushforward-real}). With $d_{\rm eff}=(\sum_is_i)^2/\sum_is_i^2$, $\lambda_{(\theta)}$ a live-spectrum variance quantile,
+\begin{equation}\label{eq:ratio-real-main}
+R^{(\theta)}=\frac{\nsamp}{c_+\dlat}\,\frac{a_1(q)^2}{a_*(q)^2}\,\lambda_{(\theta)},\qquad q=\frac{\operatorname{tr}M_t}{\dlat},
+\end{equation}
+(no count of coordinates appears). A posterior-collapsed coordinate sits at $\lambda_i=\Delta_t$ and adds $\Delta_t/\dlat$ to $q$, so $\taugen$ grows at least linearly in $n_{\rm dead}$ and $R\to0$ (\cref{prop:deadblock-real}); on CelebA ($\dlat\ge160$) this accounts for the sign and $0.55$--$0.82$ of the hitting-time log-slowdown but only $0.28$ of the final-fraction log-decline (\cref{cor:flatdeff-real,rem:blunt-real}), so we report $d_{\rm eff}$, $d_{\rm floor}$, $q$ alongside $\dlat$.
+
+\paragraph{Regime boundaries (\cref{app:theory-scope}).}
+Three boundaries of \cref{asm:scope-standing} matter: (a) as $\dlat\to\nsamp$ the converged null score acquires sample-specificity $\varepsilon_\perp^2=\rho_\perp^2\gamma_\perp(1+O(\rho_\perp\gamma_\perp))$, $\rho_\perp:=e^{-2t}\signoise^2/\beta_t^2$ (\cref{prop:scope-nullspec}, proved), a conjectured ingredient of the rebound seen only at scaled MLP width (\cref{rem:scope-rebound-conj}); (b) the $\signoise=0.01$ sweeps are three-bulk, since decade separation needs $\signoise\ge\signoise^*$ ($0.91$ at $\dlat=10$, $0.40$--$0.50$ for $\dlat\ge40$; \cref{prop:scope-sigperp,prop:scope-control}); (c) $\pwidth=\dlat+\nsamp+300$ broadens block widths by $6.8$ at $\dlat=200$ (\cref{rem:scope-psip}).
+
+\paragraph{Scope.}
+Everything above is a frozen-feature, fixed-$t$, gradient-flow statement about clustered Gaussian data on a linear subspace; not covered are trainable first layers (only the one-step conjecture, \cref{rem:scope-feature}), curved manifolds, adaptive optimisers (the Adam MLP sweeps carry no clock statement), multi-$t$ training, the decoder, and DiT-scale architectures (\cref{rem:scope-outside} lists every such configuration).

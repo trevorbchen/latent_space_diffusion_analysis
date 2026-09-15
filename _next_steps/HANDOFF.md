@@ -87,8 +87,9 @@ If `sec-theory.tex` / `sec-appendix-theory.tex` are incomplete, assemble them fr
 All 53 rows of `theory_prose_edits.md` applied (46 by script, 7 by hand), plus PROJECT_BRIEF.md rewritten. Every touched file has a
 `.bak-20260915` sibling. Two cross-cutting items remain in `theory_prose_edits.md` §"Cross-cutting" — read that section.
 
-### 4.2b Trim Section 2 to ~3 pages — IN PROGRESS 2026-09-15
-A condensed candidate is being written to `ICLR_2026/sec-theory-short.tex` (target 2,000–2,300 words, every cross-referenced label kept).
+### 4.2b Trim Section 2 — CANDIDATE READY 2026-09-15 (not yet swapped in)
+`ICLR_2026/sec-theory-short.tex`: 2,296 words (from 4,583), every cross-referenced label kept, builds clean; Section 3 moves from
+p.9 to p.6. Still ~4 pages of column space because 13 display equations survive; going lower means dropping equations.
 To use it: change `\input{sec-theory}` to `\input{sec-theory-short}` in main.tex. The full version stays as `sec-theory.tex`.
 Note: References currently start on p.15, so the WHOLE main text is ~5 pages over a 9–10 page limit; Section 2 can give back ~2.5 of those.
 
