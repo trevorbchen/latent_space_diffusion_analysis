@@ -134,7 +134,7 @@ Experiment~2, the source-dimensionality sweep, uses the updated synthetic
 parameters from the final rerun: $\dlat$ is fixed at 20, $\dint$ ranges over
 $\{2,5,8,12,16,20,25,30,35,40\}$, and the whole sweep is repeated under
 $p=64\dlat$, $p=\dlat+n+300$, and fixed-$p$ width controls. This experiment is
-the reverse of Experiment~1, the main $\dlat$ sweep. It asks whether the null-buffer bulk
+the reverse of Experiment~1, the main $\dlat$ sweep. It asks whether the noise-dimension block
 shrinks when more of the fixed observed latent space is occupied by true source
 variation, and whether over-intrinsic source structure merely compresses into
 the fixed observed space rather than creating additional observed signal modes.
@@ -260,7 +260,7 @@ each colored block.}
   \caption{Experiment~1 RFNN latent-dimension sweep on pure anisotropic Gaussian data while
   varying the signal scale. Rows use
   $\sigma_{\rm signal}\in\{0.5,1.0,1.5\}$ at fixed $\dint=5$,
-  $\sigma_\perp=0.3$, and swept $\dlat$. The signal bulk moves with the strength of the
+  $\sigma_\perp=0.3$, and swept $\dlat$. The signal block moves with the strength of the
   structured coordinates, while the sample and null regions remain governed by
   the latent buffer and noise statistics. This confirms that the visible bulk
   ordering responds to the intended data-level parameters. \rfnnBulkColorKey}

@@ -1,0 +1,949 @@
+% SUPERSEDED (2026-09-15): this file is NOT input by main.tex. Its four-bulk theorem and buffer bound were
+% falsified by the audit (edges carry /psi_p instead of /d_lat; the count-times-timescale bound is a non-sequitur).
+% The current theory lives in sec-theory.tex (main text) and sec-appendix-theory.tex (proofs). Kept only for history.
+\section{Main-text design details}
+\label{app:main-design-details}
+
+\paragraph{Synthetic data.}
+We generate Gaussian-mixture data whose signal lies in a
+$\dint$-dimensional subspace embedded in a $\dlat$-dimensional
+ambient space ($\dlat \geq \dint$), with $k$ cluster centers,
+intra-cluster signal variance $\sigsig^2$ on the signal subspace,
+and isotropic null-direction variance $\signoise^2$. Gaussian
+mixtures give a closed-form population score (no noise floor),
+an exact intrinsic/ambient split that lets us vary $\dlat$ and
+$\dint$ independently, and the block-diagonal $\Sigmadata$ used by
+the random-matrix-theory analysis.
+
+\paragraph{Model families.}
+The trainable score model is a 3-layer MLP with sinusoidal time
+embedding, trained by score-matching MSE against the analytic
+Gaussian-mixture score. Hidden width is held fixed across the
+$\dlat$ sweep so parameter count and per-step FLOPs stay roughly
+constant. The RFNN model follows \citet{bonnaire2025}: first-layer
+features are frozen, only the readout is trained, and the resulting
+quadratic score-matching loss admits a spectral analysis. We also
+validate the picture empirically on MNIST and CelebA.
+
+\paragraph{Timescales and sweeps.}
+$\taugen$ is the first step at which test loss reaches within
+$5\%$ of its per-run minimum. $\taumem$ is the first step at which
+the \citet{somepalli2023diffusion} memorization fraction crosses
+$1\%$, with runs censored at their training budget if the threshold
+is not reached. For the RFNN at fixed $t$, generation is ill-defined,
+so we use train-test divergence (gen-gap $>0.02$) as the
+$\taumem$ proxy. We probe the buffer along two axes: varying
+$\dlat$ at fixed $\dint=5$, and varying $\dint$ at fixed
+$\dlat=20$.
+
+\section{Experimental methods and design choices}
+\label{app:methods}
+
+\subsection{Data generation}
+We generate anisotropic Gaussian-mixture data:
+\begin{itemize}\itemsep1pt
+\item Cluster centers $\{m_c\}_{c=1}^{k}$ are drawn iid uniformly on a sphere
+      of radius $s$ inside the first $\dint$ coordinates of $\mathbb{R}^{\dlat}$;
+      the remaining $\dlat - \dint$ ``null-space'' coordinates of every
+      center are exactly zero.
+\item For each training point $\mu$, a cluster index $c(\mu)$ is drawn
+      uniformly, then $x^{\mu} = m_{c(\mu)} + Q\,\xi^{\mu}$ where $\xi$
+      has independent components: variance $\sigsig^2 = 1$ along the
+      $\dint$ signal dimensions and variance $\signoise^2$ along the
+      $\dlat - \dint$ null-space dimensions. $Q$ is a fixed orthogonal
+      basis whose first $\dint$ columns span the signal subspace.
+\item Default values: $k = 10$, $\dint = 5$, $s = 3$,
+      $\nsamp = 500$ training points, $2048$ held-out test points,
+      $\sigsig = 1$, $\signoise \in \{0.01, 0.5\}$.
+\end{itemize}
+
+\subsection{Diffusion process}
+We use the variance-preserving Ornstein-Uhlenbeck process with
+$t \in [t_{\min}, t_{\max}] = [0.01, 3.0]$. Score targets are computed
+analytically from the closed-form Gaussian-mixture density at noise level $t$;
+this avoids the standard score-matching MSE loss noise floor and gives a
+clean ``score error'' metric independent of training-set fluctuations.
+
+\subsection{Models}
+\paragraph{MLP.} 3-layer ReLU MLP with sinusoidal time embedding ($32$
+frequency bands), input width $\dlat + 64$, output width $\dlat$.
+Hidden width $h = 256$ held fixed across the $\dlat$ sweep. Adam with
+learning rate $10^{-4}$, batch size $256$, $T = 3\times 10^5$ training
+steps (extended to $5\times 10^6$ for the body timescale-scatter
+figure), evaluation every $5{,}000$ steps with $5{,}000$ generated
+samples.
+
+\paragraph{RFNN.} Two-layer RFNN with $\tanh$ activation; first layer
+$W \in \mathbb{R}^{\pwidth \times \dlat}$ is fixed at random Gaussian
+initialization, the second-layer readout $A$ is trained. $\pwidth = 64\,\dlat$
+to keep the rank-null bulk visible at every $\dlat$. Same optimizer, batch,
+and evaluation cadence as the MLP.
+
+\subsection{Evaluation metrics}
+\begin{itemize}\itemsep1pt
+\item \textbf{Score error}: integrated mean-squared error of the learned
+      score against the analytic Gaussian-mixture score, averaged over
+      $5{,}000$ test points.
+\item \textbf{Memorization fraction}: fraction of generated samples whose
+      nearest training-set neighbor is closer than one third of that
+      neighbor's own nearest training-set
+      neighbor~\citep{somepalli2023diffusion}.
+\item \textbf{$\taugen$}: first step at which test loss is within $5\%$ of
+      its per-run minimum.
+\item \textbf{$\taumem$}: first step at which the memorization fraction
+      exceeds $1\%$. Censored to ``$>$300k'' if not crossed within budget.
+\end{itemize}
+
+\paragraph{Why these definitions.}
+We use the test-loss-plateau criterion for $\taugen$ rather than an FID-
+or MMD-based criterion because (i) it is well-defined on both the MLP
+and the RFNN, the latter trained at fixed $t$ with no usable generation
+process, (ii) the analytic Gaussian-mixture score gives noise-floor-free
+target values, removing the need for finite-sample FID estimates that
+fluctuate with the number of generated samples, and (iii) the test-loss
+plateau aligns directly with the moment when the population score has
+been internalised. We use the \citet{somepalli2023diffusion}-style
+memorization fraction for $\taumem$ on the MLP because it is the same
+threshold \citet{bonnaire2025} use, allowing direct comparison with the
+isotropic baseline. For the fixed-$t$ RFNN, no generation is available;
+we substitute the gen-gap proxy ($\text{test loss} - \text{train loss}
+> 0.02$), which monotonically tracks the canonical $\taumem$ on the MLP
+and calibrates the two-track comparison.
+
+\subsection{Per-experiment configurations}
+\label{app:exp-configs}
+
+Both sweeps run on the synthetic Gaussian-mixture data described
+above. Shared
+constants across every run: $\nsamp = 500$ training points, $2{,}048$
+held-out test points, $k = 10$ cluster centers, $s = 3$, $\sigsig = 1$,
+OU diffusion at $t \in [0.01, 3.0]$, seed $42$ for both data and the
+random first layer $W$. Tables~\ref{tab:exp-configs}
+and~\ref{tab:exp-hparams} list the sweeps and training
+hyperparameters.
+
+\begin{table}[!t]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\caption{\textbf{Sweep configurations.} Both $\signoise$ values used
+unless noted.}
+\label{tab:exp-configs}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Model & Vary & Range & Fixed & Width \\
+\midrule
+MLP                       & $\dlat$ & $\{5, 8, 10, 15, 20, 30, 40\}$ & $\dint = 5$ & $h = 256$ \\
+RFNN                      & $\dlat$ & $\{5, 8, 10, 15, 20, 30, 40\}$ & $\dint = 5$ & $\pwidth = 64\,\dlat$ \\
+RFNN (ext., $\signoise{=}0.5$) & $\dlat$ & $\{60, 80, 100, 150, 200\}$ & $\dint = 5$ & $\pwidth = 64\,\dlat$ \\
+MLP                       & $\dint$ & $\{2, 5, 8, 12, 16, 20\}$ & $\dlat = 20$ & $h = 256$ \\
+RFNN                      & $\dint$ & $\{2, 5, 8, 12, 16, 20\}$ & $\dlat = 20$ & $\pwidth = 1280$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+\centering\small
+\setlength{\tabcolsep}{6pt}
+\caption{\textbf{Training hyperparameters.}}
+\label{tab:exp-hparams}
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & MLP & RFNN \\
+\midrule
+Optimizer & Adam & full-batch GD \\
+Learning rate & $10^{-4}$ & closed-form \\
+Batch size & $256$ & full ($\nsamp = 500$) \\
+Total steps $T$ & $3 \times 10^5$ & $3 \times 10^5$ \\
+Eval interval & $5{,}000$ & $5{,}000$ \\
+Diffusion time & $t \sim \mathrm{Unif}[0.01, 3.0]$ & fixed $t = 0.01$ \\
+Time embedding & sinusoidal, $32$ frequencies & n/a\\
+Activation & ReLU & $\tanh$ \\
+$\Umat$ Monte Carlo & n/a& $50$ noise samples per training point \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Empirical bulk sizes}
+\label{app:bulk-sizes}
+Table~\ref{tab:bulk-sizes} reports the per-panel sizes of the four
+detected bulks in Figure~\ref{fig:bulk-sizes-distances}, ordered
+left-to-right by increasing eigenvalue (B1: rank-null tail; B4:
+signal block). $\signoise = 0.01$, $\dint = 5$, $\nsamp = 500$,
+$\pwidth = 64\,\dlat$.
+
+\begin{table}[!t]
+\centering\small
+\setlength{\tabcolsep}{6pt}
+\caption{\textbf{Empirical bulk sizes per $\dlat$.} B4 collapses to
+$\dint = 5$ as predicted; B3 grows linearly with $\dlat - \dint$
+(the noise-dim buffer); B1 absorbs the rank-null tail.}
+\label{tab:bulk-sizes}
+\begin{tabular}{@{}rrrrr@{}}
+\toprule
+$\dlat$ & B1 & B2 & B3 & B4 \\
+\midrule
+5  & 150  & 138 & 27 & 5 \\
+8  & 344  & 133 & 30 & 5 \\
+10 & 295  & 305 & 35 & 5 \\
+15 & 699  & 216 & 40 & 5 \\
+20 & 916  & 311 & 48 & 5 \\
+30 & 1397 & 458 & 60 & 5 \\
+40 & 1907 & 578 & 70 & 5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Known pitfalls}
+The $\tanh$ activation in the RFNN saturates whenever the data scale
+divided by $\sqrt{\dlat}$ exceeds approximately $2$, collapsing all
+eigenvalues into a degenerate single bulk. Configurations were chosen to
+keep the operating point well inside the linear regime; see
+Appendix~\ref{app:saturation}.
+
+% ===== MLP block (sec 3 in the body) ===========================
+
+\section{$\dlat$ sweep (synthetic data)}
+\label{app:mlp-dlat-sweep}
+
+The body sweeps $\dint$ at fixed $\dlat = 20$, the regime where
+every configuration crosses the $1\%$ memorization threshold within
+budget. The dual sweep varies $\dlat \in \{5, 8, 10, 15, 20, 30,
+40\}$ at fixed $\dint = 5$ on the same Gaussian-mixture data,
+hidden $= 256$, $\nsamp = 500$, with $\signoise = 0.5$ runs at 5M
+steps and the $\signoise = 0.01$ counterparts at 300k. Many
+high-ratio runs in this dual sweep do \emph{not} reach memorization
+within budget, which is exactly the buffer mechanism prediction.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/mlp_timescales_scatter.pdf}
+  \caption{\textbf{$\dlat$ sweep: timescales versus $\dlat / \dint$
+    at $\signoise = 0.5$.} 5M-step MLP. Triangles mark runs that do
+    not reach $1\%$ memorization within budget. Dual of body
+    Fig.~\ref{fig:mlp-timescale-gap}.}
+  \label{fig:mlp-dlat-timescales}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_gen_gap_sn05.pdf}
+  \caption{\textbf{$\dlat$ sweep: late generalization gap versus
+    $\dlat / \dint$ at $\signoise = 0.5$.} Dual of body
+    Fig.~\ref{fig:mlp-train-test}.}
+  \label{fig:mlp-dlat-gen-gap}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/late_score_error_sn05.pdf}
+  \caption{\textbf{$\dlat$ sweep: late score error versus
+    $\dlat / \dint$ at $\signoise = 0.5$.} This is the wide-range
+    score-error view moved out of the body.}
+  \label{fig:mlp-dlat-late-score}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/mlp_score_error_curves_sn05.pdf}
+  \caption{\textbf{$\dlat$ sweep: score error over training at
+    $\signoise = 0.5$.} Per-step trajectories underlying the
+    aggregate in Fig.~\ref{fig:mlp-dlat-late-score}, one curve per
+    $\dlat$ (viridis colormap, low to high). Compare to
+    Fig.~\ref{fig:mlp-dint-score-curves} (the $\dint$-sweep
+    counterpart).}
+  \label{fig:mlp-dlat-score-curves}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_timescales_bar_sn05.pdf}
+  \caption{\textbf{$\dlat$ sweep: 300k-step bar-chart timescales at
+    $\signoise = 0.5$.} The 300k-step bar-chart view of paired
+    $\taugen$ (blue) and $\taumem$ (red), with hatched bars
+    indicating $\taumem$ not reached within budget. The 5M-step
+    extended-budget version is Fig.~\ref{fig:mlp-dlat-timescales}
+    above.}
+  \label{fig:mlp-dlat-timescales-bar}
+\end{figure}
+
+\section{$\dlat$ sweep at $\signoise = 0.01$}
+\label{app:mlp-sn001}
+\label{app:score-error-shape}
+
+The $\signoise = 0.01$ counterparts of the $\dlat$ sweep figures
+in Appendix~\ref{app:mlp-dlat-sweep}. The non-monotonic score-error
+n-shape appears here: when the data/sample cliff is soft, increasing
+$\dlat/\dint$ first worsens late score error and then partially
+recovers at larger buffer widths. The peak is visible in
+Fig.~\ref{fig:mlp-dlat-late-score-sn001}.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_timescales_bar_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of
+    Fig.~\ref{fig:mlp-dlat-timescales-bar}.}}
+  \label{fig:mlp-dlat-timescales-sn001}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_gen_gap_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of
+    Fig.~\ref{fig:mlp-dlat-gen-gap}.}}
+  \label{fig:mlp-dlat-gen-gap-sn001}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_score_error_curves_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of
+    Fig.~\ref{fig:mlp-dlat-score-curves}.}}
+  \label{fig:mlp-dlat-score-curves-sn001}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/late_score_error_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of
+    Fig.~\ref{fig:mlp-dlat-late-score}.} The non-monotonic peak
+    discussed in Sec.~\ref{sec:discussion} is visible here.}
+  \label{fig:mlp-dlat-late-score-sn001}
+\end{figure}
+
+\section{$\dint$ sweep additional figures}
+\label{app:mlp-dint}
+
+The body $\dint$-sweep figures (Figs.~\ref{fig:mlp-timescale-gap},
+\ref{fig:mlp-train-test}) report aggregate timescales and gen-gap;
+this section collects the per-step score-error trajectories and the
+$\dint$-sweep late score error, complementing the wider-range
+$\dlat$-sweep view in Fig.~\ref{fig:mlp-dlat-late-score}.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/mlp_dint_score_curves_sn05.pdf}
+  \caption{\textbf{$\dint$ sweep: score error over training at
+    $\signoise = 0.5$.} One curve per $\dlat / \dint$ ratio
+    (viridis colormap). Per-step trajectories underlying the
+    body's $\dint$-sweep aggregates.}
+  \label{fig:mlp-dint-score-curves}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_dint_late_score_sn05.pdf}
+  \caption{\textbf{$\dint$ sweep: late score error versus
+    $\dlat / \dint$ at $\signoise = 0.5$.} $\dint$-sweep counterpart
+    of Fig.~\ref{fig:mlp-dlat-late-score}.}
+  \label{fig:mlp-dint-late-score}
+\end{figure}
+
+\section{$\dint$ sweep at $\signoise = 0.01$}
+\label{app:mlp-dint-sn001}
+
+The $\signoise = 0.01$ counterparts of the body's $\dint$ sweep at
+fixed $\dlat = 20$. These runs are at 300k training steps (the 5M
+extension was only run at $\signoise = 0.5$).
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_dint_timescales_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of body
+    Fig.~\ref{fig:mlp-timescale-gap}.}}
+  \label{fig:mlp-dint-timescales-sn001}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_dint_gen_gap_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of body
+    Fig.~\ref{fig:mlp-train-test}.}}
+  \label{fig:mlp-dint-gen-gap-sn001}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/mlp_dint_score_curves_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of
+    Fig.~\ref{fig:mlp-dint-score-curves}.}}
+  \label{fig:mlp-dint-score-curves-sn001}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/mlp_dint_late_score_sn001.pdf}
+  \caption{\textbf{$\signoise = 0.01$ counterpart of
+    Fig.~\ref{fig:mlp-dint-late-score}.}}
+  \label{fig:mlp-dint-late-score-sn001}
+\end{figure}
+
+\section{Real-data experiments}
+\label{app:real-data}
+
+\subsection{Setup}
+We test the buffer mechanism on two real-image datasets, MNIST and
+CelebA, with the latent space learned end-to-end by a VAE.
+
+\paragraph{Intrinsic dimension.} MLE-based estimates on raw pixels
+\citep{pope2021} place MNIST at $\dint \approx 13$ and CelebA at
+$\dint \approx 26$. Our $\dlat$ sweeps---$\{10, 15, 20, 25, 30, 40\}$
+for MNIST and $\{20, 25, 30, 35, 40, 50\}$ for CelebA---bracket these
+values to probe the $\dlat > \dint$ buffer regime predicted by the
+synthetic theory. Alternative estimators
+\citep{facco2017twonn, stanczuk2024manifold, kamkari2024geometric}
+disagree at the $2{\times}$ level, so the specific numerical
+predictions of buffer width $\dlat - \dint$ are
+estimator-conditional (Sec.~\ref{sec:discussion}).
+
+\paragraph{VAE.} Trained on half the dataset (the ``encoder half''),
+varying the bottleneck $\dlat$ across the same sweep used in
+synthetic experiments. The remaining half (the ``diffusion half'')
+is reserved for diffusion training and evaluation.
+
+\paragraph{Diffusion training set.} Each diffusion model is trained
+on only $\nsamp = 1000$ latents drawn from the diffusion half, kept
+small to put the model in the memorization-prone overparameterized
+regime.
+
+\paragraph{Score model.} Identical architecture to the synthetic
+MLP (Sec.~\ref{app:methods}): 3-layer ReLU MLP with sinusoidal time
+embedding, hidden width $h = 256$ held fixed across the $\dlat$
+sweep, same optimizer, batch size, and step budget.
+
+\paragraph{Metrics.}
+\begin{itemize}\itemsep1pt
+\item \textbf{$\taugen$}: first step at which FID is within $5\%$
+      of its per-run minimum, i.e.\ the FID plateau is reached.
+      We use FID here rather than the synthetic test-loss-plateau
+      criterion because for real data FID is the canonical
+      sample-quality signal.
+\item \textbf{$\taumem$}: first step at which the gen-gap
+      proxy~($\text{test loss} - \text{train loss} > 0.02$) is
+      crossed; we use the gen-gap proxy here rather than the
+      \citet{somepalli2023diffusion}-style memorization fraction
+      because the pixel-space nearest-neighbor threshold rarely
+      triggers at $\nsamp = 1000$ in the latent space and the
+      gen-gap proxy monotonically tracks the canonical $\taumem$
+      on synthetic data.
+\end{itemize}
+
+\subsection{Results}
+The three synthetic findings transfer to real data at
+$\nsamp = 1000$. Fig.~\ref{fig:real-timescale-gap} shows that
+$\taumem$ grows with $\dlat$ on both datasets, going from $10\,k$
+to $80\,k$ steps on MNIST and from $30\,k$ to $440\,k$ steps on
+CelebA across the sweep---a $\sim$$10{\times}$ delay in
+memorization onset attributable to the noise-dim buffer.
+Fig.~\ref{fig:real-train-test} reports the late gen-gap.
+Fig.~\ref{fig:real-min-fid} shows minimum FID is roughly flat
+across the sweep, so the delay benefit of larger $\dlat$ does not
+come at the cost of generation quality;
+Fig.~\ref{fig:real-fid} reports the per-step FID trajectories.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/real_timescales.pdf}
+  \caption{\textbf{Real data: timescales versus $\dlat / \dint$.}
+    5M-step MLP, $\nsamp = 1000$. $\taugen$ (blue) is the first
+    step at which test loss is within $5\%$ of its per-run minimum;
+    $\taumem$ (red) is the first step at which the gen-gap proxy
+    crosses $0.02$. $\taumem$ grows by roughly $10{\times}$ across
+    each sweep ($10\,k \to 80\,k$ on MNIST, $30\,k \to 440\,k$ on
+    CelebA), tracking the buffer-mechanism prediction.}
+  \label{fig:real-timescale-gap}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/real_late_gen_gap.pdf}
+  \caption{\textbf{Real data: late generalization gap versus
+    $\dlat / \dint$.} Mean of $\text{test loss} - \text{train loss}$
+    over the last $5\%$ of training.}
+  \label{fig:real-train-test}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/real_min_fid.pdf}
+  \caption{\textbf{Real data: minimum FID versus $\dlat / \dint$.}
+    Sample quality is roughly preserved across the sweep, so the
+    delay-in-memorization benefit of larger $\dlat$ does not come
+    at the cost of generation quality.}
+  \label{fig:real-min-fid}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/real_fid_curves.pdf}
+  \caption{\textbf{Real data: FID over training.} Per-step
+    trajectories underlying Fig.~\ref{fig:real-min-fid}, one curve
+    per $\dlat / \dint$ ratio.}
+  \label{fig:real-fid}
+\end{figure}
+
+% ===== RFNN block (sec 4 in the body) ==========================
+
+\section{RFNN: sketch of an analytical derivation}
+\label{app:proof-sketch}
+
+\subsection{Four-bulk intuition}
+\label{app:rfnn-fourbulk-intuition}
+
+\citet{bonnaire2025} note that the population bulk $\rho_2$
+develops internal structure when $\Sigmadata$ has multiple
+eigenvalues, but at signal-to-null ratio $3{\times}$ they treat it
+as a single deformed bulk. The latent-diffusion regime sits at the
+opposite extreme ($\sigsig^2/\signoise^2 \approx 10^4$ at
+$\signoise = 0.01$, $\approx 4$ at $\signoise = 0.5$): the humps
+inside $\rho_2$ separate into well-isolated bulks decades apart,
+which is why we count them as distinct.
+
+\paragraph{What the gen-gap measures.}
+The training set carries two kinds of structure. The data bulks
+correspond to \emph{population} structure: directions of variance
+that exist in the population and happen to also be visible in the
+training sample. The sample bulk corresponds to \emph{null
+structure}: directions that look like signal in the $\nsamp$
+training points but do not exist in the population. The RFNN
+absorbs eigenmodes in order of decreasing $\lambda_i$, so it fits
+the population structure first and the null structure later. While
+it is fitting population structure, train and test loss drop
+together. Once it begins fitting null structure, train loss keeps
+dropping but test loss does not, and the gap opens. The gen-gap is
+therefore a direct measure of how much null structure the readout
+has absorbed, which is why it opens at $\taumem$ and why the
+noise-dim buffer also delays its onset: widening the buffer pushes
+back the moment when null structure begins to be learned.
+
+\paragraph{Decomposing the four-bulk structure.}
+The split is easiest to see in sorted-index rather than density
+language. In the isotropic setting, all population directions have
+the same scale, so the data-supported part of the spectrum appears
+as one bulk. In our block-anisotropic setting, the signal coordinates
+and the null coordinates have different variances before the random
+feature lift. The Hermite-linear part of the $\tanh$ features
+therefore produces two data-side eigenvalue scales: a high-eigenvalue
+signal block of width $\dint$ and a lower-eigenvalue null-direction
+block of width $\dlat-\dint$.
+
+Equivalently, the four populations can be viewed along two axes:
+shared across the training set versus sample-specific, and signal
+subspace versus null subspace. The four resulting groups are:
+(i)~\textsc{bulk\_data\_signal}, the $\dint$ meaningful signal
+directions shared by the population;
+(ii)~\textsc{bulk\_data\_noise}, the $\dlat-\dint$ null directions
+that carry small but population-level variance;
+(iii)~\textsc{bulk\_sample\_signal}, sample-specific fluctuations
+inside the signal subspace; and
+(iv)~\textsc{bulk\_sample\_noise}, sample-specific fluctuations
+inside the null subspace. The first two refine Bonnaire's
+population bulk $\rho_2$, while the latter two make up the
+sample-specific bulk $\rho_1$.
+
+The signal and noise-dim bulks of $\Umat$ inherit the block
+structure of $\Sigmadata$ directly: $X^\top X / \nsamp$ on the same
+training data has $\dint$ large eigenvalues in the signal subspace
+and $\dlat - \dint$ small eigenvalues in the null directions,
+separated by roughly $\sigsig^2 / \signoise^2$, and the lift by $W$
+carries them into the data bulks of $\Umat$ up to a constant from
+$W$'s spectrum. The sample and rank-null bulks are feature-space
+artifacts of $\nsamp$ training points lifted into
+$\pwidth > \dlat$ random features. The buffer mechanism is thus
+gradient flow following the data's own variance hierarchy. As
+$\dlat$ grows at fixed $\dint$, the signal block keeps the same
+width, but the null-direction block widens. In the sorted spectrum,
+the cliff associated with sample-specific fitting is pushed to later
+indices, while the signal-learning cliff stays tied to the intrinsic
+dimension. Thus the extra latent coordinates form a trainable
+population buffer: they absorb optimization time after the model has
+learned signal directions but before it reaches sample-specific
+directions.
+
+\subsection{Main-text theoretical statement}
+\label{app:rfnn-theoretical-statement}
+
+Using a Hermite expansion of the RFNN feature map, the four-bulk
+picture predicts that in the proportional limit
+$\dlat, \nsamp, \pwidth \to \infty$, the spectrum of $\Umat$
+separates into four contiguous bulks with counts
+\[
+  \dint,\qquad \dlat-\dint,\qquad \nsamp,\qquad \pwidth-\dlat-\nsamp,
+\]
+corresponding respectively to data-signal, data-noise, sample, and
+rank-null modes. Combining this spectral decomposition with the
+per-mode decay in Eq.~\eqref{eq:rfnn-mode-decay} gives the buffer
+prediction: increasing $\dlat-\dint$ adds modes between population
+learning and sample-specific memorization. Thus $\taumem$ is delayed
+while $\taugen$ remains approximately fixed.
+
+Equivalently, the memorization delay scales with the width of the
+noise-dimension bulk,
+\begin{equation}
+\begin{aligned}
+  \taumem - \taugen
+  &\;\gtrsim\; (\dlat - \dint)\,
+    \frac{1}{\lambda_{\min}^{\mathrm{noise\text{-}dim}}} \\
+  &\;\approx\; (\dlat - \dint)\,
+    \frac{\psi_p}{\mu_1^{\,2}\beta_t^{\,2}} .
+\end{aligned}
+\label{eq:buffer-bound}
+\end{equation}
+This is the formal version of the noise-dimension buffer mechanism:
+larger excess latent dimensionality lengthens the path from
+generalization to memorization without changing the leading signal
+timescale.
+
+\subsection{Derivation sketch}
+
+We extend \citeauthor{bonnaire2025}'s replica computation to block-diagonal data covariance
+\(\Sigmadata = \diag\!\bigl(\sigsig^2\mathbb{I}_{\dint},\,
+                           \signoise^2\mathbb{I}_{\dlat - \dint}\bigr)\).
+Throughout, $x^\mu = m_{c(\mu)} + \xi^\mu$ with $m_{c(\mu)}$ a cluster
+center in the $\dint$-dimensional signal subspace and
+$\xi^\mu \sim \mathcal{N}(0, \Sigmadata)$. The diffused state at time
+$t$ is $x_t^\mu = e^{-t}\,x^\mu + \sqrt{\Delta_t}\,\eta^\mu$ with
+$\Delta_t = 1 - e^{-2t}$ and $\eta^\mu \sim \mathcal{N}(0, \mathbb{I}_{\dlat})$.
+We work in the proportional limit $\dlat,\nsamp,\pwidth\to\infty$ with
+$\psi_p\!\equiv\!\pwidth/\dlat$ and $\psi_n\!\equiv\!\nsamp/\dlat$ fixed
+and $\psi_p > 1 + \psi_n$ (so the rank-null tail has room to exist).
+
+\paragraph{Hermite expansion of $\tanh$.}
+For data scale $s$ small compared with $\sqrt{\dlat}$
+(Appendix~\ref{app:saturation}), the pre-activations
+$Wx_t^\mu/\sqrt{\dlat}$ have order-one variance per coordinate and stay
+inside the analytic regime of $\tanh$. Let
+$\mu_k = \E_{z\sim\mathcal{N}(0,1)}[h_k(z)\tanh(z)]$ denote the
+Hermite coefficients of $\tanh$ against the probabilists' Hermite
+polynomials $\{h_k\}$; $\tanh$ is odd so $\mu_k = 0$ for even $k$,
+and numerically $\mu_1 \approx 0.606$, $\mu_3 \approx -0.099$.
+For each pair of inputs $x,y\in\R^{\dlat}$ the random vector
+$((Wx)_a,(Wy)_a)$ is jointly Gaussian with mean zero and covariance
+$\diag(\|x\|^2,\|y\|^2)/\dlat$ plus off-diagonal $x^\top y/\dlat$,
+\emph{regardless of whether $x$ or $y$ has nonzero mean as a sample}
+(the cluster centers shift the distribution of $x$, not the
+conditional Gaussian over $W$ at fixed $x$). Consequently the Hermite
+expansion of $\tanh$ against this Gaussian gives $\mu_0=0$
+(odd function against a zero-mean Gaussian), and the pairwise kernel
+admits the proportional-limit decomposition
+\citep{pennington2017nonlinear, benigni2021eigenvalue}
+\begin{equation}
+  \E_W\!\bigl[\tanh\!\bigl((Wx)_a\bigr)\tanh\!\bigl((Wy)_a\bigr)\bigr]
+   \;=\; \mu_1^{\,2}\,\frac{x^\top y}{\dlat}
+        \;+\; \eta_\star(x,y)\,\mathbb{1}\!\bigl[x=y\bigr]
+        \;+\; o_d(1),
+  \label{eq:kernel-decomp}
+\end{equation}
+where $\eta_\star(x,x) = \sum_{k\ge 3}\mu_k^{\,2}\,(\|x\|^2/\dlat)^k$
+is the higher-Hermite mass that survives only on the diagonal.
+\citet{ELKaroui2010spectrum} establishes the same off-diagonal/diagonal
+split at the level of kernel random matrices.
+
+
+
+\paragraph{Two-piece decomposition of $\Umat$.}
+Substituting \eqref{eq:kernel-decomp} into
+$\Umat = \tfrac{1}{\nsamp}\sum_\mu \E_\eta[\phi(x_t^\mu)\phi(x_t^\mu)^\top]$,
+$\phi(x) = \tfrac{1}{\sqrt{\pwidth}}\tanh(Wx/\sqrt{\dlat})$, and
+averaging over the diffusion noise yields, to leading order in $1/\dlat$,
+\begin{equation}
+  \Umat \;=\; \Umat^{\mathrm{lin}} + \Umat^{\mathrm{diag}} + R_t,
+  \qquad \|R_t\|_{\mathrm{op}} = o_d(1),
+  \label{eq:U-split}
+\end{equation}
+where
+\begin{align}
+  \Umat^{\mathrm{lin}}
+    \;&=\; \frac{\mu_1^{\,2}}{\pwidth\,\dlat}\,W\,M_t\,W^\top,
+    \label{eq:U-lin}\\
+  \Umat^{\mathrm{diag}}
+    \;&=\; \frac{1}{\pwidth\,\nsamp}\sum_{\mu=1}^{\nsamp}
+           \eta_\star\!\bigl(x_t^\mu,\,x_t^\mu\bigr)\,
+           \phi^{\perp}\!(x_t^\mu)\,\phi^{\perp}\!(x_t^\mu)^\top,
+    \label{eq:U-diag}
+\end{align}
+and $\phi^\perp(x)$ is the residual feature vector after projecting
+out the Hermite-1 component. By construction
+$\E_W[\phi^\perp(x)\phi^\perp(y)^\top] = 0$ for $x\neq y$ and
+$\E_W[\|\phi^\perp(x)\|^2] = \eta_\star(x,x)+o_d(1)$, so the rank-one
+outer products in \eqref{eq:U-diag} are mutually $W$-orthogonal in
+the proportional limit.
+
+\paragraph{Block decomposition of $M_t$.}
+Direct computation gives
+\begin{equation}
+  M_t \;=\; \tfrac{1}{\nsamp}\sum_\mu \E_\eta\!\bigl[x_t^\mu(x_t^\mu)^\top\bigr]
+        \;=\; e^{-2t}\bigl(\hat C + \hat S\bigr) + \Delta_t\,\mathbb{I}_{\dlat},
+  \label{eq:Mt}
+\end{equation}
+with $\hat C = \tfrac{1}{\nsamp}\sum_\mu m_{c(\mu)}m_{c(\mu)}^\top$ the
+empirical centroid Gram and $\hat S = \tfrac{1}{\nsamp}\sum_\mu
+\xi^\mu(\xi^\mu)^\top$ the empirical within-cluster covariance.
+In population, $\E\hat C$ has rank $\dint$ with eigenvalues
+$\Theta(s^2/\dint)$ in the signal subspace and $\E\hat S = \Sigmadata$
+contributes $\sigsig^2$ on the signal block and $\signoise^2$ on the
+null block. Writing $\alpha_t^2 \equiv e^{-2t}(s^2/\dint + \sigsig^2) + \Delta_t$
+for the signal-block eigenvalue and $\beta_t^2 \equiv e^{-2t}\signoise^2 + \Delta_t$
+for the null-block eigenvalue, the population $M_t$ has the block-diagonal
+spectrum
+\(\mathrm{spec}(M_t) = \{\alpha_t^2\}^{\dint} \cup \{\beta_t^2\}^{\dlat-\dint}\)
+in the $Q$-basis (the cluster signal subspace and its orthogonal
+complement).
+
+\paragraph{Linear part: signal and noise-dim bulks.}
+\begin{lemma}[Rank and block structure of $\Umat^{\mathrm{lin}}$]
+\label{lem:Ulin}
+$\mathrm{rank}(\Umat^{\mathrm{lin}}) = \dlat$ almost surely, and its
+nonzero spectrum is the spectrum of $M_t$ rescaled by
+$\mu_1^{\,2}/\psi_p$ up to Marchenko--Pastur fluctuations of
+relative size $O(1/\sqrt{\psi_p})$. In particular it splits into
+a \emph{signal bulk} of size $\dint$ with eigenvalues
+$\Theta(\mu_1^{\,2}\alpha_t^{\,2}/\psi_p)$ and a \emph{noise-dim bulk}
+of size $\dlat - \dint$ with eigenvalues
+$\Theta(\mu_1^{\,2}\beta_t^{\,2}/\psi_p)$.
+\end{lemma}
+\begin{proof}
+$W$ has i.i.d.\ Gaussian entries, so $W^\top W/\dlat$ is full rank a.s.\
+for $\pwidth\ge\dlat$, with $\E[W^\top W/\dlat] = \psi_p\,\mathbb{I}_{\dlat}$
+and operator-norm fluctuations $O(1/\sqrt{\psi_p})$
+\citep{pennington2017nonlinear}. The nonzero eigenvalues of
+$WM_tW^\top$ equal those of $M_t^{1/2}W^\top W M_t^{1/2}$, which are
+the eigenvalues of $M_t$ rescaled by $\psi_p$ up to those fluctuations.
+The block counts and eigenvalue magnitudes follow from \eqref{eq:Mt}.
+\end{proof}
+
+\paragraph{Diagonal part: the sample bulk.}
+\begin{lemma}[Rank and edge of $\Umat^{\mathrm{diag}}$]
+\label{lem:Udiag}
+In the proportional limit,
+$\mathrm{rank}(\Umat^{\mathrm{diag}}) = \nsamp$ almost surely, and its
+nonzero eigenvalues are concentrated around
+$\bar\eta_\star/\psi_p$ where
+$\bar\eta_\star = \E_{x\sim P_t}[\eta_\star(x,x)]
+ = \sum_{k\ge 3}\mu_k^{\,2}\,\E[(\|x\|^2/\dlat)^k]$
+with $x \sim P_t$ a sample of the diffused mixture distribution.
+\end{lemma}
+\begin{proof}
+$\Umat^{\mathrm{diag}}$ in \eqref{eq:U-diag} is a sum of $\nsamp$
+rank-one outer products $v_\mu v_\mu^\top$ scaled by
+$\Lambda_\mu = \eta_\star(x_t^\mu,x_t^\mu)/(\pwidth\nsamp)$,
+where $v_\mu = \phi^\perp(x_t^\mu)/\|\phi^\perp(x_t^\mu)\|$.
+The kernel decomposition \eqref{eq:kernel-decomp} gives
+$v_\mu^\top v_\nu = \delta_{\mu\nu} + o_d(1)$, so the $\{v_\mu\}$
+are asymptotically orthonormal and the rank is $\nsamp$ for
+$\nsamp < \pwidth$. The eigenvalues are
+$\Lambda_\mu \cdot \|\phi^\perp(x_t^\mu)\|^2 \to
+\eta_\star(x_t^\mu,x_t^\mu)^2/(\pwidth\nsamp)$ and concentrate
+around their mean as a self-averaging quadratic form in the
+Gaussian noise component of $x_t^\mu$.
+\end{proof}
+
+\begin{remark}[Why a linear-only derivation cannot resolve the sample bulk]
+$\Umat^{\mathrm{lin}}$ has rank exactly $\dlat$, so any spectral
+content beyond the two data-side blocks must come from a different
+contribution. The Hermite-$k\!\ge\!3$ terms in \eqref{eq:kernel-decomp}
+are the smallest piece of $\tanh$ on off-diagonal kernel entries but
+the \emph{only} piece that survives on the diagonal, and that
+survival is what produces the rank-$\nsamp$ sample bulk. An earlier
+version of this derivation tried to extract the sample bulk from
+the rank-$\nsamp$ fluctuation $\hat S - \Sigmadata$ in
+\eqref{eq:Mt}; those modes lie inside the rank-$\dlat$ range of
+$\Umat^{\mathrm{lin}}$ and contribute Marchenko--Pastur deformations
+of the two data-side bulks, not a separately gapped class.
+\end{remark}
+
+\begin{remark}[Fixed-$W$ vs.\ $W$-averaged kernel]
+\label{rem:fixedW}
+The empirical $\Umat$ averages over the diffusion noise and training
+data at \emph{fixed} $W$, so the kernel decomposition
+\eqref{eq:kernel-decomp}, which holds in expectation over $W$, must be
+upgraded to a concentration statement. By
+\citet{benigni2021eigenvalue} for sub-Gaussian entries of $W$ (in
+particular Gaussian, our case) the off-diagonal kernel entries
+$\phi(x_t^\mu)^\top\phi(x_t^\nu)$ concentrate around their $W$-mean
+at rate $O(1/\sqrt{\pwidth})$ in the proportional limit, and the
+diagonal entries concentrate at the same rate. The rank-$\nsamp$
+structure of $\Umat^{\mathrm{diag}}$ therefore survives at fixed $W$
+up to operator-norm corrections of order $\nsamp/\sqrt{\pwidth}=
+\sqrt{\psi_n/(\psi_p \pwidth)}\to 0$, which is the self-averaging
+argument referenced implicitly in the Lemma 2 proof.
+\end{remark}
+
+\begin{remark}[Marchenko--Pastur spreading of the bulk edges]
+\label{rem:MP}
+Each of the four bulks in Theorem~\ref{thm:fourbulk} is a single
+\emph{leading-order} edge; the actual bulk in finite $\dlat$ is a
+Marchenko--Pastur-deformed band around that edge with relative width
+$\Delta_{\mathrm{MP}} = (\sqrt{\psi_p}+1)^2/(\sqrt{\psi_p}-1)^2 - 1
+\approx 4/\sqrt{\psi_p}$ at large $\psi_p$. At our default
+$\psi_p = 64$ this gives $\Delta_{\mathrm{MP}}\approx 0.50$, so the
+two data-side bulks remain spectrally resolvable whenever
+$\alpha_t^{\,2}/\beta_t^{\,2}\gtrsim 1.5$; the empirical
+$\alpha_t^{\,2}/\beta_t^{\,2}\ge 4$ at $\signoise=0.5$ and
+$\ge 10^4$ at $\signoise=0.01$ satisfy this comfortably. The
+noise-dim-to-sample gap is governed instead by the relative size of
+the Hermite-1 and Hermite-$\ge 3$ coefficient masses; see the
+``Bulk-gap scaling'' paragraph below.
+\end{remark}
+
+\paragraph{Four-bulk theorem.}
+\begin{theorem}[Four-bulk structure]
+\label{thm:fourbulk}
+Under the setup above and in the proportional asymptotic limit, the
+spectrum of $\Umat$ in \eqref{eq:U-split} splits almost surely into
+four contiguous bulks with the following counts and leading-order
+edges (fixed $t \in (0,\infty)$):
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Bulk & Count & Leading-order edge \\
+\midrule
+Signal      & $\dint$                  & $\mu_1^{\,2}\,\alpha_t^{\,2}/\psi_p
+                                          \;=\; \mu_1^{\,2}\bigl[e^{-2t}(s^2/\dint+\sigsig^2)+\Delta_t\bigr]/\psi_p$ \\
+Noise-dim   & $\dlat-\dint$            & $\mu_1^{\,2}\,\beta_t^{\,2}/\psi_p
+                                          \;=\; \mu_1^{\,2}\bigl[e^{-2t}\signoise^{\,2}+\Delta_t\bigr]/\psi_p$ \\
+Sample      & $\nsamp$                 & $\bar\eta_\star/\psi_p$ \\
+Rank-null   & $\pwidth-\dlat-\nsamp$   & $o(1)$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{theorem}
+\begin{proof}
+Combine Lemmas \ref{lem:Ulin} and \ref{lem:Udiag} with the
+decomposition \eqref{eq:U-split}. The ranges of $\Umat^{\mathrm{lin}}$
+and $\Umat^{\mathrm{diag}}$ are asymptotically $W$-orthogonal: the
+former lies in the column space of $W$ (rank $\dlat$), and the latter
+is spanned by the $\nsamp$ residual directions $\phi^\perp(x_t^\mu)$
+which are orthogonal to that column space in expectation. Together
+they span a subspace of dimension $\dlat + \nsamp < \pwidth$, leaving
+a rank-null tail of dimension $\pwidth - \dlat - \nsamp$ with
+eigenvalues vanishing as $o_d(1)$ from $R_t$ in \eqref{eq:U-split}.
+\end{proof}
+
+\paragraph{Bulk-gap scaling.}
+The signal-to-noise-dim gap is the eigenvalue ratio
+$\alpha_t^{\,2}/\beta_t^{\,2}
+ = \bigl(e^{-2t}(s^2/\dint+\sigsig^2)+\Delta_t\bigr)/\bigl(e^{-2t}\signoise^{\,2}+\Delta_t\bigr)$.
+At small diffusion times this is approximately
+$(s^2/\dint+\sigsig^2)/\signoise^{\,2}$ (large at $\signoise=0.01$,
+modest at $\signoise=0.5$); as $t$ grows both bulks are dragged
+toward the diffusion floor $\Delta_t$ and the ratio collapses to $1$.
+The noise-dim-to-sample gap is the ratio
+$\mu_1^{\,2}\beta_t^{\,2}/\bar\eta_\star$, governed by the relative
+sizes of the linear-Hermite coefficient and the higher-Hermite
+residual mass: for $\tanh$, $\mu_1^{\,2} \approx 0.367$ while
+$\bar\eta_\star$ is dominated by $\mu_3^{\,2} \approx 0.0097$ at our
+operating scales, so for $\beta_t^{\,2} \gtrsim \bar\eta_\star/\mu_1^{\,2}$
+the noise-dim edge sits above the sample edge and the four bulks
+are spectrally resolvable. Below that threshold (small $\signoise$ at
+large $t$) the two merge, which is the regime where the four-bulk
+cliff at index $\dlat$ becomes a smooth step in
+Fig.~\ref{fig:appendix-fourbulk-cliffs}.
+
+\paragraph{Toward a full Stieltjes derivation.}
+Theorem \ref{thm:fourbulk} gives leading-order edge magnitudes that
+match (within Marchenko--Pastur fluctuations $O(1/\sqrt{\psi_p})$)
+the empirical bulk locations in Table~\ref{tab:bulk-sizes} and
+Fig.~\ref{fig:bulk-sizes-distances}. A full Stieltjes-transform /
+replica derivation that produces the bulk edges as exact roots of a
+polynomial fixed-point equation, extending the isotropic-$\Sigmadata$
+analysis of \citet{bonnaire2025} to the block-diagonal case using the
+tools of \citet{ELKaroui2010spectrum} and
+\citet{benigni2021eigenvalue}, is left to follow-up work. The route
+taken above is sufficient for the buffer-mechanism corollary in
+Section~\ref{sec:rfnn}, which only requires the bulk counts and
+leading-order edges established here.
+
+
+\section{RFNN: eigenvalue saturation and the $\tanh$ pitfall}
+\label{app:saturation}
+
+We observed that for sufficiently large data scale $s$, the spectrum of
+$\Umat$ collapses to a single bulk with eigenvalues bunched at
+$\lambda \approx 1$. The cause is $\tanh$ saturation: when
+$\|Wx\|/\sqrt{\dlat} \gtrsim 2$, $\tanh$ outputs $\pm 1$ almost
+deterministically and the feature map becomes effectively constant in
+$x$. The constraint $s/\sqrt{\dlat} \lesssim 2$ defines the safe
+operating regime; all reported sweeps satisfy this constraint.
+
+\section{RFNN: empirical bulk detection}
+\label{app:bulk-detection}
+
+Fig.~\ref{fig:bulk-sizes-distances} shows the $\signoise = 0.01$
+$\dlat$ sweep with the empirical bulk-detection overlay (peaks
+found by \texttt{scipy.signal.find\_peaks} on the histogram counts,
+capped at 4 by prominence). At the larger anisotropy ratio
+$\sigsig^2/\signoise^2 \approx 10^4$ the four bulks separate
+cleanly and the detected peaks land where the theoretical
+index-based cuts in Fig.~\ref{fig:fourbulk-hist} put them.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/bulk_detection_hist.pdf}
+  \caption{\textbf{Empirical bulk detection across the $\dlat$
+    sweep at $\signoise = 0.01$.} Each colored region is one
+    detected peak in the eigenvalue density; four bulks are
+    detected in every panel. As $\dlat / \dint$ grows, the bulks
+    pull apart: at $\dlat = \dint$ the four peaks sit close
+    together with shallow valleys, and by $\dlat = 40$
+    ($\dlat / \dint = 8$) they have separated into well-isolated
+    peaks decades apart in eigenvalue. Per-panel bulk sizes are
+    tabulated in Table~\ref{tab:bulk-sizes}; detection algorithm
+    in Appendix~\ref{app:methods}.}
+  \label{fig:bulk-sizes-distances}
+\end{figure}
+
+\section{RFNN: additional 4-bulk spectrum figures}
+\label{app:appendix-figures}
+
+The body shows the $\signoise = 0.5$ density view
+(Figure~\ref{fig:fourbulk-hist}); for completeness we include the
+remaining three corners of the $\{\text{cliffs}, \text{density}\}
+\times \{\signoise = 0.01, 0.5\}$ grid here.
+Figures~\ref{fig:appendix-fourbulk-cliffs}
+and~\ref{fig:appendix-fourbulk-cliffs-sn05} are the cliffs (sorted-spectrum)
+view at the two noise scales, and
+Figure~\ref{fig:appendix-fourbulk-hist-sn001} is the density view
+at $\signoise = 0.01$.
+Figure~\ref{fig:appendix-fourbulk-dint} sweeps $\dint$ instead of $\dlat$.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/four_bulk_dlat_sweep.pdf}
+  \caption{\textbf{Cliffs view, $\signoise = 0.01$.}
+    Sorted log-spectrum across the $\dlat$ sweep. Red and green
+    dashed lines mark indices $\dint$ and $\dlat$. The
+    $\textsc{bulk\_data\_noise}$ region widens between them as
+    $\dlat$ grows.}
+  \label{fig:appendix-fourbulk-cliffs}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/four_bulk_dlat_sweep_sn05.pdf}
+  \caption{\textbf{Cliffs view, $\signoise = 0.5$.}
+    Same sweep as Figure~\ref{fig:appendix-fourbulk-cliffs} at the
+    higher noise scale: the signal/noise-dim cliff at index $\dint$
+    is sharp, while the data/sample cliff at index $\dlat$ softens
+    as the gap $\sigsig^2/\signoise^2$ shrinks.}
+  \label{fig:appendix-fourbulk-cliffs-sn05}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/four_bulk_dlat_hist_sn001.pdf}
+  \caption{\textbf{Density view, $\signoise = 0.01$.}
+    Counterpart to the body's Figure~\ref{fig:fourbulk-hist}. The
+    larger $\sigsig^2/\signoise^2 \approx 10^4$ pushes the signal
+    bulk decades to the right of the noise-dim bulk.}
+  \label{fig:appendix-fourbulk-hist-sn001}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/four_bulk_dint_sweep.pdf}
+  \caption{\textbf{Varying $\dint$} at $\dlat = 20$,
+    $\signoise = 0.5$. As $\dint \to \dlat$ the noise-dim bulk
+    shrinks toward zero width and we recover Bonnaire's two-bulk
+    picture.}
+  \label{fig:appendix-fourbulk-dint}
+\end{figure}

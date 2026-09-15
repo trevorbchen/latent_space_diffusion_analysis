@@ -1,0 +1,146 @@
+\documentclass[final]{hld2026} % Author names withheld
+
+% The following packages will be automatically loaded:
+% amsmath, amssymb, natbib, graphicx, url, algorithm2e
+
+\title[How Excess Latent Dimensionality Delays Memorization in Diffusion Models]{How Excess Latent Dimensionality Delays Memorization in Diffusion Models}
+
+% Use \Name{Author Name} to specify the name.
+% If the surname contains spaces, enclose the surname
+% in braces, e.g. \Name{John {Smith Jones}} similarly
+% if the name has a "von" part, e.g \Name{Jane {de Winter}}.
+% If the first letter in the forenames is a diacritic
+% enclose the diacritic in braces, e.g. \Name{{\'E}louise Smith}
+
+% Authors with the same address:
+\hldauthor{%
+\Name{Trevor Chen} \Email{tbchen@caltech.edu}\\
+\addr {California Institute of Technology} 
+\AND
+\Name{Ryan Shahbaba} \Email{shahbaba@caltech.edu}\\
+\addr {California Institute of Technology} 
+}
+
+% Recommended packages for figures and typography
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{float}                  % provides the [H] placement specifier
+\usepackage{placeins}               % provides \FloatBarrier
+
+% hyperref makes hyperlinks in the resulting PDF.
+\usepackage{hyperref}
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+% Initial blind submission
+% \usepackage{icml2026}
+% \usepackage[preprint]{icml2026}        % for preprint
+% \usepackage[accepted]{icml2026}        % for camera-ready
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+% \usepackage{amsthm}
+\usepackage{bm}
+\usepackage{xcolor}
+\usepackage{nicefrac}
+
+% cleveref (capitalized refs)
+\usepackage[capitalize,noabbrev]{cleveref}
+
+% Drafting macros (mirror GenMol style)
+\newcommand{\todo}[1]{\textcolor{magenta}{#1}}
+\newcommand{\needcite}{\rule[-0.2ex]{1.5em}{1.4ex}}
+\newcommand{\figplaceholder}[1]{%
+  \fbox{\parbox{0.97\linewidth}{\centering\vspace{1.4cm}%
+    \textcolor{magenta}{\sffamily\bfseries [PLACEHOLDER FIGURE: #1]}%
+    \vspace{1.4cm}}}%
+}
+\newcommand{\figsquare}[1]{%
+  \fbox{\parbox{0.55\linewidth}{\centering\vspace{2.6cm}%
+    \textcolor{magenta}{\sffamily\bfseries [PLACEHOLDER FIGURE: #1]}%
+    \vspace{2.6cm}}}%
+}
+
+% Math macros
+\newcommand{\dlat}{d_{\mathrm{latent}}}
+\newcommand{\dint}{d_{\mathrm{intrinsic}}}
+\newcommand{\taugen}{\tau_{\mathrm{gen}}}
+\newcommand{\taumem}{\tau_{\mathrm{mem}}}
+\newcommand{\Umat}{\bm{U}}
+\newcommand{\Sigmadata}{\bm{\Sigma}_{\mathrm{data}}}
+\newcommand{\sigsig}{\sigma_{\mathrm{sig}}}
+\newcommand{\signoise}{\sigma_{\perp}}
+\newcommand{\nsamp}{n}
+\newcommand{\pwidth}{p}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\DeclareMathOperator{\diag}{diag}
+
+% Running header
+% \icmltitlerunning{Excess Latent Dimensionality Delays Memorization}
+\begin{document}
+
+\maketitle
+
+\begin{abstract}%
+We study how the gap between latent and intrinsic dimensionality
+shapes memorization in diffusion models. In practice, the latent
+dimensionality $\dlat$ of diffusion models does not match the
+dataset's true intrinsic dimensionality $\dint$. Extending recent spectral analysis to the
+regime where $\dlat > \dint$, we find that the excess null dimensions populate a new ``noise-dimension'' bulk in the score network's feature-correlation spectrum, sitting between population-driven and sample-specific eigenmodes. Because the network learns modes in order of decreasing eigenvalue, this bulk acts as a buffer: each excess latent dimension adds a mode that must be absorbed before memorization can begin, increasing the gap between generalization and memorization. We further find that at very large $\dlat$, trainable score networks partially recover from the increase in score error that the frozen-feature theory predicts, consistent with the first layer learning sparse, signal-aligned features. These findings are supported by experiments on real and synthetic datasets and a random-feature analysis.
+\end{abstract}
+
+%\begin{keywords}%
+%  List of keywords%
+%\end{keywords}
+
+\input{sec-intro}
+\input{sec-design}
+\input{sec-mlp}
+\input{sec-rfnn}
+\input{sec-discussion}
+
+% \section{Introduction}
+% Main text limited to 5 pages, excluding references and appendices.
+
+% \subsection{Citations (\texttt{natbib} package)}
+% \citet{Samuel59} did preliminary studies in the field, their results were reproduced in~\cite[Theorem 1]{Samuel59}, see also~\cite{Samuel59} or \cite[see also][]{Samuel59}.
+
+% \subsection{Algorithms (\texttt{algorithm2e} package)}
+% For how to use this package, check out the \href{https://mirror.foobar.to/CTAN/macros/latex/contrib/algorithm2e/doc/algorithm2e.pdf}{doc}. You are free to choose another package, add line numbering, etc.
+
+% \begin{algorithm2e}
+%  \caption{Example Algorithm}
+%  \SetAlgoLined
+%   \KwData{this text}
+%   \KwResult{how to write algorithm with \LaTeX2e }
+%   initialization\;
+%   \While{not at end of this document}{
+%   read current\;
+%   \eIf{understand}{
+%   go to next section\;
+%   current section becomes this one\;
+%   }{
+%   go back to the beginning of current section\;
+%   }
+%   } 
+% \end{algorithm2e}
+
+% \begin{figure}
+% \centering
+% \includegraphics[width=0.3\textwidth]{example-image-a}
+% \caption{This is a figure.}
+% \end{figure}
+
+\clearpage
+\bibliography{references}
+\newpage
+\clearpage
+\appendix
+\onecolumn
+\input{sec-appendix}
+
+\end{document}
