@@ -13,7 +13,9 @@ Avni Garg (buffer corollary), Kevin Peng (n-shape thread — now moot, see §3.1
 
 ## 2. State of the repo right now
 
-- `main` == `origin/main` == `f35df1c` (2026-06-30). GitHub does NOT have `ICLR_2026/` (untracked, 22 MB).
+- Analysis repo: local `main` is 8 commits ahead of `origin/main` (`f35df1c`), NOT pushed.
+- Paper repo: https://github.com/trevorbchen/ICLR-2026 (Overleaf-synced, paper files at repo root). The theory work was pushed
+  there 2026-09-15 as branch `theory-section` with PR https://github.com/trevorbchen/ICLR-2026/pull/1. That branch = this repo's `ICLR_2026/` + `_next_steps/` as `theory_notes/`.
   SSH to github.com times out on this machine; fetch with
   `git fetch https://github.com/trevorbchen/latent_space_diffusion_analysis.git main:refs/remotes/origin/main`.
 - The transpose fix (§3.1), the test, and all `_next_steps/` files are committed locally as `2bd8d60` (not pushed).
