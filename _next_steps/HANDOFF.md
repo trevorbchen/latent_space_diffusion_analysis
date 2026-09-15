@@ -8,8 +8,7 @@ unless marked REMOTE. Read this file, then `THEORY_TODO.md`, then whatever secti
 Paper: "How Excess Latent Dimensionality Delays Memorization in Diffusion Models" (draft: `ICLR_2026/`, compile
 `main.tex`). Claim: an RFNN/MLP score network's feature-correlation spectrum splits into four bulks; the
 `d_lat − d_int` "noise-dim" bulk sits between generalization and memorization and delays the latter.
-Authors: Trevor Chen (repo owner, real-data/VAE/DiT), Ryan Shahbaba (theory; git user TheTrueShah),
-Kevin Peng (n-shape thread — now moot, see §3.1). Caltech. Target: ICLR main.
+Authors: Trevor Chen (repo owner, real-data/VAE/DiT) and Ryan Shahbaba (theory; git user TheTrueShah). Caltech. Target: ICLR main.
 
 ## 2. State of the repo right now
 

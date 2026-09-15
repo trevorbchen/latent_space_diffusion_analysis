@@ -1639,7 +1639,7 @@ Measured signal-bulk median rises 3.4x (29.66 -> 99.80 over d_lat = 5..200). In 
 
 **Claim:** Contribution 3 says "We confirm the buffer mechanism in trainable MLP score networks". The body then says the MLP does something else: the first layer learns to project onto the signal subspace instead of spending effort on all modes. If the trainable network discards the null directions, the noise-dim bulk it must traverse is smaller, not larger -- the buffer explanation is voided, and only the sign of the effect coincides. The project's own planning note states the consequence explicitly.
 
-**Evidence:** sec-mlp.tex:41: "The MLP result is qualitatively sharper than the frozen-feature prediction: at high $\dlat$, feature learning appears to find sparser, signal-aligned directions instead of spending equal effort on all random-feature modes. Nevertheless, the direction of the effect agrees with the buffer picture". _next_steps/theory_plan.md (kevin's section): "the trainable first layer learns to project onto the $d_{int}$-dim signal subspace at large $d_{lat}$, effectively shrinking the buffer."
+**Evidence:** sec-mlp.tex:41: "The MLP result is qualitatively sharper than the frozen-feature prediction: at high $\dlat$, feature learning appears to find sparser, signal-aligned directions instead of spending equal effort on all random-feature modes. Nevertheless, the direction of the effect agrees with the buffer picture". _next_steps/theory_plan.md (the plan's section): "the trainable first layer learns to project onto the $d_{int}$-dim signal subspace at large $d_{lat}$, effectively shrinking the buffer."
 
 **Fix:** Downgrade contribution 3 to "the sign of the effect replicates in a trainable score network, though the frozen-feature mechanism does not account for its magnitude", and either run the weight-projection diagnostic the plan lists (project the trained first layer onto the ground-truth Q) or drop the sparse-alignment speculation.
 
@@ -2037,7 +2037,7 @@ Measured signal-bulk median rises 3.4x (29.66 -> 99.80 over d_lat = 5..200). In 
 
 `exact-linear-score-model-route` · verdict **CONFIRMED** · kind opportunity · effort weeks  
 
-**Where:** _next_steps/theory_plan.md, kevin's section (SAE / NTK reweighting / two-competing-terms); ICLR_2026/sec-theory.tex (empty)
+**Where:** _next_steps/theory_plan.md, the plan's section (SAE / NTK reweighting / two-competing-terms); ICLR_2026/sec-theory.tex (empty)
 
 **Claim:** None of the three candidate frameworks is the right first move. The correct first move is the linear score model, because in this data model the null block is exactly a linear-Gaussian problem: s*_null = -x_null/lambda_null holds exactly (the mixture posterior weights depend on x only through the signal block, since all cluster means have zero null component), and it is independent of the signal block. For s_theta(x) = Bx trained by gradient flow on E||Bx - s*||^2, dB/dt = -2(B Sigma_t + I) has the closed-form solution B(T) = -Sigma_t^{-1} + (B_0 + Sigma_t^{-1}) e^{-2 Sigma_t T}, giving a per-mode risk contribution lambda_i (1/lambda_i)^2 e^{-4 lambda_i T} = e^{-4 lambda_i T}/lambda_i. This single formula gives, with no free parameters: (i) the mode-absorption clock tau_i = 1/(4 lambda_i) rigorously; (ii) the buffer statement, since the d_lat - d_int null modes have the smallest lambda and so are absorbed last among population modes; (iii) an exact prediction of total risk vs d_lat and vs T that can be checked against the (fixed) score-error metric; and (iv) an important correction to the paper's intuition, namely that low-lambda modes carry the LARGEST target energy 1/lambda_i, so the noise-dim bulk dominates the late residual rather than merely delaying things. It also yields the correct crossover criterion (compare per-mode loss-decrease rates, not d x Var x lambda) and the exact form of signal-null contamination (the off-diagonal block of B - Sigma_t^{-1}).
 
@@ -2100,7 +2100,7 @@ Measured signal-bulk median rises 3.4x (29.66 -> 99.80 over d_lat = 5..200). In 
 
 `trainable-feature-theory` · verdict **CONFIRMED** · kind missing-theory · effort weeks  
 
-**Where:** ICLR_2026/sec-mlp.tex, "The MLP result is qualitatively sharper than the frozen-feature prediction: at high $\dlat$, feature learning appears to find sparser, signal-aligned directions"; _next_steps/theory_plan.md "kevin: U-shape recovery"; _next_steps/n_shape_heuristic_derivation.md (self-declared non-theorem)
+**Where:** ICLR_2026/sec-mlp.tex, "The MLP result is qualitatively sharper than the frozen-feature prediction: at high $\dlat$, feature learning appears to find sparser, signal-aligned directions"; _next_steps/theory_plan.md "the plan: U-shape recovery"; _next_steps/n_shape_heuristic_derivation.md (self-declared non-theorem)
 
 **Claim:** Every headline experiment -- synthetic MLP, CelebA, CIFAR-10 -- uses a trainable score network, while the entire mechanism is a frozen-feature result. The paper currently bridges this with the word 'qualitatively'. The internal plan proposes three open-ended frameworks (SAE, NTK reweighting, two-competing-terms) and the resulting document declares itself not a theorem. There is a fourth, much more tractable option that reuses the machinery already written.
 
