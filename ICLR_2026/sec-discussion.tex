@@ -1,0 +1,67 @@
+\section{Conclusion and limitations}
+\label{sec:discussion}
+
+\textbf{Conclusion.}
+\looseness -1
+The experiments support a simple mechanistic picture: latent
+dimensions beyond the data's effective signal dimension are not
+just wasted coordinates. In the RFNN they appear as a distinct noise-dimension block between the signal and sample-specific modes, and, more importantly, they lower the feature pre-activation variance so that the sample-specific modes become slower relative to the signal modes; this ratio, not the number of excess modes, is the buffer. In trainable synthetic MLPs at fixed width the same widening suppresses recall, although the theory is stated for frozen features and fixed diffusion time. In real VAE latents,
+the same force competes with VAE fidelity: small bottlenecks do not
+reconstruct well enough to memorize in pixel space, intermediate
+dimensions both reconstruct and memorize, and very wide latents
+again reduce memorization while often hurting FID. The main
+takeaway is therefore predictive rather than only descriptive: once
+the VAE is expressive enough to preserve image identity, the frozen
+VAE latent spectrum can be turned into a mode-absorption clock that
+estimates the memorization percentage over training steps for each
+choice of $\dlat$.
+
+\textbf{Practical implication.}
+\looseness -1
+The best latent dimension is neither the smallest code nor the
+largest code. Too small loses reconstruction fidelity; too large lengthens $\taugen$ (which grows with $\dlat$ in gradient-flow time), raises the finite-$\nsamp$ score-error floor of the null block, and eventually, as $\dlat$ approaches $\nsamp$, lets memorization return. The useful regime is near the point
+where VAE quality has saturated but before the diffusion model pays a
+large optimization cost. The mode-absorption predictor in
+Sec.~\ref{sec:spectral-predictor} makes this tradeoff concrete:
+it estimates memorization risk from a frozen encoder and a 1k latent
+subset.
+
+\textbf{Implications.}
+\looseness -1
+This gives latent diffusion a concrete design rule. Rather than
+choosing $\dlat$ from VAE quality or final FID alone, one
+can estimate a memorization-risk curve before a full training sweep.
+A practitioner could first use the VAE identity proxy to rule out
+under-expressive latents, then use spectral pressure to rank the
+remaining widths by expected memorization onset. Checkpoint audits or
+early-stopping rules can then be placed near the predicted
+iso-memorization times. The same calculation separates two failure
+modes that look similar in final samples: low $\dlat$ fails because
+the representation discards identity, while very high $\dlat$ fails
+because the diffusion problem becomes wide and slow. Thus the
+predictor is useful both for model selection and for deciding when a
+partially trained model is likely to cross from generalization into
+sample recall.
+
+\textbf{Limitations.}
+\looseness -1
+(i)~The real-data diffusion experiments hold the MLP hidden width
+fixed across $\dlat$ so that increasing latent dimension is not also
+a capacity sweep. This isolates the latent-buffer effect, but it is
+not the only scaling regime used in practice. If hidden width, depth,
+or training compute are increased with $\dlat$, high-dimensional
+models may recover better FID and may also memorize more because the
+extra capacity can fit sample-specific directions rather than being
+spent only on the harder latent score problem. (ii)~(ii) The spectral predictor is derived only for frozen features at fixed $t$: the mode clocks and the per-sample sample-bulk eigenvalue are exact or Gaussian-equivalent statements for the RFNN, the square in $P_d(s)$ is a modelling choice, and the deployed network's first layer (GELU on $[x_t;\,\text{time embedding}]$) has a nearly $\dlat$-independent pre-activation variance, so all real-data numbers use a $\tanh$ surrogate. The one-constant clock transfers between CelebA and CIFAR-10 only up to a factor $2$, and the $q$-mechanism explains roughly half of the observed real-data slowdown in log units. (iii)~The synthetic data
+manifold is a linear Gaussian
+mixture, so curved manifolds and class hierarchies are tested mainly
+through CelebA, with CIFAR-10 included as a compact spectral
+replication in the main text and a full diagnostic replication in
+the appendix.
+(iv)~The real-data memorization metric is pixel-space
+nearest-neighbor ratio on a diverse 1k subset; other definitions may
+shift the absolute percentages. (v)~The VAE and diffusion systems
+interact: low-dimensional VAEs suppress measured memorization by
+blurring reconstructions, while high-dimensional VAEs can degrade
+FID through optimization difficulty. Separating these effects more
+cleanly is the main next ablation.

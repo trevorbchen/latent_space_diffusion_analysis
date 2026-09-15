@@ -1,0 +1,45 @@
+\FloatBarrier
+
+\section{Real data: CelebA and CIFAR-10 latent diffusion}
+\label{sec:real-data}
+
+\begin{figure*}[!t]
+  \centering
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/celeba_final_mem_vs_d.pdf}
+    \caption{CelebA final memorization.}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/celeba_final_fid_vs_d.pdf}
+    \caption{CelebA final FID.}
+  \end{subfigure}
+
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cifar10_final_mem_vs_d.pdf}
+    \caption{CIFAR-10 final memorization.}
+  \end{subfigure}\hfill
+  \begin{subfigure}{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/cifar10_final_fid_vs_d.pdf}
+    \caption{CIFAR-10 final FID.}
+  \end{subfigure}
+  \caption{\textbf{Real-data latent width produces a clean quality--memory tradeoff.} Five-seed means with 95\% confidence intervals after 5M MLP diffusion steps on a diverse 1k subset. Memorization is only detectable once the VAE preserves pixel-space sample identity; past that identity threshold, increasing $\dlat$ moves the model into the excess-latent regime and reduces memorization. CelebA peaks near $\dlat=70$--$80$, while CIFAR-10 peaks later and remains high through roughly $\dlat=100$--$160$ before falling at larger widths. FID follows a separate quality tradeoff: it improves while the VAE bottleneck is being relieved, then worsens once the latent score problem becomes too wide.}
+  \label{fig:real-final-mem-fid}
+\end{figure*}
+
+\subsection{VAE and diffusion training}
+\label{sec:vae-training}
+
+Real image latents introduce a second effect absent from the synthetic construction: if the VAE bottleneck is too narrow, the training images cannot be reconstructed faithfully, so pixel-space memorization is hard to detect even if the latent diffusion model fits its training codes. In the main text we therefore show compact memorization/FID summaries for both CelebA and CIFAR-10, while leaving the full per-dimension diagnostics in the appendix. The VAE validation metrics, reconstruction contact sheets, optimization losses, and full memorization/FID sweeps are in Appendix~\ref{app:vae-clean} and Appendix~\ref{app:real-diffusion-clean}: see Figures~\ref{fig:app-vae-metrics}--\ref{fig:app-vae-quality} for the VAE checks and Figures~\ref{fig:app-real-optimization}-- \ref{fig:app-real-individual-fid-cifar} for the diffusion checks. The VAE reconstruction-memorization diagnostic in Appendix Figure~\ref{fig:app-vae-metrics} gives an empirical proxy for the effective intrinsic-dimensionality threshold. We define $\widehat d_{\rm ID}^{\rm VAE}(\rho)$ as the smallest latent dimension whose immediate VAE encode/decode reconstructions are counted as memorized for at least a fraction $\rho$ of the same diverse 1k subset, using the pixel-space nearest-neighbor ratio test. In the appendix we use $\rho=0.95$ as a practical identity-preservation threshold, giving $\widehat d_{\rm ID}^{\rm VAE}(0.95) \approx 70$ for CelebA and $\approx 140$ for CIFAR-10. Below this threshold, the VAE itself averages away sample identity, so pixel-space memorization and the latent-spectrum predictor are not expected to follow the excess-buffer story cleanly.
+
+For each dataset and each $\dlat$, we train a convolutional VAE on the full available training split rather than on the 1k diffusion subset. The encoder is a five-stage ResNet-style convolutional network with channel widths $(32,64,128,256,512)$, stride-two downsampling, GroupNorm/SiLU residual blocks, and separate linear heads for $\mu(x)$ and $\log\sigma^2(x)$. The decoder mirrors this architecture with transposed-convolution upsampling and a Tanh output. Images are represented at $32\times 32$ resolution. The VAE objective is a reconstruction term plus a KL penalty to the standard normal prior, with the final runs using the capacity-style loss $\mathcal L_{\rm VAE}=\mathcal L_{\rm recon} + \gamma |\mathrm{KL}(q(z|x)\|p(z))-C(t)|$ when enabled. The capacity target is warmed up during training, learning rate is reduced on validation plateaus, and the checkpoint with the best validation objective is used downstream.
+
+We then freeze each VAE and train an MLP score model directly in its latent space. The diffusion subset is a farthest-first diverse set of 1k training images, encoded once by the VAE mean. The score network is a fixed-width, depth-three MLP with sinusoidal time features, hidden width 256, and output dimension $\dlat$. Keeping the hidden width fixed makes parameter count and per-step FLOPs roughly constant across the sweep, so the high-dimensional decline is not explained by simply giving wider latent spaces a wider network. Each run uses SGD with learning rate $10^{-3}$ and momentum $0.80$, trains for 5M steps over five seeds, logs optimization loss every 10k steps, and evaluates memorization and FID every 100k steps using generated samples. For the real-data memorization metric, generated latents are decoded back to images and nearest-neighbor ratios are computed in pixel space against the fixed 1k training subset, not in VAE latent space. The aggregate real-data trajectories are shown in Appendix Figure~\ref{fig:app-real-trajectories}, and the per-$\dlat$ memorization/FID panels are in Figures~\ref{fig:app-real-individual-mem}-- \ref{fig:app-real-individual-fid-cifar}. As an architecture check, Appendix~\ref{app:spatial-dit} repeats the CelebA latent-width question with a spatial VAE and DiT trunk; we keep it as an appendix pilot because changing a spatial channel count also changes the number of latent grid coordinates and their covariance structure.
+
+\subsection{Real-data memorization and FID}
+\label{sec:real-mem-fid}
+
+On CelebA, final memorization is largest near the VAE identity threshold, around $\dlat=70$--$80$, and then falls by roughly half by $\dlat=200$. The low-$\dlat$ side is a representation-capacity regime where decoded samples do not preserve enough identity for pixel-space KNN recall to be measured reliably; the high-$\dlat$ side is the excess-latent regime, where $q$ falls from $2.9$ to $1.3$; the $q$-mechanism accounts for $1.7$--$1.9\times$ of the observed $2.1$--$3.9\times$ slowdown of the $5\%$ hitting time and for $0.28$ of the log-decline of the CelebA final fraction, and a $q$-only reading is falsified across datasets (CelebA $0.45$ vs CIFAR-10 $0.21$ final fraction at matched $q\approx1.25$). CIFAR-10 shows the same qualitative behavior with a larger identity-preservation threshold ($\widehat d_{\rm ID}^{\rm VAE}(0.95)\approx 140$): after the VAE begins preserving identity, memorization declines for the widest latents. FID has its own dimension dependence: it improves rapidly as the VAE bottleneck is relieved, is best at intermediate latent widths, and worsens again at large $\dlat$, giving a quality tradeoff rather than a monotone benefit from larger codes. The aggregate over-training memorization/FID trajectories and the full per-dimension real-data panels are shown in Appendix Figures~\ref{fig:app-real-trajectories}-- \ref{fig:app-real-individual-fid-cifar}.

@@ -1,0 +1,359 @@
+\begin{thebibliography}{45}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ba et~al.(2022)Ba, Erdogdu, Suzuki, Wang, Wu, and
+  Yang]{ba2022highdimensional}
+Ba, J., Erdogdu, M.~A., Suzuki, T., Wang, Z., Wu, D., and Yang, G.
+\newblock High-dimensional asymptotics of feature learning: How one gradient
+  step improves the representation.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~35, 2022.
+\newblock arXiv:2205.01445.
+
+\bibitem[Baik \& Silverstein(2006)Baik and Silverstein]{baik2006eigenvalues}
+Baik, J. and Silverstein, J.~W.
+\newblock Eigenvalues of large sample covariance matrices of spiked population
+  models.
+\newblock \emph{Journal of Multivariate Analysis}, 97\penalty0 (6):\penalty0
+  1382--1408, 2006.
+\newblock arXiv:math/0408165.
+
+\bibitem[Baik et~al.(2005)Baik, {Ben Arous}, and P{\'e}ch{\'e}]{baik2005phase}
+Baik, J., {Ben Arous}, G., and P{\'e}ch{\'e}, S.
+\newblock Phase transition of the largest eigenvalue for nonnull complex sample
+  covariance matrices.
+\newblock \emph{The Annals of Probability}, 33\penalty0 (5):\penalty0
+  1643--1697, 2005.
+\newblock arXiv:math/0403022.
+
+\bibitem[Benaych-Georges \& Nadakuditi(2011)Benaych-Georges and
+  Nadakuditi]{benaychgeorges2011eigenvalues}
+Benaych-Georges, F. and Nadakuditi, R.~R.
+\newblock The eigenvalues and eigenvectors of finite, low rank perturbations of
+  large random matrices.
+\newblock \emph{Advances in Mathematics}, 227\penalty0 (1):\penalty0 494--521,
+  2011.
+\newblock arXiv:0910.2120.
+
+\bibitem[Benigni \& P{\'e}ch{\'e}(2021)Benigni and
+  P{\'e}ch{\'e}]{benigni2021eigenvalue}
+Benigni, L. and P{\'e}ch{\'e}, S.
+\newblock {Eigenvalue distribution of some nonlinear models of random
+  matrices}.
+\newblock \emph{Electronic Journal of Probability}, 26\penalty0
+  (none):\penalty0 1 -- 37, 2021.
+\newblock \doi{10.1214/21-EJP699}.
+
+\bibitem[Biroli et~al.(2024)Biroli, Bonnaire, de~Bortoli, and
+  M{\'e}zard]{biroli2024dynamical}
+Biroli, G., Bonnaire, T., de~Bortoli, V., and M{\'e}zard, M.
+\newblock Dynamical regimes of diffusion models.
+\newblock \emph{Nature Communications}, 15\penalty0 (1):\penalty0 9957, 2024.
+\newblock \doi{10.1038/s41467-024-54281-3}.
+
+\bibitem[Bonnaire et~al.(2025)Bonnaire, Urfin, Biroli, and
+  Mezard]{bonnaire2025}
+Bonnaire, T., Urfin, R., Biroli, G., and Mezard, M.
+\newblock Why diffusion models don’t memorize: The role of implicit dynamical
+  regularization in training.
+\newblock In Belgrave, D., Zhang, C., Lin, H., Pascanu, R., Koniusz, P.,
+  Ghassemi, M., and Chen, N. (eds.), \emph{Advances in Neural Information
+  Processing Systems}, volume~38, pp.\  141266--141286. Curran Associates,
+  Inc., 2025.
+
+\bibitem[Brown et~al.(2023)Brown, Caterini, Ross, Cresswell, and
+  Loaiza-Ganem]{brown2022manifold}
+Brown, B.~C., Caterini, A.~L., Ross, B.~L., Cresswell, J.~C., and Loaiza-Ganem,
+  G.
+\newblock Verifying the union of manifolds hypothesis for image data.
+\newblock In \emph{The Eleventh International Conference on Learning
+  Representations}, 2023.
+
+\bibitem[Carlini et~al.(2019)Carlini, Liu, Erlingsson, Kos, and
+  Song]{carlini2019secret}
+Carlini, N., Liu, C., Erlingsson, U., Kos, J., and Song, D.
+\newblock The secret sharer: Evaluating and testing unintended memorization in
+  neural networks.
+\newblock In \emph{28th USENIX Security Symposium (USENIX Security 19)}, pp.\
+  267--284, 2019.
+
+\bibitem[Carlini et~al.(2023)Carlini, Hayes, Nasr, Jagielski, Sehwag,
+  Tram{\`e}r, Balle, Ippolito, and Wallace]{carlini2023extracting}
+Carlini, N., Hayes, J., Nasr, M., Jagielski, M., Sehwag, V., Tram{\`e}r, F.,
+  Balle, B., Ippolito, D., and Wallace, E.
+\newblock Extracting training data from diffusion models.
+\newblock In \emph{32nd USENIX Security Symposium (USENIX Security 23)}, pp.\
+  5253--5270, Anaheim, CA, August 2023. USENIX Association.
+\newblock ISBN 978-1-939133-37-3.
+
+\bibitem[Couillet \& Debbah(2011)Couillet and Debbah]{couillet2011rmt}
+Couillet, R. and Debbah, M.
+\newblock \emph{Random Matrix Methods for Wireless Communications}.
+\newblock Cambridge University Press, 2011.
+
+\bibitem[Efron(2011)]{efron2011tweedie}
+Efron, B.
+\newblock Tweedie's formula and selection bias.
+\newblock \emph{Journal of the American Statistical Association}, 106\penalty0
+  (496):\penalty0 1602--1614, 2011.
+
+\bibitem[Esser et~al.(2024)Esser, Kulal, Blattmann, Entezari, M\"{u}ller,
+  Saini, Levi, Lorenz, Sauer, Boesel, Podell, Dockhorn, English, and
+  Rombach]{esser2024sd3}
+Esser, P., Kulal, S., Blattmann, A., Entezari, R., M\"{u}ller, J., Saini, H.,
+  Levi, Y., Lorenz, D., Sauer, A., Boesel, F., Podell, D., Dockhorn, T.,
+  English, Z., and Rombach, R.
+\newblock Scaling rectified flow transformers for high-resolution image
+  synthesis.
+\newblock In Salakhutdinov, R., Kolter, Z., Heller, K., Weller, A., Oliver, N.,
+  Scarlett, J., and Berkenkamp, F. (eds.), \emph{Proceedings of the 41st
+  International Conference on Machine Learning}, volume 235 of
+  \emph{Proceedings of Machine Learning Research}, pp.\  12606--12633. PMLR,
+  21--27 Jul 2024.
+
+\bibitem[Facco et~al.(2017)Facco, d'Errico, Rodriguez, and
+  Laio]{facco2017twonn}
+Facco, E., d'Errico, M., Rodriguez, A., and Laio, A.
+\newblock Estimating the intrinsic dimension of datasets by a minimal
+  neighborhood information.
+\newblock \emph{Scientific Reports}, 7\penalty0 (1):\penalty0 12140, 2017.
+\newblock \doi{10.1038/s41598-017-11873-y}.
+
+\bibitem[Fan \& Wang(2020)Fan and Wang]{fanwang2020spectra}
+Fan, Z. and Wang, Z.
+\newblock Spectra of the conjugate kernel and neural tangent kernel for
+  linear-width neural networks.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~33, pp.\  7710--7721, 2020.
+\newblock arXiv:2005.11879.
+
+\bibitem[George et~al.(2025)George, Veiga, and Macris]{george2025dsm}
+George, A.~J., Veiga, R., and Macris, N.
+\newblock Denoising score matching with random features: Insights on diffusion
+  models from precise learning curves.
+\newblock \emph{arXiv preprint arXiv:2502.00336}, 2025.
+
+\bibitem[Goldt et~al.(2022)Goldt, Loureiro, Reeves, Krzakala, M{\'e}zard, and
+  Zdeborov{\'a}]{goldt2022gaussian}
+Goldt, S., Loureiro, B., Reeves, G., Krzakala, F., M{\'e}zard, M., and
+  Zdeborov{\'a}, L.
+\newblock The {G}aussian equivalence of generative models for learning with
+  shallow neural networks.
+\newblock In \emph{Proceedings of the 2nd Mathematical and Scientific Machine
+  Learning Conference (MSML)}, volume 145 of \emph{Proceedings of Machine
+  Learning Research}, pp.\  426--471. PMLR, 2022.
+\newblock arXiv:2006.14709.
+
+\bibitem[Gu et~al.(2025)Gu, Du, Pang, Li, Lin, and Wang]{gu2023memorization}
+Gu, X., Du, C., Pang, T., Li, C., Lin, M., and Wang, Y.
+\newblock On memorization in diffusion models.
+\newblock \emph{Transactions on Machine Learning Research}, 2025.
+\newblock ISSN 2835-8856.
+
+\bibitem[Hayes et~al.(2017)Hayes, Melis, Danezis, and
+  De~Cristofaro]{hayes2017logan}
+Hayes, J., Melis, L., Danezis, G., and De~Cristofaro, E.
+\newblock {LOGAN}: Membership inference attacks against generative models.
+\newblock \emph{arXiv preprint arXiv:1705.07663}, 2017.
+
+\bibitem[Hilprecht et~al.(2019)Hilprecht, H{\"a}rterich, and
+  Bernau]{hilprecht2019reconstruction}
+Hilprecht, B., H{\"a}rterich, M., and Bernau, D.
+\newblock Reconstruction and membership inference attacks against generative
+  models.
+\newblock \emph{arXiv preprint arXiv:1906.03006}, 2019.
+
+\bibitem[Ho et~al.(2020)Ho, Jain, and Abbeel]{ho2020denoising}
+Ho, J., Jain, A., and Abbeel, P.
+\newblock Denoising diffusion probabilistic models.
+\newblock In Larochelle, H., Ranzato, M., Hadsell, R., Balcan, M., and Lin, H.
+  (eds.), \emph{Advances in Neural Information Processing Systems}, volume~33,
+  pp.\  6840--6851. Curran Associates, Inc., 2020.
+
+\bibitem[Hu \& Lu(2023)Hu and Lu]{hu2022universality}
+Hu, H. and Lu, Y.~M.
+\newblock Universality laws for high-dimensional learning with random features.
+\newblock \emph{IEEE Transactions on Information Theory}, 69\penalty0
+  (3):\penalty0 1932--1964, 2023.
+\newblock arXiv:2009.07669 (2020).
+
+\bibitem[Kadkhodaie et~al.(2024)Kadkhodaie, Guth, Simoncelli, and
+  Mallat]{kadkhodaie2023learning}
+Kadkhodaie, Z., Guth, F., Simoncelli, E.~P., and Mallat, S.
+\newblock Generalization in diffusion models arises from geometry-adaptive
+  harmonic representations.
+\newblock In \emph{The Twelfth International Conference on Learning
+  Representations}, 2024.
+
+\bibitem[Kamkari et~al.(2024)Kamkari, Ross, Hosseinzadeh, Cresswell, and
+  Loaiza-Ganem]{kamkari2024geometric}
+Kamkari, H., Ross, B.~L., Hosseinzadeh, R., Cresswell, J., and Loaiza-Ganem, G.
+\newblock A geometric view of data complexity: Efficient local intrinsic
+  dimension estimation with diffusion models.
+\newblock In Globerson, A., Mackey, L., Belgrave, D., Fan, A., Paquet, U.,
+  Tomczak, J., and Zhang, C. (eds.), \emph{Advances in Neural Information
+  Processing Systems}, volume~37, pp.\  38307--38354. Curran Associates, Inc.,
+  2024.
+\newblock \doi{10.52202/079017-1211}.
+
+\bibitem[Karoui(2010)]{ELKaroui2010spectrum}
+Karoui, N.~E.
+\newblock {The spectrum of kernel random matrices}.
+\newblock \emph{The Annals of Statistics}, 38\penalty0 (1):\penalty0 1 -- 50,
+  2010.
+\newblock \doi{10.1214/08-AOS648}.
+
+\bibitem[Karras et~al.(2022)Karras, Aittala, Aila, and
+  Laine]{karras2022elucidating}
+Karras, T., Aittala, M., Aila, T., and Laine, S.
+\newblock Elucidating the design space of diffusion-based generative models.
+\newblock In Koyejo, S., Mohamed, S., Agarwal, A., Belgrave, D., Cho, K., and
+  Oh, A. (eds.), \emph{Advances in Neural Information Processing Systems},
+  volume~35, pp.\  26565--26577. Curran Associates, Inc., 2022.
+
+\bibitem[Lee et~al.(2025)Lee, Kreis, Veccham, Liu, Reidenbach, Peng, Paliwal,
+  Nie, and Vahdat]{leeGenMolDrugDiscovery2025}
+Lee, S., Kreis, K., Veccham, S.~P., Liu, M., Reidenbach, D., Peng, Y., Paliwal,
+  S.~G., Nie, W., and Vahdat, A.
+\newblock Genmol: A drug discovery generalist with discrete diffusion.
+\newblock In \emph{Forty-second International Conference on Machine Learning},
+  2025.
+
+\bibitem[Levina \& Bickel(2004)Levina and Bickel]{levina2004maximum}
+Levina, E. and Bickel, P.
+\newblock Maximum likelihood estimation of intrinsic dimension.
+\newblock In Saul, L., Weiss, Y., and Bottou, L. (eds.), \emph{Advances in
+  Neural Information Processing Systems}, volume~17. MIT Press, 2004.
+
+\bibitem[Liao \& Couillet(2018)Liao and Couillet]{liao2018spectrum}
+Liao, Z. and Couillet, R.
+\newblock On the spectrum of random features maps of high dimensional data.
+\newblock In \emph{Proceedings of the 35th International Conference on Machine
+  Learning (ICML)}, volume~80 of \emph{Proceedings of Machine Learning
+  Research}, pp.\  3063--3071. PMLR, 2018.
+\newblock arXiv:1805.11916.
+
+\bibitem[Lipman et~al.(2023)Lipman, Chen, Ben-Hamu, Nickel, and
+  Le]{lipman2023flow}
+Lipman, Y., Chen, R. T.~Q., Ben-Hamu, H., Nickel, M., and Le, M.
+\newblock Flow matching for generative modeling.
+\newblock In \emph{The Eleventh International Conference on Learning
+  Representations}, 2023.
+
+\bibitem[Louart et~al.(2018)Louart, Liao, and Couillet]{louart2018random}
+Louart, C., Liao, Z., and Couillet, R.
+\newblock A random matrix approach to neural networks.
+\newblock \emph{The Annals of Applied Probability}, 28\penalty0 (2):\penalty0
+  1190--1248, 2018.
+\newblock arXiv:1702.05419.
+
+\bibitem[Lucas et~al.(2019)Lucas, Tucker, Grosse, and
+  Norouzi]{lucas2019dontblame}
+Lucas, J., Tucker, G., Grosse, R., and Norouzi, M.
+\newblock Don't blame the {ELBO}! {A} linear {VAE} perspective on posterior
+  collapse.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~32, 2019.
+\newblock arXiv:1911.02469.
+
+\bibitem[Marchenko \& Pastur(1967)Marchenko and
+  Pastur]{marchenko1967distribution}
+Marchenko, V.~A. and Pastur, L.~A.
+\newblock Distribution of eigenvalues for some sets of random matrices.
+\newblock \emph{Mathematics of the USSR-Sbornik}, 1\penalty0 (4):\penalty0
+  457--483, 1967.
+
+\bibitem[Meehan et~al.(2020)Meehan, Chaudhuri, and
+  Dasgupta]{meehan2020datacopying}
+Meehan, C., Chaudhuri, K., and Dasgupta, S.
+\newblock A non-parametric test to detect data-copying in generative models.
+\newblock \emph{arXiv preprint arXiv:2004.05675}, 2020.
+
+\bibitem[Mei \& Montanari(2022)Mei and Montanari]{mei2022generalization}
+Mei, S. and Montanari, A.
+\newblock The generalization error of random features regression: Precise
+  asymptotics and the double descent curve.
+\newblock \emph{Communications on Pure and Applied Mathematics}, 75\penalty0
+  (4):\penalty0 667--766, 2022.
+\newblock arXiv:1908.05355.
+
+\bibitem[Pennington \& Worah(2017)Pennington and
+  Worah]{pennington2017nonlinear}
+Pennington, J. and Worah, P.
+\newblock Nonlinear random matrix theory for deep learning.
+\newblock In Guyon, I., Luxburg, U.~V., Bengio, S., Wallach, H., Fergus, R.,
+  Vishwanathan, S., and Garnett, R. (eds.), \emph{Advances in Neural
+  Information Processing Systems}, volume~30. Curran Associates, Inc., 2017.
+
+\bibitem[Podell et~al.(2024)Podell, English, Lacey, Blattmann, Dockhorn,
+  M{\"u}ller, Penna, and Rombach]{podell2023sdxl}
+Podell, D., English, Z., Lacey, K., Blattmann, A., Dockhorn, T., M{\"u}ller,
+  J., Penna, J., and Rombach, R.
+\newblock {SDXL}: Improving latent diffusion models for high-resolution image
+  synthesis.
+\newblock In \emph{The Twelfth International Conference on Learning
+  Representations}, 2024.
+
+\bibitem[Pope et~al.(2021)Pope, Zhu, Abdelkader, Goldblum, and
+  Goldstein]{pope2021}
+Pope, P., Zhu, C., Abdelkader, A., Goldblum, M., and Goldstein, T.
+\newblock The intrinsic dimension of images and its impact on learning.
+\newblock In \emph{International Conference on Learning Representations}, 2021.
+
+\bibitem[Rombach et~al.(2022)Rombach, Blattmann, Lorenz, Esser, and
+  Ommer]{rombach2022highresolution}
+Rombach, R., Blattmann, A., Lorenz, D., Esser, P., and Ommer, B.
+\newblock High-resolution image synthesis with latent diffusion models.
+\newblock In \emph{Proceedings of the IEEE/CVF Conference on Computer Vision
+  and Pattern Recognition (CVPR)}, pp.\  10684--10695, June 2022.
+
+\bibitem[Scarvelis et~al.(2025)Scarvelis, de~Oc{\'a}riz~Borde, and
+  Solomon]{scarvelis2023closedform}
+Scarvelis, C., de~Oc{\'a}riz~Borde, H.~S., and Solomon, J.
+\newblock Closed-form diffusion models.
+\newblock \emph{Transactions on Machine Learning Research}, 2025.
+\newblock ISSN 2835-8856.
+
+\bibitem[Somepalli et~al.(2023)Somepalli, Singla, Goldblum, Geiping, and
+  Goldstein]{somepalli2023diffusion}
+Somepalli, G., Singla, V., Goldblum, M., Geiping, J., and Goldstein, T.
+\newblock Diffusion art or digital forgery? investigating data replication in
+  diffusion models.
+\newblock In \emph{Proceedings of the IEEE/CVF conference on computer vision
+  and pattern recognition}, pp.\  6048--6058, 2023.
+
+\bibitem[Song et~al.(2021)Song, Sohl-Dickstein, Kingma, Kumar, Ermon, and
+  Poole]{song2021scoresde}
+Song, Y., Sohl-Dickstein, J., Kingma, D.~P., Kumar, A., Ermon, S., and Poole,
+  B.
+\newblock Score-based generative modeling through stochastic differential
+  equations.
+\newblock In \emph{International Conference on Learning Representations}, 2021.
+
+\bibitem[Stanczuk et~al.(2024)Stanczuk, Batzolis, Deveney, and
+  Sch\"{o}nlieb]{stanczuk2024manifold}
+Stanczuk, J.~P., Batzolis, G., Deveney, T., and Sch\"{o}nlieb, C.-B.
+\newblock Diffusion models encode the intrinsic dimension of data manifolds.
+\newblock In Salakhutdinov, R., Kolter, Z., Heller, K., Weller, A., Oliver, N.,
+  Scarlett, J., and Berkenkamp, F. (eds.), \emph{Proceedings of the 41st
+  International Conference on Machine Learning}, volume 235 of
+  \emph{Proceedings of Machine Learning Research}, pp.\  46412--46440. PMLR,
+  21--27 Jul 2024.
+
+\bibitem[Vershynin(2018)]{vershynin2018hdp}
+Vershynin, R.
+\newblock \emph{High-Dimensional Probability: An Introduction with Applications
+  in Data Science}.
+\newblock Cambridge University Press, 2018.
+
+\bibitem[Vincent(2011)]{vincent2011connection}
+Vincent, P.
+\newblock A connection between score matching and denoising autoencoders.
+\newblock \emph{Neural Computation}, 23\penalty0 (7):\penalty0 1661--1674,
+  2011.
+
+\end{thebibliography}
