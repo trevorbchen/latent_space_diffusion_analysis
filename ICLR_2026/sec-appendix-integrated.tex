@@ -348,26 +348,29 @@ growth, and saturation of memorization remain visible.
   until 5M steps. The seed-level histogram exposes how much of the latent
   dimensional trend is stable across random seeds rather than being driven by a
   single unusually memorizing run. The final and peak summaries both support
-  the same decreasing regime with increasing exact buffer width
-  $\dlat-\dint$, including the high-dimensional extension beyond the
+  the same decreasing regime with increasing $\dlat$, including the high-dimensional extension beyond the
   main-text $\dlat\le 40$ view.}
   \label{fig:app-synthetic-mlp-mem-summary}
 \end{figure}
 
 \begin{figure}[!htbp]
   \centering
+  \includegraphics[width=0.62\linewidth]{figures/synthetic_mlp_final_mem_ratio_scaled8d.pdf}
+  \caption{Width-scaled control for \cref{fig:synthetic-mlp-main}: the same sweep with hidden width $8\dlat$ (40 to 320) instead of a fixed $256$, five seeds, 5M steps. Memorization sits at the $1\%$ level and rises again for $\dlat\ge30$ as the network grows, so a width-scaled sweep is a capacity sweep and does not isolate the latent dimension. This is why the main text holds the width fixed.}
+  \label{fig:app-synthetic-mlp-scaled}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
   \begin{subfigure}{0.48\linewidth}
     \includegraphics[width=\linewidth]{figures/synthetic_mlp_score_error_full.pdf}
-    \caption{Raw score error.}
+    \caption{Score error, all coordinates.}
   \end{subfigure}
   \begin{subfigure}{0.48\linewidth}
     \includegraphics[width=\linewidth]{figures/synthetic_mlp_score_error_per_dim_full.pdf}
     \caption{Score error normalized per latent dimension.}
   \end{subfigure}
-  \caption{Synthetic MLP score-error diagnostics for the analytic latent-score
-  task. The raw score error measures the total discrepancy between the predicted
-  and true Gaussian score over all latent coordinates, whereas the
-  per-dimension normalization removes the mechanical scaling with $\dlat$.
+  \caption{Synthetic MLP score-error diagnostics: the population score error at $t=0.1$ against the exact GMM score on a held-out set, five-seed mean with 95\% CI. The left panel sums over all latent coordinates; the right panel divides by $\dlat$, which removes the mechanical scaling with $\dlat$.
   This distinction matters because a larger latent space has more coordinates
   to predict even if the average coordinate-wise error is comparable. Score
   error is the appropriate quality metric in this synthetic setting because the

@@ -23,20 +23,11 @@ The main-text synthetic MLP sweep uses $\dint=5$, $n=500$ training samples, null
   \end{subfigure}
   \caption{\textbf{Synthetic MLP memorization and quality.}
     Five-seed fixed-width MLP results after or during 5M steps, sweeping
-    $\dlat$ at exact $\dint=5$. Once $\dlat$ exceeds the intrinsic
-    dimension, the null-buffer size is exactly $\dlat-\dint$, and final
-    memorization falls almost monotonically from roughly $30\%$ at
-    $\dlat=5$ to near zero by $\dlat=40$. The score-error panel is the
-    synthetic analogue of the real-data FID panels: the GMM score is known
-    exactly, so direct score error is a more informative quality check than
-    a sample Fr\'echet statistic. The curves rule out the simplest failure
-    mode in which high-$\dlat$ models memorize less only because they
-    collapse or fail to optimize; instead, memorization decreases while the
-    per-coordinate score error remains well-behaved.}
+    $\dlat$ at exact $\dint=5$. Once $\dlat$ exceeds the intrinsic dimension, final memorization falls monotonically from $30\%$ at $\dlat=5$ to $0.1\%$ at $\dlat=40$, with hidden width $256$ at every $\dlat$ (\cref{fig:app-synthetic-mlp-scaled} shows the same sweep with width scaled as $8\dlat$). The score-error panel is the population score error at $t=0.1$ per coordinate, against the exact GMM score on held-out data. Every width reaches its minimum by the first evaluation at 50k steps and then diverges from the population score as the network fits its training set. The divergence starts later at larger $\dlat$: the error crosses $2.0$ per coordinate at $0.35$M steps for $\dlat=5$ and at $1.05$M for $\dlat=40$, the same ordering as the memorization onset. By 5M steps all widths have diverged to a similar level, so the panel shows the delay, not a preserved score at the horizon.}
   \label{fig:synthetic-mlp-main}
 \end{figure*}
 
-On synthetic data, this direct score error serves the same purpose as FID on CelebA and CIFAR-10: it checks that the memorization decline is not simply failed optimization or collapsed samples. We still use the score-error name in the figures because the measured quantity is the true-score discrepancy, not an image-feature Fr\'echet distance.
+On synthetic data the population score error is available exactly, so it replaces FID as the quality readout. It does not show quality preserved at the 5M-step horizon; every width has left the population score by then. What it shows is timing: the divergence from the population score, which is the score-space signature of fitting the training set, begins about $3\times$ later at $\dlat=40$ than at $\dlat=5$, in step with the delayed memorization onset in panel (a).
 
 Whether feature learning sharpens or weakens the frozen-feature prediction is open: after one gradient step on the first layer the signal eigenvalues of the conjugate kernel rise by $O(\eta)$ while the noise-dimension edges move by at most $O(\eta\beta_t^2/\alpha_t^2)$, and with continued training the residual-block top is expected to rise, which would \emph{shorten} the buffer relative to the frozen-feature value (Rem.~\ref{rem:scope-feature}, conjectural; no MLP spectra were saved). The direction of the effect agrees with the spectral picture: widening the latent space slows memorization, and the metric itself contributes: the $1/3$ nearest-neighbour-ratio test has a ceiling $1-G_{\rm NN}(\sqrt{8\dlat v_{\rm EM}})$ set by the sampler's terminal noise, which is $0.68$ at $\dlat=5$ and $\to1$ for $\dlat\ge25$ at $\signoise=0.5$ but collapses to $0.03$ by $\dlat=20$ at $\signoise=0.01$ (Lemma~\ref{lem:endpoint}); the $\signoise=0.01$ sweep's zero fractions for $\dlat\ge20$ are therefore not evidence of a buffer.
 

@@ -162,3 +162,20 @@ and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to re
 10. **Bib — RESOLVED 2026-09-15.** All 16 theory entries verified against arXiv/publisher pages; every flagged id was correct.
    George–Veiga–Macris is AISTATS 2026 (renders as 2026); Ba et al. gained NeurIPS pages. The header had hidden a 17th entry; gone.
    `references.bib` = Trevor's original + these 16; `main.bbl` regenerated (45 entries).
+
+## 8. Figure 2 was plotting the wrong sweep (found and fixed 2026-09-15)
+
+`plot_mlp_multiseed_clean.py` defaults `--root` to `multiseed_runs/exp2_mlp_dlat_sn05_5m_combined` (hidden = 8·d_lat). The
+2026-07-06 "refresh synthetic MLP figures" commit regenerated the MAIN-TEXT figures from it, so Figure 2(a) showed the scaled-width
+sweep (memorization ~1%, U-shaped, rising again at d≥30) under a caption describing the fixed-width sweep (30% → 0.1%, monotone,
+`multiseed_runs/exp2_mlp_dlat_sn05_5m_bonnaire_hidden256`). The appendix `_full` figures were already from the fixed-width sweep.
+Figure 2(b) and appendix Fig 17/18 score-error panels used the buggy transposed-covariance metric, divided by d twice.
+
+Fixed: Figure 2(a) regenerated from the fixed-width sweep; Figure 2(b) and the appendix score-error panels replaced by the corrected
+population score error (`_next_steps/e_scoreerr/`, exact via the DSM identity); the scaled-width plot kept as appendix control figure
+`fig:app-synthetic-mlp-scaled` with an honest caption; Figure 2 caption and the paragraph under it rewritten (timing claim, not
+"quality preserved"). Old figure files: `_next_steps/figures_replaced_20260915/`. Corrected-vs-logged comparison (not in the paper):
+`_next_steps/e_scoreerr/synthetic_mlp_score_error_final_corrected_vs_logged.pdf`.
+
+Open: appendix Fig 16 extends the fixed-width sweep to d_lat = 240 but those runs (d > 40) are not in this repo snapshot.
+E2 (projection test) still needed; it can run on this Mac in ~2.5 h (0.87 ms/step on CPU) once the script saves samples and Q.
