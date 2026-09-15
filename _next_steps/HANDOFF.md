@@ -103,6 +103,7 @@ mismatch; make HF private; reconcile the three appendix copies.
 `THEORY_TODO.md` §5. Highest value first: E1 collapse probe (HF VAEs, today), E2 dimension-controlled
 memorization (decides whether the headline is real), E3 activation sweep + E4 norm-fixed control (decides the
 mechanism: mode count vs tanh de-saturation), E5 isotropic control (minutes).
+**E4 and E5 DONE 2026-09-15**: `e4_norm_fixed_results.txt` (R grows 1.09× at fixed q vs 3.17× baseline over d=40→240; mode count would give 6.7×), `e5_isotropic_results.txt`.
 
 ## 5. Ground truth to not re-derive (details in `THEORY_TODO.md` §2–3)
 - Counts: `d_int`, `d_lat − d_int`, `n − d_lat`, `p − n`. Cliff at index `n`.
@@ -141,3 +142,20 @@ and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to re
 2. **Single-draw vs ξ-averaged cliff — RESOLVED 2026-09-15.** Every quoted shoulder ratio matches the spectra
    (λ_n/λ_{n+1} = 1.01, 1.01, 1.32, 1.70, 2.08, 1.68, 1.90, 1.73 at d=10..200); the two "series" were the same data at different d.
    One quoted range corrected (1.32–1.73 → 1.3–2.1). `sec-rfnn.tex` now states the released U is a 50-draw average with a soft shoulder.
+3. **Isotropic control — RESOLVED 2026-09-15.** E5 (`scripts/e5_isotropic.py`, results in `e5_isotropic_results.txt`): at σ⊥=σ_sig=1 the
+   ratio is non-monotone, 14→87 (peak d≈40)→60 at d=160, exactly the appendix's prediction. The audit's "10.7× gap" was a code-unit
+   artifact. Text corrected in `rem:isotropic-buf`, main-text remark, and `rem:scope-outside`.
+4. **NN-ratio convention — RESOLVED 2026-09-15.** The critic was wrong: BOTH `code/v3/lib/metrics.py` and the old `experiment_v2.py`
+   use Somepalli's d(gen,NN1)/d(NN1,NN2). There was never a second convention. The false two-convention passage in
+   `def:bridge-objects` was replaced by the single definition; every constant 9 = (1/3)^-2 stands as written.
+5. **Real-data numbers — RESOLVED 2026-09-15.** Recomputed from `clean figures/*/*_spectral_features_primary_t.csv`: CelebA floor from d=140,
+   q flat 1.71–1.84 over d=20–120 then 1.62→1.25 (140→200), eff. rank 89.5/90.3/87.9 at 160/180/200; CIFAR floor within 2e-3 at 160,
+   3e-4 at 180, <1e-4 from 200, q 2.27→1.11. The paper's own q numbers already matched; the CIFAR threshold was harmonized to ~160.
+   (The "2.92→1.30" q figure was the audit's, never in the paper.)
+6. **Hitting-time tables — RESOLVED 2026-09-15.** Added `tab:hitting-times-real` to `sec-appendix-theory.tex` (from
+   `*_empirical_tau_summary.csv`: τ_obs at thresholds 0.01/0.05/0.10, mean±sd over 5 seeds, censored counts). "Released tables" phrases now cite it.
+7. **George–Veiga–Macris phrasing**: main text l.87 cites the wrong remark (should be `rem:fourbulk-sigperp0`); "no longer
+   separated from the sample block" is a claim about *our* parameters (Δ_t vs a⋆²/n), not their result — phrase it so.
+8. **Length — CANDIDATE READY.** `sec-theory-short.tex` (2,296 words, ~4 pp). Swap the input line in main.tex to use it. Further cuts mean dropping equations.
+9. **Clock conventions — STATED, not re-verified line by line.** `app:theory-linear` opens with the convention note; every cross-piece
+   ratio quoted in the main text is unit-free. A line-by-line audit of absolute step counts in the appendix has NOT been done.
