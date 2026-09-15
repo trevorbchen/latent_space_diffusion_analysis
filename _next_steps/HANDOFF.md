@@ -98,8 +98,11 @@ mechanism: mode count vs tanh de-saturation), E5 isotropic control (minutes).
 - Counts: `d_int`, `d_lat − d_int`, `n − d_lat`, `p − n`. Cliff at index `n`.
 - Edges ∝ `a₁(q)²α_t²/d_lat`, `a₁(q)²β_t²/d_lat`, sample mean ~`a⋆(q)²/n`; `q = tr(M_t)/d_lat`; trace = `E[tanh(√q z)²]`.
 - Code's `compute_U` omits `1/√p` on φ ⇒ saved eigenvalues = `p ×` theory. W is drawn `/√d_lat` (matches Eq. 1).
-- Buffer = `λ_min^signal / λ_max^sample` (onset). Opens 31→576 over d_lat 5→200 at σ⊥=0.5. Median statistic reverses.
-- `τ_gen` grows 8.1× over the sweep. Isotropic Σ=I still gives 10.7× gap growth.
+- Buffer = `λ_min^signal / λ_max^sample` (onset) = λ_5/λ_{d+1}. On `sigma_noise_0.5/exp2_rfnn/raw_data` (seed 42, p=64d) it opens
+  21.2 → 426.3 over d_lat 5→200 (recomputed 2026-09-15; the pieces' 428 is the same number to rounding). The audit's
+  "31→576, τ_gen 8.1×" does NOT reproduce from any file on disk and is retired. Median statistic reverses (shrinks ~14×).
+- `τ_gen` = 1/λ_min^signal grows 11.0× in flow units (λ_code/p) over the sweep; in optimizer steps it FALLS because lr = 0.01·d_lat/Δ_t.
+- Isotropic control: `_next_steps/e5_isotropic_results.txt` (2026-09-15) — see §7 item 3 for what it settles.
 - Real VAE latents: effective rank ≈ 0.45–0.55·d; `λ_min = Δ_t = 0.181` for d ≥ 140 (dead dims); CelebA `d_eff`
   saturates ~88–90 for d ≥ 160. Source: `clean figures/*/*_spectral_features_primary_t.csv`.
 - Bonnaire 2025 (2505.17638) Thm 3.1 is for arbitrary ρ_Σ. George–Veiga–Macris (2502.00336) has block dims (p, d−D, D, n).
@@ -120,17 +123,18 @@ fixed by script the same day. `main.tex` is NOT modified: to build, add `\input{
 and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to references.bib alone does nothing).
 
 ### Substantive issues the critic found — these need an AUTHOR decision, not a script
-1. **Two sets of timescale numbers.** Main text quotes both "τ_gen grows 11×, R 21→428" (pieces, recomputed from
-   `eigenvalues_pre.npy`) and "8×, 31→576" (audit). The pieces could not reproduce the audit's step-unit numbers.
-   Pick one set, document its unit conversion (`rem:clock-p1`), delete the other. A referee will not accept "audit vs table".
+1. **Two sets of timescale numbers — RESOLVED 2026-09-15.** Recomputed λ_5/λ_{d+1} from the spectra file directly: 21.2→426.3,
+   τ_gen 11.0× (flow units). That is the pieces' set. The audit's 31→576 / 8.1× does not reproduce (its τ_gen list was
+   shifted one grid point and its d=200 value was wrong). Audit numbers deleted from both tex files.
 2. **Single-draw vs ξ-averaged cliff at n.** The machine-precision cliff holds for a single noise draw; the released
    50-draw `U` shows a soft shoulder (ratio 1.0–1.7). The text cites two different shoulder-ratio series
    (appendix l.29 vs l.346). Reconcile against the actual spectra; state which object `sec-design` reports.
-3. **Isotropic control.** `rem:isotropic-buf` says no σ⊥=1 spectra exist and withdraws the 10.7× claim; `rem:fourbulk-isotropic`
-   reports a measured isotropic run at d=100. Contradictory. Run E5 (minutes) and state what was actually simulated.
-4. **NN-ratio convention is attributed backwards in the bridge piece.** `code/v3/lib/metrics.py` is Somepalli's
-   d(gen,NN1)/d(NN1,NN2); the *old* `code/experiment_v2.py:370` is d(gen,NN1)/d(gen,NN2). `def:bridge-objects` says the reverse,
-   so its "9 vs 8" constants and ceilings apply to the sweeps the other way round. Piece 5 never got its revision pass.
+3. **Isotropic control — RESOLVED 2026-09-15.** E5 (`scripts/e5_isotropic.py`, results in `e5_isotropic_results.txt`): at σ⊥=σ_sig=1 the
+   ratio is non-monotone, 14→87 (peak d≈40)→60 at d=160, exactly the appendix's prediction. The audit's "10.7× gap" was a code-unit
+   artifact. Text corrected in `rem:isotropic-buf`, main-text remark, and `rem:scope-outside`.
+4. **NN-ratio convention — RESOLVED 2026-09-15.** The critic was wrong: BOTH `code/v3/lib/metrics.py` and the old `experiment_v2.py`
+   use Somepalli's d(gen,NN1)/d(NN1,NN2). There was never a second convention. The false two-convention passage in
+   `def:bridge-objects` was replaced by the single definition; every constant 9 = (1/3)^-2 stands as written.
 5. **Real-data numbers inconsistent across statements**: CIFAR floor threshold (160 vs ~200 vs "d≥240"); CelebA q
    (2.92→1.30 vs "flat 1.71–1.84 over d=20–120" vs 1.83→1.25). Recompute once from the CSVs and use one set.
 6. **Hitting-time tables** (`tab:flatdeff-real`, leave-one-out errors) are referenced as "released" but appear nowhere in the
