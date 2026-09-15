@@ -17,7 +17,9 @@ Avni Garg (buffer corollary), Kevin Peng (n-shape thread — now moot, see §3.1
   SSH to github.com times out on this machine; fetch with
   `git fetch https://github.com/trevorbchen/latent_space_diffusion_analysis.git main:refs/remotes/origin/main`.
 - The transpose fix (§3.1), the test, and all `_next_steps/` files are committed locally as `2bd8d60` (not pushed).
-- `ICLR_2026/sec-theory.tex` is now the assembled Section 2 (197 lines); `sec-appendix-theory.tex` is the theory appendix (1416 lines). See §7 for what still needs an author. `main.tex` does not yet `\input` the appendix.
+- `ICLR_2026/sec-theory.tex` is the assembled Section 2 (197 lines, ~5.5 pp); `sec-appendix-theory.tex` is the theory appendix (1416 lines).
+  As of 2026-09-15 `main.tex` DOES input the appendix, `main.bbl` is regenerated, and `main.pdf` builds in place (108 pp, 0 undefined refs).
+  The paper's .tex/.bib/.bbl are now tracked in git (commit `2457f45`); figures/ and the pdf are not.
   `main.tex` inputs `sec-appendix-integrated.tex` (no theorems); the old theorem lives in `ICLR_2026/sec-appendix.tex`
   (not input; also wrong — see `THEORY_TODO.md` §2).
 - Disk was full on 2026-09-13; `code/v3/data/encoded/celeba_train_*.pt` are two 8 GB regenerable caches.
@@ -62,7 +64,7 @@ Claude-Code workflow and won't run elsewhere — the spec inside its prompts is 
 
 ## 4. What to do next, in order
 
-### 4.1 Finish/verify the assembly
+### 4.1 Finish/verify the assembly — DONE 2026-09-15 (kept for reference)
 If `sec-theory.tex` / `sec-appendix-theory.tex` are incomplete, assemble them from `theory_pieces_raw.md`:
 - Main text order: setup+assumptions → Def 1–2 (P1) → four-bulk Prop + edge table + Bonnaire/George positioning (P2)
   → buffer Corollary as edge ratio + 2 remarks (P3) → linear-model Lemma (P4) → bridge Prop (P5) → one para each on
@@ -81,8 +83,14 @@ If `sec-theory.tex` / `sec-appendix-theory.tex` are incomplete, assemble them fr
 - Do NOT reproduce the falsified claims (`THEORY_TODO.md` §2): no `/ψ_p` edges, no count×timescale bound,
   no "τ_gen is d_lat-independent", no "Bonnaire assumes isotropy".
 
-### 4.2 Apply the prose edits
-`theory_prose_edits.md` (if written) or `THEORY_TODO.md` §6. These make the rest of the draft agree with Section 2.
+### 4.2 Apply the prose edits — DONE 2026-09-15
+All 53 rows of `theory_prose_edits.md` applied (46 by script, 7 by hand), plus PROJECT_BRIEF.md rewritten. Every touched file has a
+`.bak-20260915` sibling. Two cross-cutting items remain in `theory_prose_edits.md` §"Cross-cutting" — read that section.
+
+### 4.2b Trim Section 2 to ~3 pages — IN PROGRESS 2026-09-15
+A condensed candidate is being written to `ICLR_2026/sec-theory-short.tex` (target 2,000–2,300 words, every cross-referenced label kept).
+To use it: change `\input{sec-theory}` to `\input{sec-theory-short}` in main.tex. The full version stays as `sec-theory.tex`.
+Note: References currently start on p.15, so the WHOLE main text is ~5 pages over a 9–10 page limit; Section 2 can give back ~2.5 of those.
 
 ### 4.3 Housekeeping
 `THEORY_TODO.md` §1: commit the fix; fix `bulk_indices()` (`code/v3/lib/eigenvalues.py:75` — sample bulk is
