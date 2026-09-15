@@ -154,8 +154,8 @@ and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to re
    (The "2.92→1.30" q figure was the audit's, never in the paper.)
 6. **Hitting-time tables — RESOLVED 2026-09-15.** Added `tab:hitting-times-real` to `sec-appendix-theory.tex` (from
    `*_empirical_tau_summary.csv`: τ_obs at thresholds 0.01/0.05/0.10, mean±sd over 5 seeds, censored counts). "Released tables" phrases now cite it.
-7. **George–Veiga–Macris phrasing — RESOLVED 2026-09-15.** Main text now cites `rem:fourbulk-sigperp0` for the merged limit and
-   describes their σ⊥=0 block as "not lifted off the sample block by any σ⊥² term" rather than "no longer separated".
+7. **George–Veiga–Macris phrasing — RESOLVED 2026-09-15.** Main text now cites `rem:fourbulk-sigperp0` for the merged limit. The
+   "no longer separated" phrase the critic quoted was not in the file; both versions already say what is new is our strictly positive σ⊥.
 8. **Length — CANDIDATE READY.** `sec-theory-short.tex` (2,296 words, ~4 pp). Swap the input line in main.tex to use it. Further cuts mean dropping equations.
 9. **Clock conventions — STATED, not re-verified line by line.** `app:theory-linear` opens with the convention note; every cross-piece
    ratio quoted in the main text is unit-free. A line-by-line audit of absolute step counts in the appendix has NOT been done.
