@@ -9,7 +9,7 @@ Paper: "How Excess Latent Dimensionality Delays Memorization in Diffusion Models
 `main.tex`). Claim: an RFNN/MLP score network's feature-correlation spectrum splits into four bulks; the
 `d_lat − d_int` "noise-dim" bulk sits between generalization and memorization and delays the latter.
 Authors: Trevor Chen (repo owner, real-data/VAE/DiT), Ryan Shahbaba (theory; git user TheTrueShah),
-Avni Garg (buffer corollary), Kevin Peng (n-shape thread — now moot, see §3.1). Caltech. Target: ICLR main.
+Kevin Peng (n-shape thread — now moot, see §3.1). Caltech. Target: ICLR main.
 
 ## 2. State of the repo right now
 
