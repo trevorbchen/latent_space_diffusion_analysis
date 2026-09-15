@@ -138,23 +138,6 @@ and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to re
 1. **Two sets of timescale numbers — RESOLVED 2026-09-15.** Recomputed λ_5/λ_{d+1} from the spectra file directly: 21.2→426.3,
    τ_gen 11.0× (flow units). That is the pieces' set. The audit's 31→576 / 8.1× does not reproduce (its τ_gen list was
    shifted one grid point and its d=200 value was wrong). Audit numbers deleted from both tex files.
-2. **Single-draw vs ξ-averaged cliff at n.** The machine-precision cliff holds for a single noise draw; the released
-   50-draw `U` shows a soft shoulder (ratio 1.0–1.7). The text cites two different shoulder-ratio series
-   (appendix l.29 vs l.346). Reconcile against the actual spectra; state which object `sec-design` reports.
-3. **Isotropic control — RESOLVED 2026-09-15.** E5 (`scripts/e5_isotropic.py`, results in `e5_isotropic_results.txt`): at σ⊥=σ_sig=1 the
-   ratio is non-monotone, 14→87 (peak d≈40)→60 at d=160, exactly the appendix's prediction. The audit's "10.7× gap" was a code-unit
-   artifact. Text corrected in `rem:isotropic-buf`, main-text remark, and `rem:scope-outside`.
-4. **NN-ratio convention — RESOLVED 2026-09-15.** The critic was wrong: BOTH `code/v3/lib/metrics.py` and the old `experiment_v2.py`
-   use Somepalli's d(gen,NN1)/d(NN1,NN2). There was never a second convention. The false two-convention passage in
-   `def:bridge-objects` was replaced by the single definition; every constant 9 = (1/3)^-2 stands as written.
-5. **Real-data numbers inconsistent across statements**: CIFAR floor threshold (160 vs ~200 vs "d≥240"); CelebA q
-   (2.92→1.30 vs "flat 1.71–1.84 over d=20–120" vs 1.83→1.25). Recompute once from the CSVs and use one set.
-6. **Hitting-time tables** (`tab:flatdeff-real`, leave-one-out errors) are referenced as "released" but appear nowhere in the
-   paper. Add them to the appendix or recast the validation on the fraction curves the paper actually reports.
-7. **George–Veiga–Macris phrasing**: main text l.87 cites the wrong remark (should be `rem:fourbulk-sigperp0`); "no longer
-   separated from the sample block" is a claim about *our* parameters (Δ_t vs a⋆²/n), not their result — phrase it so.
-8. **Length.** Move `rem:median-main`, the numeric halves of the predictor/real-data/regime paragraphs, and the duplicate
-   `tab:fourbulk-numbers-main` to the appendix to get near 3 pages.
-9. **Clock conventions differ across pieces** (e^{−λT} vs e^{−2λT} vs 1/(4λ)); one is fixed in `sec:theory-setup` with
-   a convention note, but check every quoted timescale carries the right factor.
-10. Bib: six arXiv ids and one page range are marked `% VERIFY`. `yoon2023generalize` is a commented placeholder.
+2. **Single-draw vs ξ-averaged cliff — RESOLVED 2026-09-15.** Every quoted shoulder ratio matches the spectra
+   (λ_n/λ_{n+1} = 1.01, 1.01, 1.32, 1.70, 2.08, 1.68, 1.90, 1.73 at d=10..200); the two "series" were the same data at different d.
+   One quoted range corrected (1.32–1.73 → 1.3–2.1). `sec-rfnn.tex` now states the released U is a 50-draw average with a soft shoulder.
