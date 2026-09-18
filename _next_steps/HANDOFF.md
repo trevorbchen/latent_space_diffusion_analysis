@@ -25,8 +25,10 @@ Authors: Trevor Chen (repo owner, real-data/VAE/DiT) and Ryan Shahbaba (theory; 
   (not input; also wrong — see `THEORY_TODO.md` §2).
 - Disk was full on 2026-09-13; `code/v3/data/encoded/celeba_train_*.pt` are two 8 GB regenerable caches.
 - REMOTE: all real-data checkpoints are on HF `trevorbchen/diffusion_memorization` (157 `last_model.pt`, 39 VAEs,
-  2026-08-30). README says private; API says `private: false`. DiT intentionally excluded. HF README says
-  hidden=1024/depth=5/10k-eval; paper says 256/3/1k — unresolved.
+  2026-08-30). README says private; API says `private: false`. DiT intentionally excluded. ARCHITECTURE RESOLVED 2026-09-18 (Ryan's call: HF is the truth).
+  Every run's own `config.json` on HF says hidden=1024, depth=5, batch_size=512, n_gen_samples=10000, fid_n_gen=10000, fid_n_real=1000,
+  lr=1e-3, momentum=0.8, 5M steps, n_train=1000. The paper said 256/3/batch 256/1k generated; corrected in `sec-real-data.tex` §6.1 and
+  `sec-appendix-integrated.tex`. The theory appendix already said depth 5, width 1024.
 
 ## 3. What has been done (all in `_next_steps/` unless noted)
 

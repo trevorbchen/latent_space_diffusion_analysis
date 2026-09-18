@@ -88,14 +88,12 @@ is not yet meaningful.
 \paragraph{Real-data latent diffusion.}
 After selecting the best VAE checkpoint by validation objective, we encode the
 same farthest-first diverse 1k subset for each dataset and train a latent-space
-MLP score model on those codes. The final reported runs use a depth-three MLP
-with hidden width 256, sinusoidal time features, SGD with learning rate
-$10^{-3}$ and momentum $0.80$, batch size 256, and a 5M-step horizon over five
+MLP score model on those codes. The final reported runs use a depth-five MLP with hidden width 1024, sinusoidal time features, SGD with learning rate
+$10^{-3}$ and momentum $0.80$, batch size 512, and a 5M-step horizon over five
 seeds. The hidden width is fixed across $\dlat$, so increasing the latent
 dimension changes the input/output dimension and the amount of latent buffer,
 but not the dominant hidden-layer capacity. Training loss is logged every 10k
-steps; memorization and FID are evaluated every 100k steps using 1k generated
-samples and the same 1k training subset as the FID reference.
+steps; memorization and FID are evaluated every 100k steps using 10k generated samples, with the same 1k training subset as the FID reference.
 
 \paragraph{Spatial-DiT pilot.}
 The appendix also includes a CelebA pilot that replaces the vector VAE/MLP
