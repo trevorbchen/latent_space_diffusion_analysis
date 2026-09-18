@@ -177,5 +177,10 @@ population score error (`_next_steps/e_scoreerr/`, exact via the DSM identity); 
 "quality preserved"). Old figure files: `_next_steps/figures_replaced_20260915/`. Corrected-vs-logged comparison (not in the paper):
 `_next_steps/e_scoreerr/synthetic_mlp_score_error_final_corrected_vs_logged.pdf`.
 
-Open: appendix Fig 16 extends the fixed-width sweep to d_lat = 240 but those runs (d > 40) are not in this repo snapshot.
+CLOSED by Trevor 2026-09-15 (paper repo commit `0232650`): the d > 40 runs were split across his machines (ml6: d=5..40 all seeds + d=60..240 seeds 42,43;
+ml7: d=60..240 seeds 44-46). He consolidated all 100 runs (20 widths x 5 seeds), re-ran `compute_corrected_score_error.py` (regression vs my table: 4.4e-5),
+added `make_paper_score_error_figures.py --range {main,full}`, drew the CI bands, and fixed my mistake of writing the 10-curve plot into the `_full` slots.
+Full-range finding (time for the corrected error to double from its minimum): <=100k for d<=40, 200k (60), 500k (80), 800k (100), 1.55M (120), 2.5M (140),
+not by 5M for d>=160; for d>=200 the error is still falling at 5M (plateau ~0.53/dim). Strongest delay evidence in the paper; not yet quoted in Section 4.
+Note: `main` on the paper repo now holds a cherry-pick of the Figure-2 fix plus Trevor's extension but NOT the theory section; PR #1 is still open and merges clean.
 E2 (projection test) still needed; it can run on this Mac in ~2.5 h (0.87 ms/step on CPU) once the script saves samples and Q.
