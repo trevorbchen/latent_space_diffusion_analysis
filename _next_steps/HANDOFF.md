@@ -3,6 +3,19 @@
 Written 2026-09-14 so any agent or person can continue from cold. Everything referenced is in this repo
 unless marked REMOTE. Read this file, then `THEORY_TODO.md`, then whatever section you're working on.
 
+## 0. DEADLINE AND FORMAT (found 2026-09-18 — read before anything else)
+
+Target is **ICLR 2027**. Official pages: https://iclr.cc/Conferences/2027/Dates · /AuthorGuidelines · /AIPolicyForAuthors
+- **Abstract registration: Sep 18, 2026 23:59 AoE = Sat Sep 19 04:59 PDT.** Author list freezes then. Paste-ready sheet: `ICLR2027_abstract_registration.md`.
+- **Full paper: Sep 25, 2026 23:59 AoE = Sat Sep 26 04:59 PDT.**
+- **Main text <= 9 pages, desk-reject if over.** References and appendices do not count. Must use the ICLR 2027 style (single column).
+- The draft (`main.tex`) is in ICML two-column format. `ICLR_2026/main_iclr2027.tex` is the same paper in the ICLR 2027 style (only the style package,
+  title block, bibliography style and an AI-disclosure section differ). Build: `_next_steps/scripts/build_paper_clean.sh main_iclr2027`.
+- **Measured main text in ICLR format: 18.7 pages with `sec-theory`, 15.6 with `sec-theory-short`.** About 6.6 pages must move to the appendix.
+- **Mandatory AI disclosure section** (not counted). Disclosure is REQUIRED for theoretical modeling and proof formulation, which applies to Section 2 and the
+  theory appendix. Draft: `ICLR_2026/sec-ai-disclosure.tex`, with \todo items only an author can resolve. Authors are responsible for every AI-assisted proof.
+- Anonymity: no identifying strings in any input file (checked). Internal paths such as `_next_steps/scripts/...` in the theory appendix should become "the supplementary code".
+
 ## 1. What this project is
 
 Paper: "How Excess Latent Dimensionality Delays Memorization in Diffusion Models" (draft: `ICLR_2026/`, compile

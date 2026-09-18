@@ -1,0 +1,14 @@
+% ICLR 2027 requires a mandatory AI-use disclosure section (does not count toward the page limit) AND the same
+% information in the OpenReview form. Disclosure is REQUIRED for theoretical modeling and proof formulation.
+% DRAFT written 2026-09-18 for the authors to edit. Every \todo must be resolved by an author before submission:
+% the authors are responsible for the accuracy of this statement and of all AI-assisted content.
+\section*{AI disclosure}
+We used large language model (LLM) assistants, including agentic coding tools, throughout this project, and disclose those uses here.
+
+\textbf{Theoretical modeling and proof formulation.} The statements and proofs of \cref{sec:theory} and \cref{app:theory} were developed with substantial LLM assistance. An LLM-based audit of an earlier, human-written version of the theory identified errors in it (an incorrect scaling of the spectral edges and an invalid bound on the memorization delay); corrected statements and derivations were then drafted by LLM assistants, criticized by separate LLM reviewer passes, and checked against independent numerical simulations of the random-feature spectrum. Each statement in \cref{app:theory} is labeled \emph{proved}, \emph{sketched}, or \emph{conjectured}. \todo{AUTHORS: state what you verified by hand, e.g. ``The authors verified every statement on which the main text relies.'' Do not submit until this sentence is true.}
+
+\textbf{Code, experiments and data analysis.} LLM assistants wrote analysis and plotting scripts, located and fixed an error in the analytic score used for the synthetic score-error metric, recovered the corrected metric from logged held-out losses, and designed and ran the control experiments of \cref{rem:normfixed-buf,rem:isotropic-buf} and \cref{tab:e2-projection}. \todo{AUTHORS: state how the training code for the main synthetic and real-data sweeps was written.}
+
+\textbf{Writing and literature.} LLM assistants drafted and edited text throughout the paper, checked the consistency of captions and reported numbers against the underlying data, and located bibliographic entries, each of which was checked against its primary source.
+
+The authors reviewed the AI-assisted content and take full responsibility for the paper.
