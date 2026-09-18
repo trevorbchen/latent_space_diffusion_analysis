@@ -15,8 +15,10 @@ Authors: Trevor Chen (repo owner, real-data/VAE/DiT) and Ryan Shahbaba (theory; 
 - Analysis repo: local `main` is 8 commits ahead of `origin/main` (`f35df1c`), NOT pushed.
 - Paper repo: https://github.com/trevorbchen/ICLR-2026 (Overleaf-synced, paper files at repo root). PR #1 (`theory-section`) was MERGED into `main`
   on 2026-09-18 as `145b43b` (Ryan asked for the merge; conflicts in sec-mlp.tex / sec-appendix-integrated.tex resolved in favor of the branch, whose
-  versions were strict supersets). `main` now has the theory section, corrected figures, E2/E4 controls and `theory_notes/`. The tracked `main.pdf` in that
-  repo is STALE (not rebuilt on this machine because its old TeX Live garbles page headers); rebuild on Overleaf. That branch = this repo's `ICLR_2026/` + `_next_steps/` as `theory_notes/`.
+  versions were strict supersets). `main` now has the theory section, corrected figures, E2/E4 controls and `theory_notes/`. The tracked `main.pdf` was rebuilt clean and merged as PR #2
+  (`b04a808`, 110 pp, 0 errors). BUILD ON THIS MAC: run `_next_steps/scripts/build_paper_clean.sh` — the bundled `fancyhdr.sty` v5.2 needs a 2020+ LaTeX kernel,
+  TeX Live 2016 chokes on it (1700 errors, junk in headers); the script builds a scratch copy with that file moved aside. Never delete it from the repo.
+  Upload-ready project zip of `main`: `ICLR-2026_overleaf_b04a808.zip` at the analysis-repo root (git-ignored; verified to compile from a fresh unzip). That branch = this repo's `ICLR_2026/` + `_next_steps/` as `theory_notes/`.
   SSH to github.com times out on this machine; fetch with
   `git fetch https://github.com/trevorbchen/latent_space_diffusion_analysis.git main:refs/remotes/origin/main`.
 - The transpose fix (§3.1), the test, and all `_next_steps/` files are committed locally as `2bd8d60` (not pushed).
