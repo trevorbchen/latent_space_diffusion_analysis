@@ -187,4 +187,5 @@ added `make_paper_score_error_figures.py --range {main,full}`, drew the CI bands
 Full-range finding (time for the corrected error to double from its minimum): <=100k for d<=40, 200k (60), 500k (80), 800k (100), 1.55M (120), 2.5M (140),
 not by 5M for d>=160; for d>=200 the error is still falling at 5M (plateau ~0.53/dim). Strongest delay evidence in the paper; not yet quoted in Section 4.
 Note: `main` on the paper repo now holds a cherry-pick of the Figure-2 fix plus Trevor's extension but NOT the theory section; PR #1 is still open and merges clean.
-E2 (projection test) still needed; it can run on this Mac in ~2.5 h (0.87 ms/step on CPU) once the script saves samples and Q.
+E2 (projection test) DONE 2026-09-18 — see `E2_RESULTS.md`. Headline survives: signal-projected memorization 29.5/16.9/5.8/1.2 % at d=5/10/20/40 (chance 0.5 %);
+score-space fit coefficient α = 0.76/0.54/0.39/0.30. Written into `sec-mlp.tex` and `tab:e2-projection`.

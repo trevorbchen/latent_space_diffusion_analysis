@@ -355,6 +355,28 @@ growth, and saturation of memorization remain visible.
   \label{fig:app-synthetic-mlp-scaled}
 \end{figure}
 
+\begin{table}[!htbp]
+  \centering\small
+  \caption{Dimension-controlled memorization test for the fixed-width synthetic MLP (5M steps, two seeds, 5000 samples each; same configuration as \cref{fig:synthetic-mlp-main}). The nearest-neighbor ratio test of Appendix~\ref{app:protocol} is applied in the full latent space and after projecting generated and training points onto the true $\dint=5$ signal coordinates. Controls: fresh draws from the population; exact copies of a training point plus the sampler's terminal noise in every coordinate; and signal copies, which reproduce a training point's signal coordinates and redraw its null coordinates. $\alpha$ is the projection coefficient of the learned score onto the exact empirical score of the training set in the signal coordinates at $t=0.1$ ($0$: population score; $1$: exact fit of the training set).}
+  \label{tab:e2-projection}
+  \begin{tabular}{lcccc}
+    \toprule
+     & $\dlat=5$ & $10$ & $20$ & $40$\\
+    \midrule
+    model samples, full-space test & $29.5\%$ & $16.7\%$ & $3.8\%$ & $0.1\%$\\
+    model samples, signal-projected test & $29.5\%$ & $16.9\%$ & $5.8\%$ & $1.2\%$\\
+    fresh draws, signal-projected test & $0.5\%$ & $0.5\%$ & $0.5\%$ & $0.5\%$\\
+    \midrule
+    exact copies, full-space test & $57\%$ & $69\%$ & $84\%$ & $97\%$\\
+    signal copies, full-space test & $57\%$ & $0.8\%$ & $0.0\%$ & $0.0\%$\\
+    signal copies, signal-projected test & $57\%$ & $57\%$ & $58\%$ & $58\%$\\
+    \midrule
+    $\alpha$ (signal coordinates), 0.25M steps & $0.53$ & $0.36$ & $0.22$ & $0.09$\\
+    $\alpha$ (signal coordinates), 5M steps & $0.76$ & $0.54$ & $0.39$ & $0.30$\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 \begin{figure}[!htbp]
   \centering
   \begin{subfigure}{0.48\linewidth}
