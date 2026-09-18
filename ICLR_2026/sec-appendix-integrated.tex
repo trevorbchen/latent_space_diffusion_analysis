@@ -47,10 +47,7 @@ fixed-width/fixed-energy control removes the two main confounds in the $\dlat$
 sweep: increasing model width and increasing total injected null variance.
 
 \paragraph{Memorization metric.}
-For image experiments, a generated or reconstructed image is counted as
-memorized with the pixel-space nearest-neighbor ratio test of
-\citet{somepalli2023diffusion}, using the $1/3$ threshold adopted by
-\citet{bonnaire2025}. The relevant comparison set is the training subset used
+A generated sample $\hat x$ is counted as memorized when the ratio of its distances to its nearest and second-nearest training points, $\|\hat x-\mathrm{NN}_1\|/\|\hat x-\mathrm{NN}_2\|$, is below $1/3$, the nearest-neighbor ratio criterion of \citet{bonnaire2025} (see also \citealp{somepalli2023diffusion}). Synthetic experiments apply it in latent space; image experiments apply it in pixel space to decoded samples. The relevant comparison set is the training subset used
 by the diffusion model, not the full VAE training set. Reported curves are the
 mean across five seeds with confidence bands unless the caption states that the
 figure is a deterministic VAE diagnostic.

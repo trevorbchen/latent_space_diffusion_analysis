@@ -147,9 +147,11 @@ and regenerate `main.bbl` (main.tex inputs the .bbl directly, so appending to re
 3. **Isotropic control — RESOLVED 2026-09-15.** E5 (`scripts/e5_isotropic.py`, results in `e5_isotropic_results.txt`): at σ⊥=σ_sig=1 the
    ratio is non-monotone, 14→87 (peak d≈40)→60 at d=160, exactly the appendix's prediction. The audit's "10.7× gap" was a code-unit
    artifact. Text corrected in `rem:isotropic-buf`, main-text remark, and `rem:scope-outside`.
-4. **NN-ratio convention — RESOLVED 2026-09-15.** The critic was wrong: BOTH `code/v3/lib/metrics.py` and the old `experiment_v2.py`
-   use Somepalli's d(gen,NN1)/d(NN1,NN2). There was never a second convention. The false two-convention passage in
-   `def:bridge-objects` was replaced by the single definition; every constant 9 = (1/3)^-2 stands as written.
+4. **NN-ratio convention — CORRECTED 2026-09-18 (my 09-15 "resolution" was WRONG).** Two conventions DO exist. The released sweeps use Bonnaire's form
+   d(gen,NN1)/d(gen,NN2): root `experiment_v2.py` (imported by `run_mlp_multiseed.py`; the sweep dir is named `..._bonnaire_...`) and `remote_metrics.py`
+   (the current `lib/metrics.py` on Trevor's machines, used by the real-data runners; matches the HF README). The stale local copies `code/experiment_v2.py`,
+   `code/v3/lib/metrics.py`, `figures/code/experiment_v2.py` use Somepalli's d(gen,NN1)/d(NN1,NN2). On 09-15 I checked only the stale copies. `def:bridge-objects`
+   and gap G9 now state both forms with the right attribution (constant 9 → 8 for the released metric); the protocol paragraph states the formula.
 5. **Real-data numbers — RESOLVED 2026-09-15.** Recomputed from `clean figures/*/*_spectral_features_primary_t.csv`: CelebA floor from d=140,
    q flat 1.71–1.84 over d=20–120 then 1.62→1.25 (140→200), eff. rank 89.5/90.3/87.9 at 160/180/200; CIFAR floor within 2e-3 at 160,
    3e-4 at 180, <1e-4 from 200, q 2.27→1.11. The paper's own q numbers already matched; the CIFAR threshold was harmonized to ~160.
