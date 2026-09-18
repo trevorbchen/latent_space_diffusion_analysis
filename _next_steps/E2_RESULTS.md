@@ -40,3 +40,22 @@ from d=5 to 40, so a smaller α costs as much population error.
 **In the paper:** one paragraph in `sec-mlp.tex` after Figure 2, and `tab:e2-projection` in `sec-appendix-integrated.tex`.
 **Caveats:** two seeds (paper sweep has five; agreement with it is within a point); synthetic GMM only — the real-data analogue
 (project onto top-k latent PCs using the HF checkpoints) has not been run.
+
+## Does the theory's mechanism operate in the trained MLPs? (measured 2026-09-18 from the E2 checkpoints)
+
+The RFNN theory says wider latents lower the first-layer pre-activation variance q (2.76 → 0.57 over d_lat 5 → 40 in the RFNN), which
+de-saturates the features and shrinks the sample-specific mass. In the trained MLP (GELU, PyTorch default init, 64 time-embedding inputs):
+
+| steps | 0 (init) | 0.05M | 0.25M | 1M | 5M |
+|---|---|---|---|---|---|
+| q, d=5 | 0.20 | 0.68 | 1.11 | 1.61 | 2.78 |
+| q, d=40 | 0.19 | 0.69 | 0.77 | 0.78 | 0.84 |
+| q(40)/q(5) | 0.96 | 1.00 | 0.69 | 0.48 | 0.30 |
+| memorized (projected), d=5 / d=40 | – | 0.6% / 0.4% | 3.4% / 0.6% | 16.8% / 0.7% | 29.5% / 1.2% |
+
+q is the SAME at every width at initialization and at 50k steps (fan-in init and the time features cancel the width dependence). It separates only
+later, growing together with memorization at small d_lat. So in the trained MLP a large q is a signature of memorizing, not a width-set cause that
+precedes it. The RFNN mechanism is verified in the RFNN (E4) but is NOT shown to be what delays memorization in the MLPs; by this measurement it is
+not operating at the start of MLP training. The paper must present the MLP/real-data link as a hypothesis, and should report this measurement.
+A candidate MLP-side explanation consistent with the data: the per-coordinate gap between the empirical and population scores grows 3.6× from
+d_lat 5 to 40 (table above), so memorizing requires fitting a sharper target, which requires growing the first-layer scale, which takes longer.
