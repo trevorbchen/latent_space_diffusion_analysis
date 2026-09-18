@@ -370,12 +370,16 @@ growth, and saturation of memorization remain visible.
     \includegraphics[width=\linewidth]{figures/synthetic_mlp_score_error_per_dim_full.pdf}
     \caption{Score error normalized per latent dimension.}
   \end{subfigure}
-  \caption{Synthetic MLP score-error diagnostics: the population score error at $t=0.1$ against the exact GMM score on a held-out set, five-seed mean with 95\% CI. The left panel sums over all latent coordinates; the right panel divides by $\dlat$, which removes the mechanical scaling with $\dlat$.
+  \caption{Synthetic MLP score-error diagnostics: the population score error at $t=0.1$ against the exact GMM score on a held-out set, five-seed mean with 95\% CI, over the complete fixed-width sweep $\dlat=5$--$240$ (the main-text panel of \cref{fig:synthetic-mlp-main} covers $\dlat\le 40$). The left panel sums over all latent coordinates; the right panel divides by $\dlat$, which removes the mechanical scaling with $\dlat$.
   This distinction matters because a larger latent space has more coordinates
   to predict even if the average coordinate-wise error is comparable. Score
   error is the appropriate quality metric in this synthetic setting because the
   target distribution is specified analytically in latent space rather than
-  through decoded images.}
+  through decoded images. Beyond $\dlat\approx 60$ the per-coordinate error has
+  not returned to its small-$\dlat$ plateau by the 5M-step horizon: it ends at
+  $2.59$ for $\dlat=5$ but $0.53$ for $\dlat=240$, so the widest latents never
+  begin the divergence from the population score that accompanies memorization
+  at small $\dlat$.}
   \label{fig:app-synthetic-mlp-score}
 \end{figure}
 
