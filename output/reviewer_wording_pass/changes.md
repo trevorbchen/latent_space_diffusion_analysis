@@ -149,3 +149,6 @@ Verified existence and assessed contextual fit of 40 cited works (132 key occurr
 ## Scientific correction pass (2026-09-25)
 
 The citation audit led to substantive corrections, superseding the earlier direct-specialization wording (including change 4 above). See `theory_repair.md` for the resolution of each finding and `theory_repair.patch` for the exact edits. Operator definitions, rank arguments, spectral scope, metric attributions, the Tweedie remainder and Gaussian singular-value bound were corrected. The existing abstract and main empirical sections were preserved. The rebuilt main text ends on page 9; the full PDF is 109 pages. This pass does not turn the conditional spectral approximation into a proved four-block theorem.
+# Mathematical repair follow-up
+
+The subsequent proof audit has been addressed in the revised source and PDF. See [proof_repair.md](proof_repair.md) for the finding-by-finding changes and validation; the original audit is preserved as a historical record. This follow-up corrects scientific claims and is not merely a rhetorical edit.

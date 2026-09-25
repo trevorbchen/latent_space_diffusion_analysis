@@ -1,0 +1,12 @@
+{
+  "main_text_last_page": 9,
+  "total_pdf_pages": 109,
+  "overfull_boxes": 0,
+  "unresolved_or_duplicate_reference_warnings": 0,
+  "abstract_sha256": "2ba35c0374704516f7b8cdf9f9bfb60d10efc446dc3f52f5575c3169297c8f38",
+  "empirical_main_sections_unchanged": true,
+  "regression_checks": "proof_repair_checks.json",
+  "build_environment": "TeX Live 2016, scratch build with system fancyhdr; layout settings unchanged",
+  "pdf_sha256": "130ae04812a5f801c7617c9cbea3d07db52c2110185295222b437ed9c1fce77b",
+  "visual_review": "Main pages 1-9 and theory appendix overview; detailed clock/gap/predictor sections; final changed appendix pages 84-109 re-rendered and reviewed."
+}

@@ -1,5 +1,7 @@
 # Mathematical audit of the revised manuscript
 
+**Follow-up:** These are historical findings against the pre-repair source. The subsequent corrections and remaining limitations are recorded in [proof_repair.md](proof_repair.md); use that note for current status.
+
 Audited 2026-09-25. Target: `main_iclr2027_9page.tex` and its included theory, checked against the repository's RFNN implementation. This follows the citation repair; that repair did not establish correctness of the remaining proofs. **The current manuscript still contains substantive mathematical errors.**
 
 This is a source-level proof audit with deterministic algebraic and numerical checks, not formal verification, a fresh experimental replication, or a prediction of acceptance. No manuscript, abstract, bibliography, or PDF was changed during this audit. The nine-page layout therefore remains unchanged, but was not rebuilt or revalidated here. Source hashes are recorded in `proof_audit_checks.json`.

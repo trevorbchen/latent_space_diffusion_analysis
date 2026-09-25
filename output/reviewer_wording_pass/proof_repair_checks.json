@@ -1,0 +1,120 @@
+{
+  "clock": {
+    "logged_loss_over_theory_loss": 0.007920530677297881,
+    "expected_ratio": 0.00792053067729788,
+    "flow_time_per_default_step": 0.02,
+    "assumptions": "default lr=0.01*d/Delta; zero momentum; normalized features",
+    "signal_steps_from_rounded_paper_eigenvalues": [
+      {
+        "d": 5,
+        "lambda_code": 20.3,
+        "paper_conversion": 157.63546798029557,
+        "correct_flow_efold_steps": 788.1773399014778,
+        "exact_mean_Euler_efold_steps": 787.6772341051852
+      },
+      {
+        "d": 200,
+        "lambda_code": 73.88,
+        "paper_conversion": 43.31348132106118,
+        "correct_flow_efold_steps": 8662.696264212236,
+        "exact_mean_Euler_efold_steps": 8662.196254591889
+      }
+    ]
+  },
+  "alignment_bound": {
+    "gamma": -1,
+    "gamma0": 0.5,
+    "absolute_error": 0.6321205588285577,
+    "claimed_upper_bound": 0.5
+  },
+  "positive_alignment_not_monotone": {
+    "gamma": 0.6,
+    "T": 2,
+    "population_loss_derivative": 0.0358184744059109
+  },
+  "diffusion_floor": {
+    "t": 0.01,
+    "Delta": 0.0198013266932447,
+    "clock_limit_as_aspect_ratio_goes_to_one": 12.625416663888915
+  },
+  "interlacing": {
+    "matrix": [
+      [
+        1.0,
+        0.9
+      ],
+      [
+        0.9,
+        1.0
+      ]
+    ],
+    "full_min": 0.09999999999999992,
+    "principal_block_min": 1.0
+  },
+  "Hermite_residual": {
+    "q_coefficients": {
+      "1": "0",
+      "2": "0",
+      "3": "2/3",
+      "4": "-16/3",
+      "5": "532/15"
+    },
+    "correct_factored_q2_coefficient": "266/5",
+    "paper_factored_q2_coefficient": "50"
+  },
+  "localization": {
+    "cloud_trace": 1.0,
+    "cloud_operator_norm": 1.0,
+    "trace_over_p": 0.01,
+    "gram_off_diagonal": 1e-06,
+    "eigenvector_squared_coordinates": [
+      [
+        0.4999999999999999,
+        0.4999999999999999
+      ],
+      [
+        0.4999999999999999,
+        0.4999999999999999
+      ]
+    ]
+  },
+  "fan_in": {
+    "d": 20,
+    "sigma_w_squared": 0.05,
+    "x_norm_squared": 20,
+    "variance_with_extra_sqrt_d": 0.05,
+    "claimed_q": 1.0
+  },
+  "fixed_q_gain_change": {
+    "q": 1.181269246922018,
+    "gain_old": 1,
+    "gain_new": 0.5415513231981348,
+    "rho_old": 0.8465470531850858,
+    "rho_new": 0.9168973536037303,
+    "g_old": 0.018804305429220958,
+    "g_new": 0.024736937803942927
+  },
+  "valid_GF_identity": {
+    "derivative_max_error": 2.3800406090401793e-15,
+    "loss_deficit_error": 4.440892098500626e-16
+  },
+  "source_sha256": {
+    "abstract-rescoped.tex": "2ba35c0374704516f7b8cdf9f9bfb60d10efc446dc3f52f5575c3169297c8f38",
+    "main_iclr2027_9page.tex": "f891e3a5a764c877755f7305b7b91f78701c2d0f763944932bfea232f6024ff2",
+    "sec-ai-disclosure.tex": "1ed98847500eef9ea3fc66c282d3dc6829495dfafbcaf1b3c241c14ccc284d34",
+    "sec-appendix-integrated.tex": "16b11b6a9f18cf90ab693f40daa899f22a6bf3f94b9643119babdc3e5e21d785",
+    "sec-appendix-theory.tex": "14dd9648086612e25b5fefb1789b1995a428fa7b13a0e1298922feb221b8c086",
+    "sec9-discussion.tex": "a9ca350931bd521f3540128ebf0aa8b6472382c3afe5dc3df74f5e1bbf9063b3",
+    "sec9-intro.tex": "7b06064a856565ae47c2f2c00fdbae8ad0fc0c5d167c75159b20726a6705e7b7",
+    "sec9-phenomenon.tex": "f6ab8ec8f2cc28c213b727d7e1e840304207389e1c60fe53750dbfbd265a9f2b",
+    "sec9-real.tex": "035513c86d9d4e656dee7d4cf2cffc2030cf51544309b9b7c31e3d475487af1e",
+    "sec9-setup.tex": "2b93baff09765c722f445780e80c5dd15379c2541fe8c372861d35474e4c2676",
+    "sec9-theory.tex": "fc20e481f66ff4edae43f33774d1d365c8891ca01ccfcfdc385c3b5ae50f7cfe"
+  },
+  "repair_regressions": {
+    "absolute_alignment_trials": 1000,
+    "empirical_order_statistics_with_ties": "passed",
+    "stale_claim_scan": "passed",
+    "abstract_unchanged": true
+  }
+}
