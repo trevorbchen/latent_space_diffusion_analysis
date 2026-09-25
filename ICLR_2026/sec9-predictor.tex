@@ -1,0 +1,17 @@
+\section{Predicting onset from the frozen latent spectrum}
+\label{sec:predictor}
+
+Can onset be read from the frozen latents before the score model is trained? In the frozen-feature model the sample-specific modes that carry memorization depend on the latent spectrum only through the operating point $q_d=\mathrm{tr}\,M_t/\dlat$, where $M_t=e^{-2t}Z^{\top}Z/\nsamp+\Delta_t I$ is the diffused covariance of the $\nsamp=1000$ training latents at $t=0.1$ (\cref{app:theory}). This gives a one-constant clock,
+\[
+\tau_f(\dlat)=\frac{C\,\nsamp}{g\!\left(q_d,\,1-\Delta_t/q_d\right)},
+\]
+with $g$ the noise-averaged nonlinear kernel of $\tanh$ features and $C$ the only fitted number. We fit $C$ on every width above the identity threshold but one, predict the held-out width, and score by $|\log\hat\tau/\tau|$ against the $5\%$ hitting times of \cref{tab:hitting-times-real}. Baselines: $\tau\propto\dlat$ under the same protocol, and the released seven-parameter absorption-clock fit, in-sample on the same widths.
+
+Mean log error (in-sample / leave-one-out): CelebA, $\dlat\ge50$ (11 widths): $g$-clock $0.309/0.407$; $\tau\propto\dlat$ $0.125/0.125$; seven-parameter fit $0.339$. CIFAR-10, $\dlat\ge60$ (11 widths): $g$-clock $0.130/0.151$; $\tau\propto\dlat$ $0.155/0.198$; seven-parameter fit $0.146$. The one-constant clock matches the seven-parameter fit on CIFAR-10 and is somewhat worse on CelebA. Its gain over the dimension-only clock is modest, and on CelebA the dimension-only clock is better. It under-predicts the slope, $1.78\times$ of the observed $3.9\times$ slowdown over CelebA $50\to200$ and $1.85\times$ of $2.1\times$ over CIFAR-10 $100\to240$, and the fitted $C$ differs $2.0\times$ between datasets ($14.5$ vs $29.1$) under identical optimizer settings. The frozen spectrum orders widths; it does not yet fix the scale (\cref{fig:predictor-main}).
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.98\linewidth]{figures/real_spectral_predictor_compact_2x2.pdf}
+  \caption{Observed memorization over training (blue, five seeds, $95\%$ bands) and observed hitting times (circles) at representative widths, CelebA and CIFAR-10. Dashed curves and crosses are the seven-parameter in-sample baseline; the one-constant clock's held-out errors are in the text and \cref{app:theory}.}
+  \label{fig:predictor-main}
+\end{figure}
