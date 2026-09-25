@@ -12,9 +12,9 @@ and matches the paper's 5-seed sweep (29.5/16.7/3.8/0.1 % vs 30.0/17.1/3.7/0.1 %
 
 | at 5M steps | d=5 | 10 | 20 | 40 |
 |---|---|---|---|---|
-| model, full-space test | 29.5% | 16.7% | 3.8% | 0.1% |
-| model, signal-projected test | 29.5% | 16.9% | 5.8% | 1.2% |
-| fresh population draws, projected (chance) | 0.5% | 0.5% | 0.5% | 0.5% |
+| model, full-space test (5 seeds) | 29.9% | 16.9% | 3.6% | 0.1% |
+| model, signal-projected test (5 seeds) | 29.9% | 16.8% | 5.8% | 1.2% |
+| fresh population draws, projected (chance) | 0.4% | 0.4% | 0.4% | 0.4% |
 | exact copies (+ terminal noise, all coords), full-space | 57% | 69% | 84% | 97% |
 | signal copies (null coords redrawn), full-space | 57% | 0.8% | 0.0% | 0.0% |
 | signal copies, projected | 57% | 57% | 58% | 58% |
@@ -31,14 +31,14 @@ coordinates at t = 0.1 (0 = population score, 1 = exact fit of the training set)
 | 0.05M | 0.12 | 0.08 | 0.03 | 0.00 |
 | 0.25M | 0.53 | 0.36 | 0.22 | 0.09 |
 | 1M | 0.66 | 0.49 | 0.36 | 0.24 |
-| 5M | 0.76 | 0.54 | 0.39 | 0.30 |
+| 5M | 0.75 | 0.54 | 0.39 | 0.31 |
 
 α passes 0.3 at ≈0.14M steps for d=5 and at 5M for d=40 (>30× later). This also resolves the earlier puzzle (final corrected score
 error flat at ≈2.3/dim for every width while memorization differs 25×): the per-coordinate gap ‖s_emp − s*‖² grows 3.7 → 13.2 (3.6×)
 from d=5 to 40, so a smaller α costs as much population error.
 
 **In the paper:** one paragraph in `sec-mlp.tex` after Figure 2, and `tab:e2-projection` in `sec-appendix-integrated.tex`.
-**Caveats:** two seeds (paper sweep has five; agreement with it is within a point); synthetic GMM only — the real-data analogue
+**Update 2026-09-25:** seeds 44-46 added; all numbers above are now five-seed means (sd <= 1.1 points) and changed by at most 0.4 points. **Caveats:**; synthetic GMM only — the real-data analogue
 (project onto top-k latent PCs using the HF checkpoints) has not been run.
 
 ## Does the theory's mechanism operate in the trained MLPs? (measured 2026-09-18 from the E2 checkpoints)
