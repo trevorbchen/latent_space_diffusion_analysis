@@ -1,0 +1,20 @@
+--- before/references.bib
++++ after/references.bib
+@@ -356,7 +356,6 @@
+ title = {{Eigenvalue distribution of some nonlinear models of random matrices}},
+ volume = {26},
+ journal = {Electronic Journal of Probability},
+-number = {none},
+ publisher = {Institute of Mathematical Statistics and Bernoulli Society},
+ pages = {1 -- 37},
+ abstract = {This paper is concerned with the asymptotic empirical eigenvalue distribution of some non linear random matrix ensemble. More precisely we consider M=1 mYY∗ with Y=f(WX) where W and X are random rectangular matrices with i.i.d. centered entries. The function f is applied pointwise and can be seen as an activation function in (random) neural networks. We compute the asymptotic empirical distribution of this ensemble in the case where W and X have sub-Gaussian tails and f is real analytic. This extends a result of [32] where the case of Gaussian matrices W and X is considered. We also investigate the same questions in the multi-layer case, regarding neural network and machine learning applications.},
+@@ -537,6 +536,9 @@
+   author    = {George, Anand Jerry and Veiga, Rodrigo and Macris, Nicolas},
+   booktitle = {Proceedings of the 29th International Conference on Artificial Intelligence and Statistics (AISTATS)},
+   series    = {Proceedings of Machine Learning Research},
++  volume    = {300},
++  pages     = {1405--1413},
++  url       = {https://proceedings.mlr.press/v300/george26a.html},
+   publisher = {PMLR},
+   year      = {2026},
+   note      = {arXiv:2502.00336}

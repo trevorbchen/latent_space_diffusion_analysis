@@ -1,0 +1,14 @@
+\section{Discussion and limitations}
+\label{sec:discussion}
+
+\paragraph{What is established.}
+At fixed hidden width, widening the latent space delays memorization: the synthetic memorized fraction falls from $30\%$ to near zero over $\dlat=5\to40$, the decline survives the signal-projected test (\cref{tab:e2-projection}), and post-identity-threshold comparisons give $3.6\times$ and $1.4\times$ increases in the mean $5\%$ hitting time on CelebA and CIFAR-10. In the frozen-feature model the measured spectral separation grows as $q$ falls, and the fixed-$q$ control (\cref{rem:normfixed-buf}) supports an operating-point explanation rather than a mode-count explanation.
+
+\paragraph{Theoretical scope.}
+The mode dynamics are exact given the feature operator; the four-group edge approximation is not a direct specialization of prior spectral theorems. Noise averaging, finite-rank outliers and spectral alignment remain additional requirements. The empirical edge ratios and fixed-$q$ comparison do not depend on proving those requirements.
+
+\paragraph{The causal gap.}
+Whether this mechanism operates in trained networks is the main open question. In the synthetic MLPs the first-layer mean-square pre-activation is similar at 50k steps ($q_{\rm M}(40)/q_{\rm M}(5)=0.96$); it separates later, growing together with memorization at small $\dlat$ (ratio $0.30$ at 5M steps). Establishing whether a width-set operating point causes the MLP delay remains an open question after these observations. On real data the surrogate only partly captures the slowdown, and its fitted clock does not transfer across datasets with a single constant.
+
+\paragraph{Boundaries.}
+The spatial-DiT pilot on CelebA, with a $4\times4\times\dlat$ latent grid, does not show the decline: memorization stays high across channel counts (\cref{fig:app-spatial-dit-summary}), so the effect is established only for vector latents with MLP denoisers. All sweeps use $\nsamp\le1000$ training points, and a sweep that scales width with $\dlat$ is a capacity sweep. What would close the gap is a trained-network quantity that is set by width before memorization begins and predicts its onset; a candidate consistent with the data is the per-coordinate gap between the empirical and population scores, which grows $3.6\times$ from $\dlat=5$ to $40$.

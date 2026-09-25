@@ -1,0 +1,16 @@
+{
+  "seed": 20260925,
+  "single_copy_rank": 8,
+  "averaged_rank": 20,
+  "conditional_covariance_max_error": 3.5561831257524545e-17,
+  "tweedie_algebra_max_error": 8.326672684688674e-17,
+  "tweedie_squared_error_correction": 0.16443250289465933,
+  "tweedie_correction_bound": 0.16992160815825053,
+  "rank_deficient_lower_endpoint": 0,
+  "finite_spike_vs_projected_eigenvalue_errors": {
+    "1.0": 0.29792602994728146,
+    "1000.0": 0.0003077237473863015,
+    "1000000.0": 3.0765091829643154e-07
+  },
+  "scope": "Algebra and counterexample checks only; no validation of mixture universality, asymptotic edge accuracy, or sampler reduction."
+}

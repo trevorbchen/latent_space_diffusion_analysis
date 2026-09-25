@@ -1,0 +1,36 @@
+\section{Setup and measurement}
+\label{sec:setup}\label{sec:design}
+
+\paragraph{Synthetic construction.}
+Training data live in a signal subspace of dimension $\dint=5$ embedded in a latent space of dimension $\dlat$. In the signal coordinates we sample a Gaussian mixture with $k=10$ centers of norm $3$ and unit variance around each center ($\sigsig=1$); the remaining $\dlat-\dint$ coordinates receive independent null noise with $\signoise=0.5$; the full vector is then rotated by a random orthogonal matrix $Q$ so that no coordinate is privileged. The training set has $\nsamp=500$ points. We sweep $\dlat\in\{5,8,10,12,15,20,25,30,35,40\}$ with everything else fixed, so $\dlat=5$ has no excess directions and the population score is known exactly at every $\dlat$.
+
+\paragraph{Frozen-feature model.}
+The random-feature network (RFNN) of \citet{bonnaire2025} is
+\begin{equation}
+  s_A(x_t)=\tfrac{1}{\sqrt{\pwidth}}\,A\,\tanh\!\bigl(\tfrac{1}{\sqrt{\dlat}}\,Wx_t\bigr),
+  \label{eq:rfnn}
+\end{equation}
+with $W\in\R^{\pwidth\times\dlat}$ drawn i.i.d.\ from $\mathcal N(0,1)$ and frozen, and a readout $A\in\R^{\dlat\times\pwidth}$ trained by score matching at a single time $t=0.01$. With $\phi(x_t)=\pwidth^{-1/2}\tanh(\dlat^{-1/2}Wx_t)$, the empirical feature correlation matrix is
+\begin{equation}
+  \Umat=\tfrac{1}{\nsamp}\sum_{\mu=1}^{\nsamp}\E_\xi\bigl[\phi(x_t^\mu)\phi(x_t^\mu)^\top\bigr],
+  \label{eq:U}
+\end{equation}
+where $x_t^\mu$ is the diffused training point $\mu$ and $\xi$ the diffusion noise. Full-batch gradient flow on $A$ is linear, and in the eigenbasis of $\Umat$ each mode decays independently,
+\begin{equation}
+  a_i(T)-a_i^\star=\bigl(a_i(0)-a_i^\star\bigr)\,e^{-\lambda_i T},
+  \label{eq:rfnn-gradflow}
+\end{equation}
+We estimate $\Umat$ by averaging $K$ noise draws, denoted $\Umat^{(K)}$; only $K=1$ guarantees rank at most $\nsamp$ (\cref{app:operator-crosswalk}). Thus eigenvalue $\lambda_i$ is the learning rate of feature direction $i$ and all modes are absorbed in parallel: no mode waits for another.
+
+\paragraph{Trainable model.}
+The trainable score network is an MLP with three hidden layers of width $256$, GELU activations, and sinusoidal time features concatenated to $x_t$, trained by score matching over diffusion times with Adam at learning rate $10^{-4}$, batch size $256$, for 5M steps and five seeds. The hidden width is $256$ at every $\dlat$, so the sweep changes only the input and output dimension and the parameter count stays roughly constant; a width-scaled sweep would be a capacity sweep.
+
+\paragraph{Memorization metric.}
+A generated sample $\hat x$ is counted as memorized when
+\begin{equation*}
+  \frac{\|\hat x-\mathrm{NN}_1\|}{\|\hat x-\mathrm{NN}_2\|}<\frac{1}{3},
+\end{equation*}
+where $\mathrm{NN}_1$ and $\mathrm{NN}_2$ are its nearest and second-nearest \emph{training} points, the criterion of \citet{bonnaire2025} . We report the memorized fraction of generated samples, in latent space for synthetic data and in pixel space after decoding for images, as a mean over seeds.
+
+\paragraph{Dimension-controlled variant.}
+The same ratio is also computed after projecting generated and training points onto the true $\dint=5$ signal subspace. This is needed because a sampler that copies a training point's signal coordinates and redraws its null coordinates is invisible to the full-space test for $\dlat\ge10$: the redrawn null coordinates dominate both distances and hide the copy (\cref{tab:projection-main}). The projected test cannot lose sensitivity as $\dlat$ grows, so a decline that survives it is a real delay.
